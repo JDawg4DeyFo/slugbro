@@ -1,0 +1,16 @@
+{
+    "compilerOptions": {
+        // Project options
+        "incremental": true,    // I mean why not?
+
+        // Language and Environment
+        "jsx": "react-native",  // Only makes sense to use react-native jsx for a react-native project...
+
+        // JS support
+        "allowJs": true,        // not sure if this should be true or false. Figured true since babel.config.js
+        "checkJs": false,       // Won't really be using JS... IDK tho.
+
+        // Type Checking
+        "strict": true,         // robust and maintainable code base.
+    }
+}
