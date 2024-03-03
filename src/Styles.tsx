@@ -29,13 +29,28 @@ export const Colors = {
 	// Yellows
 };
 
-export const TextSize  = {
+export const TextSizes  = {
 	Rem3	: 48,
 	Rem2	: 32,
 
 	Regular	: 15,
 	Small	: 11,
 }
+// This is the order that style properties should be listed
+// ExampleOrder: {
+// 	flexStuff: 312321,
+
+// 	sizeStuff: 123213,
+
+// 	styleStuff: 123213,
+// 		color:1231231,
+// 		borderRadius:31321
+// 		fontFamily:312313,
+
+
+// 	padding:13213,
+// 	margin: 13231,
+// }
 
 
 const Styles = StyleSheet.create({
@@ -43,18 +58,84 @@ const Styles = StyleSheet.create({
 	RootContainer: {
 		flex: 1,
 		flexDirection: 'column',
+
 		backgroundColor: Colors.Grey1,
-		paddingHorizontal: 20,
-		paddingTop: 12,
+
+		paddingTop: 40,	// Probably need different padding for IOS.
 	},
-	
-	// Home page header, holds settings and profile icon
-	HomeHeader: {
-		flex: 1,
+
+	// Tabs
+	TabBar: {
 		flexDirection: 'row',
-		justifyContent:'flex-end',
-		alignItems: 'center',
+
+		backgroundColor: Colors.Grey4,
 	},
+
+	
+	// Feed page header, holds settings and profile icon
+	FeedHeader: {
+		flexDirection: 'row',
+		justifyContent:'space-between',
+		alignItems: 'center',
+
+		paddingHorizontal: 20,
+	},
+		// Profile container
+	ProfileContainer: {
+		flexDirection: 'row',
+
+		width: 140,
+		height: 49,
+
+		borderColor: Colors.Grey4,
+		borderWidth: 1,
+		borderRadius: 10,
+
+		backgroundColor: Colors.White,
+
+		padding: 7,
+	},
+		// Profile Picture
+	ProfileIcon: {
+		borderRadius: 10,
+
+		width: 35,
+		height: 35,
+
+		marginRight: 3,
+	},
+		// Container of Name and slogan
+		// Needs to be reworked. Looks like expletive.
+	ProfileNameSloganContainer: {
+		flex:1,
+		flexDirection: 'column',
+
+		padding:0,
+	},
+			// Profile Name
+	ProfileName: {
+		fontSize: TextSizes.Regular,
+		color: Colors.DarkestGrey,
+	},
+			// Profile Slogan
+	ProfileSlogan: {
+		fontSize: TextSizes.Small,
+		color: Colors.Grey12,
+	},
+
+
+	// Feed content
+	FeedContent: {
+		flex: 1,
+
+		paddingHorizontal: 20,
+	},
+		// For all the bros in the feed
+	BroContainer: {
+
+	},
+
+
 
 });
 
