@@ -2,13 +2,13 @@
 import React from 'react';
 import { Text as RNText, StyleSheet, TextStyle } from 'react-native';
 
-const Text = ({ style, ...props }: { style?: TextStyle }) => {
-    return <RNText style={styles.text}/>
+const Text = ({ style, children }: { style?: TextStyle, children?: React.ReactNode }) => {
+    return <RNText style={styles.text}>{children}</RNText>
 };
 
 const styles = StyleSheet.create({
     text: {
-        fontSize:   16,
+        fontFamily: 'Inter_600SemiBold',
     },
 });
 

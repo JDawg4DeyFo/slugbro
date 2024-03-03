@@ -1,36 +1,11 @@
 // Main React imports
-import { useCallback } from 'react';
-import {Text, View, Image } from 'react-native';
-import { useFonts, Inter_900Black } from '@expo-google-fonts/inter';
-import * as SplashScreen from 'expo-splash-screen';
+import {View, Image } from 'react-native';
 
 // Slugbro component imports
 import Styles from './src/Styles';
-
-// Display splash untill fonts are loaded
-// SplashScreen.preventAutoHideAsync();
+import Text from './src/Text';
 
 export default function App() {
-  // Load in the fonts
-  const [fontsLoaded, fontError] = useFonts({
-    Inter_900Black,
-  });
-
-  // NOTE: Right now I'm getting a font error
-  // 
-  // Kill splash screen when fonts are loaded
-  //straight from docs lol
-  // const onLayoutRootView = useCallback(async () => {
-  //   if (fontsLoaded || fontError) {
-  //     await SplashScreen.hideAsync();
-  //   }
-  // }, [fontsLoaded, fontError]);
-
-  // hold program until font loads with no error
-  if (!fontError && !fontsLoaded) {
-    console.log("Font Error");
-    return null;
-  }
 
   // Meat of the app
   return (
