@@ -19,7 +19,8 @@ export const Colors = {
 	White			: '#FFFFFF',
 
 	// Primaries
-
+	MainPrimary		: '#1295D8',
+	
 	// Derivatives
 
 	// Reds
@@ -67,9 +68,11 @@ const Styles = StyleSheet.create({
 	// Tabs
 	TabBar: {
 		flexDirection: 'row',
+		justifyContent: 'space-around',
 
 		backgroundColor: Colors.Grey4,
 	},
+		// Icons
 
 	
 	// Feed page header, holds settings and profile icon
@@ -127,17 +130,60 @@ const Styles = StyleSheet.create({
 	// Feed content
 	FeedContent: {
 		flex: 1,
+		alignItems: 'center',
 
 		paddingHorizontal: 20,
+		marginTop: 16,
 	},
 		// For all the bros in the feed
 	BroContainer: {
+		height: 105,
+		width: 353,
 
+		borderRadius: 10,
+		borderColor: Colors.Grey6,
+		borderWidth: 2,
+
+		backgroundColor: Colors.Grey4,
+
+		marginVertical: 10,
+	},
+			// Main Bro
+	MainBro: {
+		flex: 1,
+
+		backgroundColor: Colors.White,
+		
+		borderTopLeftRadius: 10,
+		borderTopRightRadius: 10,
+	},
+				// Text for main bro
+	MainBroText: {
+		fontSize: TextSizes.Rem3,
+		color: Colors.DarkestGrey,
+	},
+				// Footer for MainBro
+	MainBroFooter: {
+		flexDirection: 'row',
+		justifyContent: 'space-between',
+
+		height: 29,
+
+		borderBottomLeftRadius: 10,
+		borderBottomRightRadius: 10,
+
+		backgroundColor: Colors.Grey4,
+
+		paddingHorizontal: 5,
+	},
+					// Footer text
+	MBFooterTxt: {
+		fontSize: TextSizes.Regular,
+		color: Colors.DarkestGrey,
 	},
 
 
 
 });
 
-export default Styles;
-
+export default {Styles, Colors};
