@@ -11,12 +11,15 @@
   "dependencies": {
     "@expo-google-fonts/inter": "^0.2.3",
     "@react-navigation/bottom-tabs": "^6.5.16",
+    "@react-navigation/native": "^6.1.14",
     "expo": "^50.0.8",
     "expo-font": "~11.10.3",
+    "expo-navigation-bar": "^2.8.1",
     "expo-splash-screen": "^0.26.4",
     "expo-status-bar": "~1.11.1",
     "react": "18.2.0",
     "react-native": "0.73.4",
+    "react-native-navigation-bar": "^0.2.1",
     "react-navigation": "^5.0.0"
   },
   "devDependencies": {

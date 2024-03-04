@@ -54,7 +54,7 @@ export const TextSizes  = {
 // }
 
 
-const Styles = StyleSheet.create({
+const StylesObj = StyleSheet.create({
 	// One container to rule them all...
 	RootContainer: {
 		flex: 1,
@@ -186,4 +186,4 @@ const Styles = StyleSheet.create({
 
 });
 
-export default {Styles, Colors};
+export default {StylesObj, Colors};

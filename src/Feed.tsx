@@ -2,8 +2,9 @@
 import {View, Image, Text } from 'react-native';
 
 // Slugbro component imports
-import Styles from './Styles';
-// import Text from './Text';
+import StylesObj from './Styles';
+
+const Styles = StylesObj.StylesObj;
 
 const Feed = () => {
 
@@ -118,7 +119,7 @@ const Feed = () => {
       </View>
 
       <View style={Styles.TabBar}>
-        <Text>This is Tabs</Text>
+        
       </View>
     </View>
   );
