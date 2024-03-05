@@ -1,9 +1,15 @@
 import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 
+import Settings from './Settings'
+
 const Stack = createStackNavigator();
 
-const Settings = () => {
+export type RootStackParamList = {
+    Settings: undefined;
+};
+
+const StackNavigator = () => {
     return (
         <Stack.Navigator>
             <Stack.Screen name="Settings" component={Settings}/>
@@ -11,4 +17,4 @@ const Settings = () => {
     );
 };
 
-export default Settings;
+export default StackNavigator;
