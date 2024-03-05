@@ -8,7 +8,9 @@ import Profile from './Profile';
 const Stack = createStackNavigator();
 
 export type RootStackParamList = {
+    BigHome: undefined;
     Settings: undefined;
+    Profile: undefined;
 };
 
 const StackNavigator = () => {

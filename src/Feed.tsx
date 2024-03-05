@@ -15,6 +15,7 @@ const Feed = ({navigation}: {navigation: StackNavigationProp<RootStackParamList>
   return (
     <View style={Styles.RootContainer}>
       <View style={Styles.FeedHeader}>
+        <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
         <View style={Styles.ProfileContainer}>
           <Image 
           source={require('../assets/SamplePFP.jpg')}
@@ -25,6 +26,8 @@ const Feed = ({navigation}: {navigation: StackNavigationProp<RootStackParamList>
             <Text style={Styles.ProfileSlogan}>"Born2Bro"</Text>
           </View>
         </View>
+        </TouchableOpacity>
+
         <TouchableOpacity onPress={() => navigation.navigate('Settings')}>
           <Image
             source={require('../assets/settings.png')}
@@ -32,6 +35,7 @@ const Feed = ({navigation}: {navigation: StackNavigationProp<RootStackParamList>
           />
         </TouchableOpacity>
       </View>
+
 
       <View style={Styles.FeedContent}>
         <BroFeed/>

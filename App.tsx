@@ -2,6 +2,8 @@
 import React, { useState, useEffect } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import * as NavigationBar from "expo-navigation-bar";
+//Idk
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 // Slugbro component imports
 import StackNavigator from './src/Stack';
 
