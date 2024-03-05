@@ -22,12 +22,16 @@ export const Colors = {
 	MainPrimary		: '#1295D8',
 	
 	// Derivatives
+	MainDerivative	: '#00A3AD',
 
 	// Reds
+	MainRed			: '#DC3030',
 
 	// Greens
+	MainGreen 		: '#0FD965',
 
 	// Yellows
+	MainYellow 		: '#FFD200',
 };
 
 export const TextSizes  = {
@@ -130,7 +134,7 @@ const StylesObj = StyleSheet.create({
 		width: 35,
 		height: 35,
 	},
-	
+
 
 	// Feed content
 	FeedContent: {
