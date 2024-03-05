@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import * as NavigationBar from "expo-navigation-bar";
 // Slugbro component imports
-import Tabs from './src/Tabs'
+import StackNavigator from './src/Stack';
 
 export default function App() {
   // Hide navigation bar
@@ -27,7 +27,7 @@ export default function App() {
   // Meat of the app
   return (
     <NavigationContainer>
-      <Tabs/>
+      <StackNavigator/>
     </NavigationContainer>
   );
 }
