@@ -98,7 +98,7 @@ const StylesObj = StyleSheet.create({
 
 		padding: 7,
 	},
-		// Profile Picture
+			// Profile Picture
 	ProfileIcon: {
 		borderRadius: 10,
 
@@ -107,25 +107,30 @@ const StylesObj = StyleSheet.create({
 
 		marginRight: 3,
 	},
-		// Container of Name and slogan
-		// Needs to be reworked. Looks like expletive.
+			// Container of Name and slogan
+			// Needs to be reworked. Looks like expletive.
 	ProfileNameSloganContainer: {
 		flex:1,
 		flexDirection: 'column',
 
 		padding:0,
 	},
-			// Profile Name
+				// Profile Name
 	ProfileName: {
 		fontSize: TextSizes.Regular,
 		color: Colors.DarkestGrey,
 	},
-			// Profile Slogan
+				// Profile Slogan
 	ProfileSlogan: {
 		fontSize: TextSizes.Small,
 		color: Colors.Grey12,
 	},
-
+		// Setting icon
+	SettingsIcon: {
+		width: 35,
+		height: 35,
+	},
+	
 
 	// Feed content
 	FeedContent: {

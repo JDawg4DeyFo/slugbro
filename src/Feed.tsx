@@ -21,7 +21,10 @@ const Feed = () => {
             <Text style={Styles.ProfileSlogan}>"Born2Bro"</Text>
           </View>
         </View>
-        <Text>Hello2</Text>
+        <Image
+          source={require('../assets/settings.png')}
+          style={Styles.SettingsIcon}
+        />
       </View>
 
       <View style={Styles.FeedContent}>
