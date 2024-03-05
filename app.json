@@ -30,7 +30,7 @@
       [
         "expo-font",
         {
-          "fonts": ["node_modules/@expo-google-fonts/inter/Inter_600SemiBold.ttf"]
+          "fonts": ["./assets/fonts/Inter-SemiBold.ttf"]
         }
       ]
     ]

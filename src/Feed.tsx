@@ -1,13 +1,12 @@
 // Main React imports
 import {View, Image, Text } from 'react-native';
-
-// Slugbro component imports
+// Style
 import StylesObj from './Styles';
-
 const Styles = StylesObj.StylesObj;
+// actual feed content
+import BroFeed from './BroFeed';
 
 const Feed = () => {
-
   // Meat of the app
   return (
     <View style={Styles.RootContainer}>
@@ -25,7 +24,7 @@ const Feed = () => {
         <Text>Hello2</Text>
       </View>
 
-      <View style={Styles.FeedContent}>
+      {/* <View style={Styles.FeedContent}>
         <View style={Styles.BroContainer}>
             <View style={Styles.MainBro}>
                 <Text style={Styles.MainBroText}>Bro</Text>
@@ -116,7 +115,7 @@ const Feed = () => {
             </View>
         </View>
 
-      </View>
+      </View> */}
 
       <View style={Styles.TabBar}>
         
