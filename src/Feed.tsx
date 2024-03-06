@@ -40,10 +40,6 @@ const Feed = ({navigation}: {navigation: StackNavigationProp<RootStackParamList>
       <View style={Styles.FeedContent}>
         <BroFeed/>
       </View>
-
-      <View style={Styles.TabBar}>
-        
-      </View>
     </View>
   );
 }
