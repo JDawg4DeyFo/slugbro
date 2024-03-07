@@ -11,7 +11,7 @@ import LBEntries from './LBEtnries';
 
 const Leaderboard = ({navigation}: {navigation: StackNavigationProp<RootStackParamList>}) => {
     return (
-        <View style={Styles.RootContainer}>
+    <View style={Styles.RootContainer}>
       <View style={Styles.FeedHeader}>
         <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
         <View style={Styles.ProfileContainer}>
@@ -35,6 +35,7 @@ const Leaderboard = ({navigation}: {navigation: StackNavigationProp<RootStackPar
       </View>
 
         <View style={Styles.LBContainer}>
+            <Text style={Styles.LBTitle}>Leaderboard</Text>
             <View style={Styles.LBHeader}>
                 <Text style={Styles.LBHeadText}>Name</Text>
                 <Text style={Styles.LBHeadText}>Bros Sent</Text>

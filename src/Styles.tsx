@@ -197,13 +197,24 @@ const StylesObj = StyleSheet.create({
 	// note everything below would be nested in this...
 	// i don't feel like doing that much indentation tho
 	LBContainer: {
+		flexDirection: 'column',
 		flex: 1,
+		justifyContent: 'flex-start',
+	},
+	// LeaderBoard title
+	LBTitle: {
+		paddingTop: 25,
+		paddingBottom: 5,
+		paddingLeft: 21,
+
+		fontSize: TextSizes.Rem2,
+		// fontFamily: 'Inter-SemiBold',
+		color: Colors.DarkestGrey,
 	},
 	// Leaderboard Header
 	LBHeader: {
 		flexDirection: 'row',
 		justifyContent: 'space-between',
-		flex: 1,
 		
 		alignContent: 'center',
 
@@ -227,7 +238,7 @@ const StylesObj = StyleSheet.create({
 		justifyContent: 'space-between',
 		flex: 1,
 
-		alignContent: 'center',
+		alignContent: 'center',	// this isn't centering bros sent either.
 
 		height: 54,
 
@@ -238,14 +249,18 @@ const StylesObj = StyleSheet.create({
 	},
 		// Name PFP container
 	LBE_NamePFP: {
-		justifyContent: 'flex-start'
+		flexDirection: 'row',
+		justifyContent: 'flex-start',
+		alignContent: 'center',	// idk why this isn't centering on y axis
 	},
 			// PFP
 	LBE_PFP: {
 		height: 35,
 		width: 35,
 
-		paddingRight: 17,
+		marginRight: 17,
+
+		borderRadius: 10,
 	},
 			// Name
 	LBE_Name: {

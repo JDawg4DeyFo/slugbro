@@ -9,140 +9,146 @@ const PREDEBUG = [
     {
         id: 1,
         Name: 'JDawg',
-        TotalBros: 420,
+        TotalBros: 38103,
         Pfp: require('../assets/SamplePFP.jpg')
     },
     {
         id: 1,
-        Name: 'JDawg',
+        Name: 'LolFactor',
+        TotalBros: 1231,
+        Pfp: require('../assets/home.png')
+    },
+    {
+        id: 1,
+        Name: 'jaaaa',
+        TotalBros: 517,
+        Pfp: require('../assets/splash.png')
+    },
+    {
+        id: 1,
+        Name: 'Poopface',
         TotalBros: 420,
-        Pfp: require('../assets/SamplePFP.jpg')
+        Pfp: require('../assets/adaptive-icon.png')
     },
     {
         id: 1,
         Name: 'JDawg',
-        TotalBros: 420,
+        TotalBros: 38103,
         Pfp: require('../assets/SamplePFP.jpg')
     },
     {
         id: 1,
-        Name: 'JDawg',
+        Name: 'LolFactor',
+        TotalBros: 1231,
+        Pfp: require('../assets/home.png')
+    },
+    {
+        id: 1,
+        Name: 'jaaaa',
+        TotalBros: 517,
+        Pfp: require('../assets/splash.png')
+    },
+    {
+        id: 1,
+        Name: 'Poopface',
         TotalBros: 420,
-        Pfp: require('../assets/SamplePFP.jpg')
+        Pfp: require('../assets/adaptive-icon.png')
     },
     {
         id: 1,
         Name: 'JDawg',
-        TotalBros: 420,
+        TotalBros: 38103,
         Pfp: require('../assets/SamplePFP.jpg')
     },
     {
         id: 1,
-        Name: 'JDawg',
+        Name: 'LolFactor',
+        TotalBros: 1231,
+        Pfp: require('../assets/home.png')
+    },
+    {
+        id: 1,
+        Name: 'jaaaa',
+        TotalBros: 517,
+        Pfp: require('../assets/splash.png')
+    },
+    {
+        id: 1,
+        Name: 'Poopface',
         TotalBros: 420,
-        Pfp: require('../assets/SamplePFP.jpg')
+        Pfp: require('../assets/adaptive-icon.png')
     },
     {
         id: 1,
         Name: 'JDawg',
-        TotalBros: 420,
+        TotalBros: 38103,
         Pfp: require('../assets/SamplePFP.jpg')
     },
     {
         id: 1,
-        Name: 'JDawg',
+        Name: 'LolFactor',
+        TotalBros: 1231,
+        Pfp: require('../assets/home.png')
+    },
+    {
+        id: 1,
+        Name: 'jaaaa',
+        TotalBros: 517,
+        Pfp: require('../assets/splash.png')
+    },
+    {
+        id: 1,
+        Name: 'Poopface',
         TotalBros: 420,
-        Pfp: require('../assets/SamplePFP.jpg')
+        Pfp: require('../assets/adaptive-icon.png')
     },
     {
         id: 1,
         Name: 'JDawg',
-        TotalBros: 420,
+        TotalBros: 38103,
         Pfp: require('../assets/SamplePFP.jpg')
     },
     {
         id: 1,
-        Name: 'JDawg',
+        Name: 'LolFactor',
+        TotalBros: 1231,
+        Pfp: require('../assets/home.png')
+    },
+    {
+        id: 1,
+        Name: 'jaaaa',
+        TotalBros: 517,
+        Pfp: require('../assets/splash.png')
+    },
+    {
+        id: 1,
+        Name: 'Poopface',
         TotalBros: 420,
-        Pfp: require('../assets/SamplePFP.jpg')
+        Pfp: require('../assets/adaptive-icon.png')
     },
     {
         id: 1,
         Name: 'JDawg',
-        TotalBros: 420,
+        TotalBros: 38103,
         Pfp: require('../assets/SamplePFP.jpg')
     },
     {
         id: 1,
-        Name: 'JDawg',
-        TotalBros: 420,
-        Pfp: require('../assets/SamplePFP.jpg')
+        Name: 'LolFactor',
+        TotalBros: 1231,
+        Pfp: require('../assets/home.png')
     },
     {
         id: 1,
-        Name: 'JDawg',
-        TotalBros: 420,
-        Pfp: require('../assets/SamplePFP.jpg')
+        Name: 'jaaaa',
+        TotalBros: 517,
+        Pfp: require('../assets/splash.png')
     },
     {
         id: 1,
-        Name: 'JDawg',
+        Name: 'Poopface',
         TotalBros: 420,
-        Pfp: require('../assets/SamplePFP.jpg')
-    },
-    {
-        id: 1,
-        Name: 'JDawg',
-        TotalBros: 420,
-        Pfp: require('../assets/SamplePFP.jpg')
-    },
-    {
-        id: 1,
-        Name: 'JDawg',
-        TotalBros: 420,
-        Pfp: require('../assets/SamplePFP.jpg')
-    },
-    {
-        id: 1,
-        Name: 'JDawg',
-        TotalBros: 420,
-        Pfp: require('../assets/SamplePFP.jpg')
-    },
-    {
-        id: 1,
-        Name: 'JDawg',
-        TotalBros: 420,
-        Pfp: require('../assets/SamplePFP.jpg')
-    },
-    {
-        id: 1,
-        Name: 'JDawg',
-        TotalBros: 420,
-        Pfp: require('../assets/SamplePFP.jpg')
-    },
-    {
-        id: 1,
-        Name: 'JDawg',
-        TotalBros: 420,
-        Pfp: require('../assets/SamplePFP.jpg')
-    },
-    {
-        id: 1,
-        Name: 'JDawg',
-        TotalBros: 420,
-        Pfp: require('../assets/SamplePFP.jpg')
-    },
-    {
-        id: 1,
-        Name: 'JDawg',
-        TotalBros: 420,
-        Pfp: require('../assets/SamplePFP.jpg')
-    },
-    {
-        id: 1,
-        Name: 'JDawg',
-        TotalBros: 420,
-        Pfp: require('../assets/SamplePFP.jpg')
+        Pfp: require('../assets/adaptive-icon.png')
     },
 
 ]
