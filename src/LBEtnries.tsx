@@ -1,5 +1,5 @@
 import React from "react";
-import { FlatList, View, Text } from 'react-native';
+import { FlatList, View, Text, Image, ImageSourcePropType } from 'react-native';
 
 import StylesObj from './Styles'
 const Styles = StylesObj.StylesObj;
@@ -10,73 +10,139 @@ const PREDEBUG = [
         id: 1,
         Name: 'JDawg',
         TotalBros: 420,
-        Pfp: '../assets/SamplePFP.png'
+        Pfp: require('../assets/SamplePFP.jpg')
     },
     {
         id: 1,
         Name: 'JDawg',
         TotalBros: 420,
-        Pfp: '../assets/SamplePFP.png'
+        Pfp: require('../assets/SamplePFP.jpg')
     },
     {
         id: 1,
         Name: 'JDawg',
         TotalBros: 420,
-        Pfp: '../assets/SamplePFP.png'
+        Pfp: require('../assets/SamplePFP.jpg')
     },
     {
         id: 1,
         Name: 'JDawg',
         TotalBros: 420,
-        Pfp: '../assets/SamplePFP.png'
+        Pfp: require('../assets/SamplePFP.jpg')
     },
     {
         id: 1,
         Name: 'JDawg',
         TotalBros: 420,
-        Pfp: '../assets/SamplePFP.png'
+        Pfp: require('../assets/SamplePFP.jpg')
     },
     {
         id: 1,
         Name: 'JDawg',
         TotalBros: 420,
-        Pfp: '../assets/SamplePFP.png'
+        Pfp: require('../assets/SamplePFP.jpg')
     },
     {
         id: 1,
         Name: 'JDawg',
         TotalBros: 420,
-        Pfp: '../assets/SamplePFP.png'
+        Pfp: require('../assets/SamplePFP.jpg')
     },
     {
         id: 1,
         Name: 'JDawg',
         TotalBros: 420,
-        Pfp: '../assets/SamplePFP.png'
+        Pfp: require('../assets/SamplePFP.jpg')
     },
     {
         id: 1,
         Name: 'JDawg',
         TotalBros: 420,
-        Pfp: '../assets/SamplePFP.png'
+        Pfp: require('../assets/SamplePFP.jpg')
     },
     {
         id: 1,
         Name: 'JDawg',
         TotalBros: 420,
-        Pfp: '../assets/SamplePFP.png'
+        Pfp: require('../assets/SamplePFP.jpg')
     },
     {
         id: 1,
         Name: 'JDawg',
         TotalBros: 420,
-        Pfp: '../assets/SamplePFP.png'
+        Pfp: require('../assets/SamplePFP.jpg')
     },
     {
         id: 1,
         Name: 'JDawg',
         TotalBros: 420,
-        Pfp: '../assets/SamplePFP.png'
+        Pfp: require('../assets/SamplePFP.jpg')
+    },
+    {
+        id: 1,
+        Name: 'JDawg',
+        TotalBros: 420,
+        Pfp: require('../assets/SamplePFP.jpg')
+    },
+    {
+        id: 1,
+        Name: 'JDawg',
+        TotalBros: 420,
+        Pfp: require('../assets/SamplePFP.jpg')
+    },
+    {
+        id: 1,
+        Name: 'JDawg',
+        TotalBros: 420,
+        Pfp: require('../assets/SamplePFP.jpg')
+    },
+    {
+        id: 1,
+        Name: 'JDawg',
+        TotalBros: 420,
+        Pfp: require('../assets/SamplePFP.jpg')
+    },
+    {
+        id: 1,
+        Name: 'JDawg',
+        TotalBros: 420,
+        Pfp: require('../assets/SamplePFP.jpg')
+    },
+    {
+        id: 1,
+        Name: 'JDawg',
+        TotalBros: 420,
+        Pfp: require('../assets/SamplePFP.jpg')
+    },
+    {
+        id: 1,
+        Name: 'JDawg',
+        TotalBros: 420,
+        Pfp: require('../assets/SamplePFP.jpg')
+    },
+    {
+        id: 1,
+        Name: 'JDawg',
+        TotalBros: 420,
+        Pfp: require('../assets/SamplePFP.jpg')
+    },
+    {
+        id: 1,
+        Name: 'JDawg',
+        TotalBros: 420,
+        Pfp: require('../assets/SamplePFP.jpg')
+    },
+    {
+        id: 1,
+        Name: 'JDawg',
+        TotalBros: 420,
+        Pfp: require('../assets/SamplePFP.jpg')
+    },
+    {
+        id: 1,
+        Name: 'JDawg',
+        TotalBros: 420,
+        Pfp: require('../assets/SamplePFP.jpg')
     },
 
 ]
@@ -91,13 +157,21 @@ const DATA = DEBUG_DATA;
 type EntryItemProps = {
     Name: string,
     TotalBros: number,
-    Pfp: string,
+    Pfp: ImageSourcePropType,
 };
 
 // Object template to populate flatlist
 const EntryItem = ({ Name, TotalBros, Pfp }: EntryItemProps) => {
-
-}
+    return (
+        <View style={Styles.LBE_Container}>
+            <View style={Styles.LBE_NamePFP}>
+                <Image style={Styles.LBE_PFP} source={Pfp}/>
+                <Text style={Styles.LBE_Name}>{Name}</Text>
+            </View>
+            <Text style={Styles.LBE_BrosSent}>{TotalBros} Bros</Text>
+        </View>
+    );
+};
 
 const LBEntries = () => {
     return (
@@ -107,7 +181,7 @@ const LBEntries = () => {
             keyExtractor={item => item.id}
             showsVerticalScrollIndicator ={false}
         />
-    )
-}
+    );
+};
 
 export default LBEntries;
