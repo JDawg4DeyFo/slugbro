@@ -34,7 +34,13 @@ const Leaderboard = ({navigation}: {navigation: StackNavigationProp<RootStackPar
         </TouchableOpacity>
       </View>
 
-        <LBEntries/>
+        <View style={Styles.LBContainer}>
+            <View style={Styles.LBHeader}>
+                <Text style={Styles.LBHeadText}>Name</Text>
+                <Text style={Styles.LBHeadText}>Bros Sent</Text>
+            </View>
+            <LBEntries/>
+        </View>
       
     </View>
     )

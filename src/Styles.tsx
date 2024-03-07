@@ -193,6 +193,74 @@ const StylesObj = StyleSheet.create({
 
 
 
+	// Leaderboard container
+	// note everything below would be nested in this...
+	// i don't feel like doing that much indentation tho
+	LBContainer: {
+		flex: 1,
+	},
+	// Leaderboard Header
+	LBHeader: {
+		flexDirection: 'row',
+		justifyContent: 'space-between',
+		flex: 1,
+		
+		alignContent: 'center',
+
+		height: 35,
+
+		backgroundColor: Colors.Grey3,
+
+		borderColor: Colors.Grey8,
+		borderWidth: 1,
+
+		paddingHorizontal: 21,
+	},
+		// Header text
+	LBHeadText: {
+		fontSize: TextSizes.Regular,
+		color: Colors.Grey12,
+	},
+	// Entry Container
+	LBE_Container: {
+		flexDirection: 'row',
+		justifyContent: 'space-between',
+		flex: 1,
+
+		alignContent: 'center',
+
+		height: 54,
+
+		borderColor: Colors.Grey8,
+		borderBottomWidth: 1,
+
+		paddingHorizontal: 21,		
+	},
+		// Name PFP container
+	LBE_NamePFP: {
+		justifyContent: 'flex-start'
+	},
+			// PFP
+	LBE_PFP: {
+		height: 35,
+		width: 35,
+
+		paddingRight: 17,
+	},
+			// Name
+	LBE_Name: {
+		color: Colors.Black,
+
+		fontSize: TextSizes.Regular,
+	},
+		// Bros sent
+	LBE_BrosSent: {
+		color: Colors.Black,
+
+		fontSize: TextSizes.Regular,
+	},
+
+
 });
 
 export default {StylesObj, Colors};
