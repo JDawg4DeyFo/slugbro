@@ -4,106 +4,10 @@ import { TouchableOpacity, View, Text, Image } from 'react-native';
 import StylesObj from './Styles';
 const Styles = StylesObj.StylesObj;
 
-import Settings from './Settings';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from './Stack';
+import LBEntries from './LBEtnries';
 
-
-// Data before server stuff is finished
-const PREDEBUG = [
-    {
-        id: 1,
-        id: 1,
-        Name: 'JDawg',
-        TotalBros: 420,
-        Pfp: '../assets/SamplePFP.png'
-    },
-    {
-        id: 1,
-        Name: 'JDawg',
-        TotalBros: 420,
-        Pfp: '../assets/SamplePFP.png'
-    },
-    {
-        id: 1,
-        Name: 'JDawg',
-        TotalBros: 420,
-        Pfp: '../assets/SamplePFP.png'
-    },
-    {
-        id: 1,
-        Name: 'JDawg',
-        TotalBros: 420,
-        Pfp: '../assets/SamplePFP.png'
-    },
-    {
-        id: 1,
-        Name: 'JDawg',
-        TotalBros: 420,
-        Pfp: '../assets/SamplePFP.png'
-    },
-    {
-        id: 1,
-        Name: 'JDawg',
-        TotalBros: 420,
-        Pfp: '../assets/SamplePFP.png'
-    },
-    {
-        id: 1,
-        Name: 'JDawg',
-        TotalBros: 420,
-        Pfp: '../assets/SamplePFP.png'
-    },
-    {
-        id: 1,
-        Name: 'JDawg',
-        TotalBros: 420,
-        Pfp: '../assets/SamplePFP.png'
-    },
-    {
-        id: 1,
-        Name: 'JDawg',
-        TotalBros: 420,
-        Pfp: '../assets/SamplePFP.png'
-    },
-    {
-        id: 1,
-        Name: 'JDawg',
-        TotalBros: 420,
-        Pfp: '../assets/SamplePFP.png'
-    },
-    {
-        id: 1,
-        Name: 'JDawg',
-        TotalBros: 420,
-        Pfp: '../assets/SamplePFP.png'
-    },
-    {
-        id: 1,
-        Name: 'JDawg',
-        TotalBros: 420,
-        Pfp: '../assets/SamplePFP.png'
-    },
-
-]
-const DEBUG_DATA = PREDEBUG.map((item, index) => ({
-    ...item,
-    id: index.toString(),
-}));
-const DATA = DEBUG_DATA;
-
-
-// Props of flatlist items
-type EntryItemProps = {
-    Name: string,
-    TotalBros: number,
-    Pfp: string,
-};
-
-// Object template to populate flatlist
-const EntryItem = ({ Name, TotalBros, Pfp }: EntryItemProps) => {
-
-}
 
 const Leaderboard = ({navigation}: {navigation: StackNavigationProp<RootStackParamList>}) => {
     return (
@@ -130,7 +34,7 @@ const Leaderboard = ({navigation}: {navigation: StackNavigationProp<RootStackPar
         </TouchableOpacity>
       </View>
 
-
+        <LBEntries/>
       
     </View>
     )
