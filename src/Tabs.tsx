@@ -19,6 +19,10 @@ const Tabs = () => {
                 tabBarActiveBackgroundColor: Colors.Colors.Grey4,
                 tabBarInactiveBackgroundColor: Colors.Colors.Grey4,
 
+                tabBarLabelStyle: {
+                    fontFamily: 'Inter-Medium',
+                },
+
                 headerShown: false,
             }}
         >

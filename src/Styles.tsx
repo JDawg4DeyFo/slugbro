@@ -238,6 +238,7 @@ const StylesObj = StyleSheet.create({
 		// Header text
 	LBHeadText: {
 		fontSize: TextSizes.Regular,
+		fontFamily: 'Inter-Regular',
 		color: Colors.Grey12,
 	},
 	// Entry Container
@@ -259,6 +260,7 @@ const StylesObj = StyleSheet.create({
 	LBE_NamePFP: {
 		flexDirection: 'row',
 		justifyContent: 'flex-start',
+
 		alignContent: 'center',	// idk why this isn't centering on y axis
 	},
 			// PFP
@@ -275,12 +277,14 @@ const StylesObj = StyleSheet.create({
 		color: Colors.Black,
 
 		fontSize: TextSizes.Regular,
+		fontFamily: 'Inter-SemiBold',
 	},
 		// Bros sent
 	LBE_BrosSent: {
 		color: Colors.Black,
 
 		fontSize: TextSizes.Regular,
+		fontFamily: 'Inter-SemiBold',
 	},
 
 
