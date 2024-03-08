@@ -10,7 +10,8 @@ import StackNavigator from './src/Stack';
 const LoadFonts = async () => {
   await Font.loadAsync({
     'Inter-SemiBold': require('./assets/fonts/Inter-SemiBold.ttf'),
-    'Inter-Bold': require('./assets/fonts/Inter-Bold.ttf')
+    'Inter-Bold': require('./assets/fonts/Inter-Bold.ttf'),
+    'Inter-Regular': require('./assets/fonts/Inter-Regular.ttf'),
   });
 };
 

@@ -125,10 +125,12 @@ const StylesObj = StyleSheet.create({
 	ProfileName: {
 		fontSize: TextSizes.Regular,
 		color: Colors.DarkestGrey,
+		fontFamily: 'Inter-SemiBold',
 	},
 				// Profile Slogan
 	ProfileSlogan: {
 		fontSize: TextSizes.Small,
+		fontFamily: 'Inter-SemiBold',
 		color: Colors.Grey12,
 	},
 		// Setting icon
@@ -171,7 +173,10 @@ const StylesObj = StyleSheet.create({
 				// Text for main bro
 	MainBroText: {
 		fontSize: TextSizes.Rem3,
+		fontFamily: 'Inter-SemiBold',
 		color: Colors.DarkestGrey,
+
+		paddingLeft: 21,
 	},
 				// Footer for MainBro
 	MainBroFooter: {
@@ -190,6 +195,7 @@ const StylesObj = StyleSheet.create({
 					// Footer text
 	MBFooterTxt: {
 		fontSize: TextSizes.Regular,
+		fontFamily: 'Inter-SemiBold',
 		color: Colors.DarkestGrey,
 	},
 

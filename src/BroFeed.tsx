@@ -11,55 +11,55 @@ const DEBUG_DATA = [
         id: '1',
         BroType: 'Bro',
         BroName: 'JDawg',
-        BroDate: 420,   // should use some time format
+        BroDate: '4:20PM',   // should use some time format
     },
     {
         id: '2',
         BroType: 'Bro',
         BroName: 'JDawg',
-        BroDate: 420,   // should use some time format
+        BroDate: '4:20PM',   // should use some time format
     },
     {
         id: '3',
         BroType: 'Bro',
         BroName: 'JDawg',
-        BroDate: 420,   // should use some time format
+        BroDate: '4:20PM',   // should use some time format
     },
     {
         id: '4',
         BroType: 'Bro',
         BroName: 'JDawg',
-        BroDate: 420,   // should use some time format
+        BroDate: '4:20PM',   // should use some time format
     },
     {
         id: '5',
         BroType: 'Bro',
         BroName: 'JDawg',
-        BroDate: 420,   // should use some time format
+        BroDate: '4:20PM',   // should use some time format
     },
     {
         id: '6',
         BroType: 'Bro',
         BroName: 'JDawg',
-        BroDate: 420,   // should use some time format
+        BroDate: '4:20PM',   // should use some time format
     },
     {
         id: '7',
         BroType: 'Bro',
         BroName: 'JDawg',
-        BroDate: 420,   // should use some time format
+        BroDate: '4:20PM',   // should use some time format
     },
     {
         id: '8',
         BroType: 'Bro',
         BroName: 'JDawg',
-        BroDate: 420,   // should use some time format
+        BroDate: '4:20PM',   // should use some time format
     },
     {
         id: '9',
         BroType: 'Bro',
         BroName: 'JDawg',
-        BroDate: 420,   // should use some time format
+        BroDate: '4:20PM',   // should use some time format
     },
 ]
 
@@ -71,7 +71,7 @@ const DATA = DEBUG_DATA;
 type BroItemProps = {
     BroType: string,
     BroName: string,
-    BroDate: number,    // is this right?? lol
+    BroDate: string,    // is this right?? lol
 };
 
 const BroItem = ({BroType, BroName, BroDate}: BroItemProps) => {
