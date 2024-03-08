@@ -10,6 +10,7 @@ const Styles = StylesObj.StylesObj;
 import BroFeed from './BroFeed';
 import { StackNavigationProp } from '@react-navigation/stack';
 
+
 const Feed = ({navigation}: {navigation: StackNavigationProp<RootStackParamList>}) => {
   // Meat of the app
   return (

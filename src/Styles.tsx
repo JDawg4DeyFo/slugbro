@@ -66,6 +66,8 @@ const StylesObj = StyleSheet.create({
 
 		backgroundColor: Colors.Grey1,
 
+		fontFamily: 'Inter-SemiBold',
+
 		paddingTop: 40,	// Probably need different padding for IOS.
 	},
 
@@ -208,7 +210,7 @@ const StylesObj = StyleSheet.create({
 		paddingLeft: 21,
 
 		fontSize: TextSizes.Rem2,
-		// fontFamily: 'Inter-SemiBold',
+		fontFamily: 'Inter-SemiBold',
 		color: Colors.DarkestGrey,
 	},
 	// Leaderboard Header
