@@ -8,7 +8,7 @@ const Text = ({ style, children }: { style?: TextStyle, children?: React.ReactNo
 
 const styles = StyleSheet.create({
     text: {
-        fontFamily: 'Inter-SemiBold'
+        fontFamily: 'Inter-Bold'
     }
 });
 

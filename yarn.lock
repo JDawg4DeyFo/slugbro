@@ -3354,6 +3354,13 @@ expo-modules-autolinking@>=0.8.1, expo-modules-autolinking@1.10.3:
     find-up "^5.0.0"
     fs-extra "^9.1.0"
 
+expo-modules-core@^1.11.10:
+  version "1.11.10"
+  resolved "https://registry.npmjs.org/expo-modules-core/-/expo-modules-core-1.11.10.tgz"
+  integrity sha512-L1DSxV3AUnEvR8+G1JHbMPjpwqALv0AF71oREhDJ/ehI2TDX6LkE+up5BUK1/++UjmVu1lviefbUfLut2F5wNQ==
+  dependencies:
+    invariant "^2.2.4"
+
 expo-modules-core@1.11.9:
   version "1.11.9"
   resolved "https://registry.npmjs.org/expo-modules-core/-/expo-modules-core-1.11.9.tgz"
