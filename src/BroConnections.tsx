@@ -149,6 +149,9 @@ const EntryItem = ({ Name, Pfp }: EntryItemProps) => {
                 <Image style={Styles.LBE_PFP} source={Pfp}/>
                 <Text style={Styles.LBE_Name}>{Name}</Text>
             </View>
+            <View style={Styles.UnbroContainer}>
+                <Text style={Styles.UnbroText}>Unbro</Text>
+            </View>
         </View>
     );
 };

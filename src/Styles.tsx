@@ -288,6 +288,31 @@ const StylesObj = StyleSheet.create({
 	},
 
 
+	// BroPage
+	// Unbro // note this is nested within LBE entry style
+	UnbroContainer: {
+		flexDirection: 'row',
+		justifyContent: 'center',
+		alignContent: 'center',
+
+		height: 23,
+		width: 83,
+
+		backgroundColor: Colors.White,
+		
+		borderColor: Colors.MainRed,
+		borderRadius: 7,
+		borderWidth: 1,
+	},
+		// unbro text
+	UnbroText: {
+		justifyContent: 'center',
+
+		fontSize: TextSizes.Regular,
+		fontFamily: 'Inter-SemiBold',
+		color: Colors.MainRed,
+	}
+
 });
 
 export default {StylesObj, Colors};

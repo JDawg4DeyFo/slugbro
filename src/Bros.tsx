@@ -6,7 +6,7 @@ const Styles = StylesObj.StylesObj;
 
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from './Stack';
-import LBEntries from './LBEtnries';
+import BroConnections from './BroConnections';
 
 const Bros = ({navigation}: {navigation:StackNavigationProp<RootStackParamList>}) => {
     return(
@@ -39,7 +39,7 @@ const Bros = ({navigation}: {navigation:StackNavigationProp<RootStackParamList>}
                 <Text style={Styles.LBHeadText}>Your Bros</Text>
                 <Text style={Styles.LBHeadText}>XX Total Bros</Text>
             </View>
-            <LBEntries/>
+            <BroConnections/>
         </View>
       
     </View>
