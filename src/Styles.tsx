@@ -245,6 +245,7 @@ const StylesObj = StyleSheet.create({
 	LBE_Container: {
 		flexDirection: 'row',
 		justifyContent: 'space-between',
+		alignItems: 'center',
 		flex: 1,
 
 		alignContent: 'center',	// this isn't centering bros sent either.
@@ -261,7 +262,7 @@ const StylesObj = StyleSheet.create({
 		flexDirection: 'row',
 		justifyContent: 'flex-start',
 
-		alignContent: 'center',	// idk why this isn't centering on y axis
+		alignItems: 'center',	// idk why this isn't centering on y axis
 	},
 			// PFP
 	LBE_PFP: {
@@ -293,7 +294,7 @@ const StylesObj = StyleSheet.create({
 	UnbroContainer: {
 		flexDirection: 'row',
 		justifyContent: 'center',
-		alignContent: 'center',
+		alignItems: 'center',
 
 		height: 23,
 		width: 83,
