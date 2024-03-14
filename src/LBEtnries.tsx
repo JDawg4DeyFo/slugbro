@@ -2,6 +2,7 @@ import React from "react";
 import { FlatList, View, Text, Image, ImageSourcePropType } from 'react-native';
 
 import StylesObj from './Styles'
+import { TouchableOpacity } from "react-native-gesture-handler";
 const Styles = StylesObj.StylesObj;
 
 // Data before server stuff is finished
@@ -170,10 +171,12 @@ type EntryItemProps = {
 const EntryItem = ({ Name, TotalBros, Pfp }: EntryItemProps) => {
     return (
         <View style={Styles.LBE_Container}>
+            <TouchableOpacity>
             <View style={Styles.LBE_NamePFP}>
                 <Image style={Styles.LBE_PFP} source={Pfp}/>
                 <Text style={Styles.LBE_Name}>{Name}</Text>
             </View>
+            </TouchableOpacity>
             <Text style={Styles.LBE_BrosSent}>{TotalBros} Bros</Text>
         </View>
     );

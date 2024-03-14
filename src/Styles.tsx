@@ -307,12 +307,13 @@ const StylesObj = StyleSheet.create({
 	},
 		// unbro text
 	UnbroText: {
-		justifyContent: 'center',
-
 		fontSize: TextSizes.Regular,
 		fontFamily: 'Inter-SemiBold',
 		color: Colors.MainRed,
-	}
+
+		padding: 0,
+		margin: 0,
+	},
 
 });
 
