@@ -315,6 +315,80 @@ const StylesObj = StyleSheet.create({
 		margin: 0,
 	},
 
+
+	// FOR PROFILE PAGE
+	// Profile Header
+	ProfileHeader: {
+		backgroundColor: Colors.White,
+		
+		marginBottom: 8,
+		paddingHorizontal: 16,
+	},
+		// Name, Profile picture, and action button container
+	PH_NamePFPAction: {
+		flexDirection: 'row',
+		justifyContent: 'flex-start',
+
+		paddingVertical: 8,
+	},
+			// pfp in profile header
+	PH_PFP: {
+		height: 52,
+		width: 52,
+
+		paddingRight: 14,
+	},
+			// Name Action container (these two need to be flex column)
+	PH_PFPNameContainer: {
+		flexDirection: 'column',
+	},
+				// Name in profile header
+	PH_Name: {
+		fontFamily: 'Inter-SemiBold',
+		fontSize: TextSizes.Rem2,
+
+		paddingBottom: 1,
+	},
+				// Action button in profile header (edit or addbro or unbro)
+	PH_Action: {
+		borderColor: Colors.Grey10,
+		borderRadius: 7,
+		color: Colors.MainPrimary,
+	},
+		// container for information about major, college, and IG
+	PH_Infotainer: {
+	},
+			// Row with stuff
+	PH_InfotainerRow: {
+		flexDirection: 'row',
+		justifyContent: 'space-between',
+
+		marginBottom: 6,
+	},
+				// style for the actual text
+	PH_InfotainerText: {
+		fontFamily: 'Inter-SemiBold',
+		fontSize: TextSizes.Regular,
+	},
+			// Row for IG
+	PH_IGRow: {
+		flexDirection: 'row',
+		justifyContent: 'flex-start',
+	},
+				// Style for logo
+	PH_IGLogo: {
+		height: 19,
+		width: 19,
+
+		marginRight: 8,
+	},
+				// Style for text
+	PH_IGText: {
+		fontFamily: 'Inter-SemiBold',
+		fontSize: TextSizes.Regular,
+	}
+
+
 });
 
 export default {StylesObj, Colors};
