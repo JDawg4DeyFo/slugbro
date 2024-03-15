@@ -328,8 +328,8 @@ const StylesObj = StyleSheet.create({
 		// Name, Profile picture, and action button container
 	PH_NamePFPAction: {
 		flexDirection: 'row',
-		justifyContent: 'flex-start',
-		alignItems: 'center',
+		justifyContent: 'space-between',
+		alignItems: 'flex-end',
 
 		paddingVertical: 8,
 	},
@@ -342,9 +342,10 @@ const StylesObj = StyleSheet.create({
 
 		marginRight: 14,
 	},
-			// Name Action container (these two need to be flex column)
-	PH_ActionNameContainer: {
-		flexDirection: 'column',
+			// Name Action container (these two need to be together)
+	PH_PFPName: {
+		flexDirection: 'row',
+		justifyContent: 'flex-start',
 	},
 				// Name in profile header
 	PH_Name: {
@@ -358,7 +359,7 @@ const StylesObj = StyleSheet.create({
 		alignItems: 'center',
 
 		width: 70,
-		height: 20,
+		height: 30,
 
 		borderColor: Colors.Grey10,
 		borderWidth: 1,

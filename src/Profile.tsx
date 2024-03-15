@@ -26,18 +26,19 @@ const Profile = () => {
     return(
         <View style={Styles.ProfileHeader}>
             <View style={Styles.PH_NamePFPAction}>
-                <Image 
-                    style={Styles.PH_PFP}
-                    source={require('../assets/SamplePFP.jpg')}
-                />
-                <View style={Styles.PH_ActionNameContainer}>
+                <View style={Styles.PH_PFPName}>
+                    <Image 
+                        style={Styles.PH_PFP}
+                        source={require('../assets/SamplePFP.jpg')}
+                    />
                     <Text style={Styles.PH_Name}>{USER_PROFILE_DATA.Name}</Text>
-                    <TouchableOpacity>
-                        <View style={Styles.PH_Action}>
-                            <Text style={Styles.PH_ActionText}>Edit</Text>
-                        </View>
-                    </TouchableOpacity>
                 </View>
+
+                <TouchableOpacity>
+                    <View style={Styles.PH_Action}>
+                        <Text style={Styles.PH_ActionText}>Edit</Text>
+                    </View>
+                </TouchableOpacity>
             </View>
 
             <View style={Styles.PH_Infotainer}>
