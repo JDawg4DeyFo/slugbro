@@ -329,6 +329,7 @@ const StylesObj = StyleSheet.create({
 	PH_NamePFPAction: {
 		flexDirection: 'row',
 		justifyContent: 'flex-start',
+		alignItems: 'center',
 
 		paddingVertical: 8,
 	},
@@ -337,7 +338,9 @@ const StylesObj = StyleSheet.create({
 		height: 52,
 		width: 52,
 
-		paddingRight: 14,
+		borderRadius: 10,
+
+		marginRight: 14,
 	},
 			// Name Action container (these two need to be flex column)
 	PH_ActionNameContainer: {
@@ -347,8 +350,6 @@ const StylesObj = StyleSheet.create({
 	PH_Name: {
 		fontFamily: 'Inter-SemiBold',
 		fontSize: TextSizes.Rem2,
-
-		paddingBottom: 1,
 	},
 				// Action button in profile header (edit or addbro or unbro)
 	PH_Action: {
@@ -360,13 +361,14 @@ const StylesObj = StyleSheet.create({
 		height: 20,
 
 		borderColor: Colors.Grey10,
+		borderWidth: 1,
 		borderRadius: 7,
 	},
 					// text of action button
 	PH_ActionText: {
 		color: Colors.MainPrimary,
 
-		fontSize: TextSizes.Rem2,
+		fontSize: TextSizes.Regular,
 		fontFamily: 'Inter-SemiBold',
 	},
 		// container for information about major, college, and IG

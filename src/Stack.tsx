@@ -7,6 +7,14 @@ import Profile from './Profile';
 
 const Stack = createStackNavigator();
 
+const PeripheralScreenOptions = {
+    headerStyle: {
+        backgroundColor:'#FFFFFF',
+        borderBottomColor: 'transparent',
+        shadowOpacity: 0,
+    },
+};
+
 export type RootStackParamList = {
     BigHome: undefined;
     Settings: undefined;
@@ -21,8 +29,8 @@ const StackNavigator = () => {
                 component={Tabs}
                 options={{ headerShown:false}}
             />
-            <Stack.Screen name="Settings" component={Settings}/>
-            <Stack.Screen name="Profile" component={Profile}/>
+            <Stack.Screen name="Settings" component={Settings} options={PeripheralScreenOptions}/>
+            <Stack.Screen name="Profile" component={Profile} options={PeripheralScreenOptions}/>
         </Stack.Navigator>
     );
 };

@@ -8,7 +8,7 @@ const Styles = StylesObj.StylesObj;
 const DEBUG_DATA = {
     Name: 'JDawg',
     College: 'Cowell',
-    Major: 'ElectricalEngineering',
+    Major: 'Electrical Engineering',
     IG: 'jacobdennon',
 };
 const USER_PROFILE_DATA = DEBUG_DATA;
@@ -41,7 +41,18 @@ const Profile = () => {
             </View>
 
             <View style={Styles.PH_Infotainer}>
-                
+                <View style={Styles.PH_IGRow}>
+                    <Text style={Styles.PH_InfotainerText}>Major:</Text>
+                    <Text style={Styles.PH_InfotainerText}>{USER_PROFILE_DATA.Major}</Text>
+                </View>
+                <View style={Styles.PH_IGRow}>
+                    <Text style={Styles.PH_InfotainerText}>College:</Text>
+                    <Text style={Styles.PH_InfotainerText}>{USER_PROFILE_DATA.College}</Text>
+                </View>
+                <View style={Styles.PH_IGRow}>
+                    <Image style={Styles.PH_IGLogo} source={require('../assets/IGLogo.png')}/>
+                    <Text style={Styles.PH_IGText}>{USER_PROFILE_DATA.IG}</Text>
+                </View>
             </View>
         </View>
     );
