@@ -41,11 +41,11 @@ const Profile = () => {
                 </TouchableOpacity>
             </View>
 
-            <View style={Styles.PH_IGRow}>
+            <View style={Styles.PH_InfotainerRow}>
                 <Text style={Styles.PH_InfotainerText}>Major:</Text>
                 <Text style={Styles.PH_InfotainerText}>{USER_PROFILE_DATA.Major}</Text>
             </View>
-            <View style={Styles.PH_IGRow}>
+            <View style={Styles.PH_InfotainerRow}>
                 <Text style={Styles.PH_InfotainerText}>College:</Text>
                 <Text style={Styles.PH_InfotainerText}>{USER_PROFILE_DATA.College}</Text>
             </View>
