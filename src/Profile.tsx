@@ -1,5 +1,5 @@
 import React from 'react';
-import {Text, View, Image, TouchableOpacity} from 'react-native'
+import { Text, View, Image, TouchableOpacity } from 'react-native'
 
 import StylesObj from './Styles';
 const Styles = StylesObj.StylesObj;
@@ -23,11 +23,11 @@ type UserProfileDataProps = {
 // Eventually, I would like to pass a user ID to this component and lookup user data using firebase API or soemthing
 // For now, this works.
 const Profile = () => {
-    return(
+    return (
         <View style={Styles.ProfileHeader}>
             <View style={Styles.PH_NamePFPAction}>
                 <View style={Styles.PH_PFPName}>
-                    <Image 
+                    <Image
                         style={Styles.PH_PFP}
                         source={require('../assets/SamplePFP.jpg')}
                     />
@@ -41,19 +41,17 @@ const Profile = () => {
                 </TouchableOpacity>
             </View>
 
-            <View style={Styles.PH_Infotainer}>
-                <View style={Styles.PH_IGRow}>
-                    <Text style={Styles.PH_InfotainerText}>Major:</Text>
-                    <Text style={Styles.PH_InfotainerText}>{USER_PROFILE_DATA.Major}</Text>
-                </View>
-                <View style={Styles.PH_IGRow}>
-                    <Text style={Styles.PH_InfotainerText}>College:</Text>
-                    <Text style={Styles.PH_InfotainerText}>{USER_PROFILE_DATA.College}</Text>
-                </View>
-                <View style={Styles.PH_IGRow}>
-                    <Image style={Styles.PH_IGLogo} source={require('../assets/IGLogo.png')}/>
-                    <Text style={Styles.PH_IGText}>{USER_PROFILE_DATA.IG}</Text>
-                </View>
+            <View style={Styles.PH_IGRow}>
+                <Text style={Styles.PH_InfotainerText}>Major:</Text>
+                <Text style={Styles.PH_InfotainerText}>{USER_PROFILE_DATA.Major}</Text>
+            </View>
+            <View style={Styles.PH_IGRow}>
+                <Text style={Styles.PH_InfotainerText}>College:</Text>
+                <Text style={Styles.PH_InfotainerText}>{USER_PROFILE_DATA.College}</Text>
+            </View>
+            <View style={Styles.PH_IGRow}>
+                <Image style={Styles.PH_IGLogo} source={require('../assets/IGLogo.png')} />
+                <Text style={Styles.PH_IGText}>{USER_PROFILE_DATA.IG}</Text>
             </View>
         </View>
     );

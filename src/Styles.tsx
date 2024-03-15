@@ -372,9 +372,6 @@ const StylesObj = StyleSheet.create({
 		fontSize: TextSizes.Regular,
 		fontFamily: 'Inter-SemiBold',
 	},
-		// container for information about major, college, and IG
-	PH_Infotainer: {
-	},
 			// Row with stuff
 	PH_InfotainerRow: {
 		flexDirection: 'row',
