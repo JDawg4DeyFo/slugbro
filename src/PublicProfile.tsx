@@ -1,3 +1,4 @@
+// same idea as profile, but for public to view.
 import React from 'react';
 import { Text, View, Image, TouchableOpacity } from 'react-native'
 
@@ -37,7 +38,7 @@ const Profile = () => {
 
                 <TouchableOpacity>
                     <View style={Styles.PH_Action}>
-                        <Text style={Styles.PH_ActionText}>Edit</Text>
+                        <Text style={Styles.PH_ActionText}>Bro</Text>
                     </View>
                 </TouchableOpacity>
             </View>
