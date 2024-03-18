@@ -34,7 +34,7 @@ interface UserProfileDataProps {
 };
 
 // more type stuff
-type PublicProfileScreenRouteProp = RouteProp<RootStackParamList, 'Brofile'>
+type PublicProfileScreenRouteProp = RouteProp<RootStackParamList, 'Brofile'>;
 
 // Retrieve user data from ID.... replace when firebase works
 function RetrieveUserData(UserID: number): UserProfileDataProps {
