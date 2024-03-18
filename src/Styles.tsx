@@ -372,6 +372,26 @@ const StylesObj = StyleSheet.create({
 		fontSize: TextSizes.Regular,
 		fontFamily: 'Inter-SemiBold',
 	},
+				// destructive action container (unbro)
+	PH_DestructiveAction: {
+		flexDirection: 'row',
+		justifyContent: 'center',
+		alignItems: 'center',
+
+		width: 70,
+		height: 30,
+
+		borderColor: Colors.MainRed,
+		borderWidth: 1,
+		borderRadius: 7,
+	},
+					// text of action button (unbro)
+	PH_DestructiveActionText: {
+		color: Colors.MainRed,
+
+		fontSize: TextSizes.Regular,
+		fontFamily: 'Inter-SemiBold',
+	},
 			// Row with stuff
 	PH_InfotainerRow: {
 		flexDirection: 'row',

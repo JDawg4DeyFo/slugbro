@@ -26,7 +26,7 @@ type UserProfileDataProps = {
 
 // Eventually, I would like to pass a user ID to this component and lookup user data using firebase API or soemthing
 // For now, this works.
-const Profile = () => {
+const PublicProfile = () => {
     return (
         <View style={Styles.ProfileHeader}>
             <View style={Styles.PH_NamePFPAction}>
@@ -65,4 +65,4 @@ const Profile = () => {
     );
 };
 
-export default Profile;
+export default PublicProfile;

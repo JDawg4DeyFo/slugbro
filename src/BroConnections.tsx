@@ -1,7 +1,11 @@
 import React from "react";
 import { FlatList, View, Text, Image, ImageSourcePropType, TouchableHighlight } from 'react-native';
 
-import StylesObj from './Styles'
+import { StackNavigationProp } from '@react-navigation/stack';
+import { RootStackParamList } from './Stack';
+import { useNavigation } from '@react-navigation/native';
+
+import StylesObj from './Styles';
 import { TouchableOpacity } from "react-native-gesture-handler";
 const Styles = StylesObj.StylesObj;
 
@@ -10,122 +14,168 @@ const PREDEBUG = [
     {
         id: 1,
         Name: 'JDawg',
-        Pfp: require('../assets/SamplePFP.jpg')
+        Pfp: require('../assets/SamplePFP.jpg'),
+        ID: 100,
     },
     {
         id: 1,
         Name: 'LolFactor',
-        Pfp: require('../assets/home.png')
+        Pfp: require('../assets/home.png'),
+
+        ID: 100,
     },
     {
         id: 1,
         Name: 'jaaaa',
-        Pfp: require('../assets/splash.png')
+        Pfp: require('../assets/splash.png'),
+
+        ID: 100,
     },
     {
         id: 1,
         Name: 'Poopface',
-        Pfp: require('../assets/adaptive-icon.png')
+        Pfp: require('../assets/adaptive-icon.png'),
+
+        ID: 100,
     },
     {
         id: 1,
         Name: 'JDawg',
-        Pfp: require('../assets/SamplePFP.jpg')
+        Pfp: require('../assets/SamplePFP.jpg'),
+
+        ID: 100,
     },
     {
         id: 1,
         Name: 'LolFactor',
-        Pfp: require('../assets/home.png')
+        Pfp: require('../assets/home.png'),
+
+        ID: 100,
     },
     {
         id: 1,
         Name: 'jaaaa',
-        Pfp: require('../assets/splash.png')
+        Pfp: require('../assets/splash.png'),
+
+        ID: 100,
     },
     {
         id: 1,
         Name: 'Poopface',
-        Pfp: require('../assets/adaptive-icon.png')
+        Pfp: require('../assets/adaptive-icon.png'),
+
+        ID: 100,
     },
     {
         id: 1,
         Name: 'JDawg',
-        Pfp: require('../assets/SamplePFP.jpg')
+        Pfp: require('../assets/SamplePFP.jpg'),
+
+        ID: 100,
     },
     {
         id: 1,
         Name: 'LolFactor',
-        Pfp: require('../assets/home.png')
+        Pfp: require('../assets/home.png'),
+
+        ID: 100,
     },
     {
         id: 1,
         Name: 'jaaaa',
-        Pfp: require('../assets/splash.png')
+        Pfp: require('../assets/splash.png'),
+
+        ID: 100,
     },
     {
         id: 1,
         Name: 'Poopface',
-        Pfp: require('../assets/adaptive-icon.png')
+        Pfp: require('../assets/adaptive-icon.png'),
+
+        ID: 100,
     },
     {
         id: 1,
         Name: 'JDawg',
-        Pfp: require('../assets/SamplePFP.jpg')
+        Pfp: require('../assets/SamplePFP.jpg'),
+
+        ID: 100,
     },
     {
         id: 1,
         Name: 'LolFactor',
-        Pfp: require('../assets/home.png')
+        Pfp: require('../assets/home.png'),
+
+        ID: 100,
     },
     {
         id: 1,
         Name: 'jaaaa',
-        Pfp: require('../assets/splash.png')
+        Pfp: require('../assets/splash.png'),
+
+        ID: 100,
     },
     {
         id: 1,
         Name: 'Poopface',
-        Pfp: require('../assets/adaptive-icon.png')
+        Pfp: require('../assets/adaptive-icon.png'),
+        ID: 100,
     },
     {
         id: 1,
         Name: 'JDawg',
-        Pfp: require('../assets/SamplePFP.jpg')
+        Pfp: require('../assets/SamplePFP.jpg'),
+
+        ID: 100,
     },
     {
         id: 1,
         Name: 'LolFactor',
-        Pfp: require('../assets/home.png')
+        Pfp: require('../assets/home.png'),
+
+        ID: 100,
     },
     {
         id: 1,
         Name: 'jaaaa',
-        Pfp: require('../assets/splash.png')
+        Pfp: require('../assets/splash.png'),
+
+        ID: 100,
     },
     {
         id: 1,
         Name: 'Poopface',
-        Pfp: require('../assets/adaptive-icon.png')
+        Pfp: require('../assets/adaptive-icon.png'),
+
+        ID: 100,
     },
     {
         id: 1,
         Name: 'JDawg',
-        Pfp: require('../assets/SamplePFP.jpg')
+        Pfp: require('../assets/SamplePFP.jpg'),
+
+        ID: 100,
     },
     {
         id: 1,
         Name: 'LolFactor',
-        Pfp: require('../assets/home.png')
+        Pfp: require('../assets/home.png'),
+
+        ID: 100,
     },
     {
         id: 1,
         Name: 'jaaaa',
-        Pfp: require('../assets/splash.png')
+        Pfp: require('../assets/splash.png'),
+
+        ID: 100,
     },
     {
         id: 1,
         Name: 'Poopface',
-        Pfp: require('../assets/adaptive-icon.png')
+        Pfp: require('../assets/adaptive-icon.png'),
+
+        ID: 100,
     },
 
 ]
@@ -140,13 +190,19 @@ const DATA = DEBUG_DATA;
 type EntryItemProps = {
     Name: string,
     Pfp: ImageSourcePropType,
+    ID: number,
 };
 
 // Object template to populate flatlist
-const EntryItem = ({ Name, Pfp }: EntryItemProps) => {
+// NOTE: Should pass in user ID and ask firebase for data
+const EntryItem = ({ Name, Pfp, ID }: EntryItemProps) => {
+    const navigation = useNavigation();
+
     return (
         <View style={Styles.LBE_Container}>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={() => {
+                navigation.navigate('Brofile', {userId: ID});
+            }}>
             <View style={Styles.LBE_NamePFP}>
                 <Image style={Styles.LBE_PFP} source={Pfp}/>
                 <Text style={Styles.LBE_Name}>{Name}</Text>
@@ -161,11 +217,11 @@ const EntryItem = ({ Name, Pfp }: EntryItemProps) => {
     );
 };
 
-const BroConnections = () => {
+const BroConnections = ({navigation}: {navigation: StackNavigationProp<RootStackParamList>}) => {
     return (
         <FlatList 
             data={DATA}
-            renderItem={({item}) => <EntryItem Name={item.Name} Pfp={item.Pfp}/>}
+            renderItem={({item}) => <EntryItem Name={item.Name} Pfp={item.Pfp} ID={item.ID}/>}
             keyExtractor={item => item.id}
             showsVerticalScrollIndicator ={false}
         />

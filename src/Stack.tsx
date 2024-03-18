@@ -4,6 +4,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 import Settings from './Settings'
 import Tabs from './Tabs';
 import Profile from './Profile';
+import PublicProfile from './PublicProfile';
 
 const Stack = createStackNavigator();
 
@@ -31,6 +32,7 @@ const StackNavigator = () => {
             />
             <Stack.Screen name="Settings" component={Settings} options={PeripheralScreenOptions}/>
             <Stack.Screen name="Profile" component={Profile} options={PeripheralScreenOptions}/>
+            <Stack.Screen name="Brofile" component={PublicProfile} options={PeripheralScreenOptions}/>
         </Stack.Navigator>
     );
 };
