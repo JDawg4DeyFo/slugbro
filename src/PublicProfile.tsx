@@ -41,7 +41,7 @@ function RetrieveUserData(UserID: number): UserProfileDataProps {
     let USER_PROFILE_DATA: UserProfileDataProps;
 
     // lookup on firebase... if we had it
-    
+
     // Instead do this
     if (UserID == 100) {
         USER_PROFILE_DATA = DEBUG_DATA2;
@@ -53,12 +53,11 @@ function RetrieveUserData(UserID: number): UserProfileDataProps {
     return USER_PROFILE_DATA;
 }
 
-
 // Eventually, I would like to pass a user ID to this component and lookup user data using firebase API or soemthing
 // For now, this works.
 const PublicProfile: React.FC<{ route: PublicProfileScreenRouteProp }> = ({ route }) => {
     // should read UserID from props of route
-    const {UserID} = route.params;
+    const { UserID } = route.params;
     const UserData = RetrieveUserData(UserID);
 
     return (
@@ -72,14 +71,14 @@ const PublicProfile: React.FC<{ route: PublicProfileScreenRouteProp }> = ({ rout
                     <Text style={Styles.PH_Name}>{UserData.Name}</Text>
                 </View>
 
-                <TouchableOpacity>
-                    {UserData.isBro ? 
-                    (<View style={Styles.PH_DestructiveAction}>
-                        <Text style={Styles.PH_DestructiveActionText}>Bro</Text>
-                    </View>) :
-                    (<View style={Styles.PH_Action}>
-                        <Text style={Styles.PH_ActionText}>Bro</Text>
-                    </View>)}
+                <TouchableOpacity >
+                    {UserData.isBro ?
+                        (<View style={Styles.PH_DestructiveAction}>
+                            <Text style={Styles.PH_DestructiveActionText}>Unbro</Text>
+                        </View>) :
+                        (<View style={Styles.PH_Action}>
+                            <Text style={Styles.PH_ActionText}>Bro</Text>
+                        </View>)}
                 </TouchableOpacity>
             </View>
 
