@@ -2,6 +2,9 @@
 import React from 'react';
 import { Text, View, Image, TouchableOpacity } from 'react-native'
 
+import { RouteProp } from '@react-navigation/native';
+import { RootStackParamList } from './Stack';
+
 import StylesObj from './Styles';
 const Styles = StylesObj.StylesObj;
 
@@ -24,9 +27,14 @@ type UserProfileDataProps = {
     isBro: boolean,
 };
 
+type PublicProfileScreenRouteProp = RouteProp<RootStackParamList, 'Brofile'>
+
 // Eventually, I would like to pass a user ID to this component and lookup user data using firebase API or soemthing
 // For now, this works.
-const PublicProfile = () => {
+const ProfileScreen: React.FC<{ route: PublicProfileScreenRouteProp }> = ({ route }) => {
+    // should read UserID from props of route
+    const {UserID} = route.params;
+
     return (
         <View style={Styles.ProfileHeader}>
             <View style={Styles.PH_NamePFPAction}>
