@@ -16,7 +16,7 @@ const USER_PROFILE_DATA = DEBUG_DATA;
 // probably don't need this tbh
 type UserProfileDataProps = {
     Name: string,
-    Colelge: string,
+    College: string,
     Major: string,
     IG: string,
 };

@@ -20,7 +20,7 @@ export type RootStackParamList = {
     BigHome: undefined;
     Settings: undefined;
     Profile: undefined;
-    Brofile: { UserID: string };
+    Brofile: { UserID: number };
 };
 
 const StackNavigator = () => {

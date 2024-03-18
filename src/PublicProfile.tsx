@@ -13,27 +13,39 @@ const DEBUG_DATA = {
     Name: 'JDawg',
     College: 'Cowell',
     Major: 'Electrical Engineering',
-    IG: 'jacobdennon',
-    isBro: 'false',
+    IG: 'jacobdennon',  // should add bool to check for IG
+    isBro: false,
 };
-const USER_PROFILE_DATA = DEBUG_DATA;
 
-// probably don't need this tbh
-type UserProfileDataProps = {
+// need this lol
+interface UserProfileDataProps {
     Name: string,
-    Colelge: string,
+    College: string,
     Major: string,
     IG: string,
     isBro: boolean,
 };
 
+// more type stuff
 type PublicProfileScreenRouteProp = RouteProp<RootStackParamList, 'Brofile'>
+
+// Retrieve user data from ID.... replace when firebase works
+function RetrieveUserData(UserID: number): UserProfileDataProps {
+    // lookup on firebase... if we had it
+    const USER_PROFILE_DATA = DEBUG_DATA;
+
+    // Return values
+    return USER_PROFILE_DATA;
+}
+
 
 // Eventually, I would like to pass a user ID to this component and lookup user data using firebase API or soemthing
 // For now, this works.
-const ProfileScreen: React.FC<{ route: PublicProfileScreenRouteProp }> = ({ route }) => {
+const PublicProfile: React.FC<{ route: PublicProfileScreenRouteProp }> = ({ route }) => {
     // should read UserID from props of route
     const {UserID} = route.params;
+
+    const UserData = RetrieveUserData(UserID);
 
     return (
         <View style={Styles.ProfileHeader}>
