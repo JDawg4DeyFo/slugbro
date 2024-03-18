@@ -361,7 +361,7 @@ const StylesObj = StyleSheet.create({
 		width: 70,
 		height: 30,
 
-		borderColor: Colors.Grey10,
+		borderColor: Colors.MainPrimary,
 		borderWidth: 1,
 		borderRadius: 7,
 	},

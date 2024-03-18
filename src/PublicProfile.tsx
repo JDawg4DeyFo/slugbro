@@ -11,6 +11,7 @@ const DEBUG_DATA = {
     College: 'Cowell',
     Major: 'Electrical Engineering',
     IG: 'jacobdennon',
+    isBro: 'false',
 };
 const USER_PROFILE_DATA = DEBUG_DATA;
 
@@ -20,6 +21,7 @@ type UserProfileDataProps = {
     Colelge: string,
     Major: string,
     IG: string,
+    isBro: boolean,
 };
 
 // Eventually, I would like to pass a user ID to this component and lookup user data using firebase API or soemthing
@@ -37,9 +39,13 @@ const Profile = () => {
                 </View>
 
                 <TouchableOpacity>
-                    <View style={Styles.PH_Action}>
+                    {USER_PROFILE_DATA.isBro ? 
+                    (<View style={Styles.PH_DestructiveAction}>
+                        <Text style={Styles.PH_DestructiveActionText}>Bro</Text>
+                    </View>) :
+                    (<View style={Styles.PH_Action}>
                         <Text style={Styles.PH_ActionText}>Bro</Text>
-                    </View>
+                    </View>)}
                 </TouchableOpacity>
             </View>
 
