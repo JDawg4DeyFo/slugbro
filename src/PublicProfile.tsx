@@ -8,13 +8,20 @@ import { RootStackParamList } from './Stack';
 import StylesObj from './Styles';
 const Styles = StylesObj.StylesObj;
 
-// for debugging w/out firebase
-const DEBUG_DATA = {
+// for debugging w/out firebase - no bro
+const DEBUG_DATA1 = {
     Name: 'JDawg',
     College: 'Cowell',
     Major: 'Electrical Engineering',
     IG: 'jacobdennon',  // should add bool to check for IG
     isBro: false,
+};
+const DEBUG_DATA2 = {   // is bro
+    Name: 'JDawg',
+    College: 'Cowell',
+    Major: 'Electrical Engineering',
+    IG: 'jacobdennon',  // should add bool to check for IG
+    isBro: true,
 };
 
 // need this lol
@@ -31,8 +38,16 @@ type PublicProfileScreenRouteProp = RouteProp<RootStackParamList, 'Brofile'>
 
 // Retrieve user data from ID.... replace when firebase works
 function RetrieveUserData(UserID: number): UserProfileDataProps {
+    let USER_PROFILE_DATA: UserProfileDataProps;
+
     // lookup on firebase... if we had it
-    const USER_PROFILE_DATA = DEBUG_DATA;
+    
+    // Instead do this
+    if (UserID == 100) {
+        USER_PROFILE_DATA = DEBUG_DATA2;
+    } else {
+        USER_PROFILE_DATA = DEBUG_DATA1;
+    }
 
     // Return values
     return USER_PROFILE_DATA;
@@ -44,7 +59,6 @@ function RetrieveUserData(UserID: number): UserProfileDataProps {
 const PublicProfile: React.FC<{ route: PublicProfileScreenRouteProp }> = ({ route }) => {
     // should read UserID from props of route
     const {UserID} = route.params;
-
     const UserData = RetrieveUserData(UserID);
 
     return (
@@ -55,11 +69,11 @@ const PublicProfile: React.FC<{ route: PublicProfileScreenRouteProp }> = ({ rout
                         style={Styles.PH_PFP}
                         source={require('../assets/SamplePFP.jpg')}
                     />
-                    <Text style={Styles.PH_Name}>{USER_PROFILE_DATA.Name}</Text>
+                    <Text style={Styles.PH_Name}>{UserData.Name}</Text>
                 </View>
 
                 <TouchableOpacity>
-                    {USER_PROFILE_DATA.isBro ? 
+                    {UserData.isBro ? 
                     (<View style={Styles.PH_DestructiveAction}>
                         <Text style={Styles.PH_DestructiveActionText}>Bro</Text>
                     </View>) :
@@ -71,15 +85,15 @@ const PublicProfile: React.FC<{ route: PublicProfileScreenRouteProp }> = ({ rout
 
             <View style={Styles.PH_InfotainerRow}>
                 <Text style={Styles.PH_InfotainerText}>Major:</Text>
-                <Text style={Styles.PH_InfotainerText}>{USER_PROFILE_DATA.Major}</Text>
+                <Text style={Styles.PH_InfotainerText}>{UserData.Major}</Text>
             </View>
             <View style={Styles.PH_InfotainerRow}>
                 <Text style={Styles.PH_InfotainerText}>College:</Text>
-                <Text style={Styles.PH_InfotainerText}>{USER_PROFILE_DATA.College}</Text>
+                <Text style={Styles.PH_InfotainerText}>{UserData.College}</Text>
             </View>
             <View style={Styles.PH_IGRow}>
                 <Image style={Styles.PH_IGLogo} source={require('../assets/IGLogo.png')} />
-                <Text style={Styles.PH_IGText}>{USER_PROFILE_DATA.IG}</Text>
+                <Text style={Styles.PH_IGText}>{UserData.IG}</Text>
             </View>
         </View>
     );

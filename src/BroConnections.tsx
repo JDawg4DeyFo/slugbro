@@ -196,12 +196,12 @@ type EntryItemProps = {
 // Object template to populate flatlist
 // NOTE: Should pass in user ID and ask firebase for data
 const EntryItem = ({ Name, Pfp, ID }: EntryItemProps) => {
-    const navigation = useNavigation();
+    const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
 
     return (
         <View style={Styles.LBE_Container}>
             <TouchableOpacity onPress={() => {
-                navigation.navigate('Brofile', {userId: ID});
+                navigation.navigate('Brofile', {UserID: ID});
             }}>
             <View style={Styles.LBE_NamePFP}>
                 <Image style={Styles.LBE_PFP} source={Pfp}/>
