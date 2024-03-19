@@ -1,5 +1,5 @@
 // same idea as profile, but for public to view.
-import React from 'react';
+import React, {useState} from 'react';
 import { Text, View, Image, TouchableOpacity } from 'react-native'
 
 import { RouteProp } from '@react-navigation/native';
@@ -58,7 +58,17 @@ function RetrieveUserData(UserID: number): UserProfileDataProps {
 const PublicProfile: React.FC<{ route: PublicProfileScreenRouteProp }> = ({ route }) => {
     // should read UserID from props of route
     const { UserID } = route.params;
-    const UserData = RetrieveUserData(UserID);
+    const InitialUserData = RetrieveUserData(UserID);
+    const [UserData, SetUserData] = useState(InitialUserData);
+
+    // NOTE: Should use function from firebasefunctions
+    // this will work for now as a visual prototype
+    const UnBro = () => {
+        SetUserData({...UserData, isBro: false});
+    }
+    const AddBro = () => {
+        SetUserData({...UserData, isBro: true});
+    }
 
     return (
         <View style={Styles.ProfileHeader}>
@@ -71,15 +81,19 @@ const PublicProfile: React.FC<{ route: PublicProfileScreenRouteProp }> = ({ rout
                     <Text style={Styles.PH_Name}>{UserData.Name}</Text>
                 </View>
 
-                <TouchableOpacity >
-                    {UserData.isBro ?
-                        (<View style={Styles.PH_DestructiveAction}>
+
+                {UserData.isBro ?
+                    (<TouchableOpacity onPress={UnBro}>
+                        <View style={Styles.PH_DestructiveAction}>
                             <Text style={Styles.PH_DestructiveActionText}>Unbro</Text>
-                        </View>) :
-                        (<View style={Styles.PH_Action}>
+                        </View>
+                    </TouchableOpacity>) :
+                    (<TouchableOpacity onPress={AddBro}>
+                        <View style={Styles.PH_Action}>
                             <Text style={Styles.PH_ActionText}>Bro</Text>
-                        </View>)}
-                </TouchableOpacity>
+                        </View>
+                    </TouchableOpacity>)}
+
             </View>
 
             <View style={Styles.PH_InfotainerRow}>
