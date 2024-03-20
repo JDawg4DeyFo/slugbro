@@ -1,4 +1,4 @@
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword } from "firebase/auth";
 import { FIREBASE_APP, FIREBASE_AUTH } from "./FireBaseConfig";
 const Auth = FIREBASE_AUTH;
 

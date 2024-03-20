@@ -7,6 +7,8 @@ import * as Font from 'expo-font';
 // Slugbro component imports
 import StackNavigator from './src/Stack';
 
+
+
 const LoadFonts = async () => {
   await Font.loadAsync({
     'Inter-SemiBold': require('./assets/fonts/Inter-SemiBold.ttf'),
@@ -35,10 +37,6 @@ export default function App() {
       SplashScreen.hideAsync();
     }
   }, [fontsLoaded]);
-  // I don't know why but fonts aren't working
-  // I don't know why but fonts aren't working
-  // I don't know why but fonts aren't working
-
 
   // Hide navigation bar
   // I don't really know what this code does
