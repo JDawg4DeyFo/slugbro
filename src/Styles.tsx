@@ -38,6 +38,7 @@ export const TextSizes  = {
 	Rem3	: 48,
 	Rem2	: 32,
 
+	Med		: 24,
 	Regular	: 15,
 	Small	: 11,
 }
@@ -420,9 +421,49 @@ const StylesObj = StyleSheet.create({
 	PH_IGText: {
 		fontFamily: 'Inter-SemiBold',
 		fontSize: TextSizes.Regular,
-	}
+	},
 
 
+
+	// Login page
+	// Header (Slugbro title) container
+	LoginHeader: {
+		justifyContent: 'center',
+		alignItems: 'center',
+	},
+		// Header text (slugbro)
+	LoginHeaderText: {
+		fontSize: TextSizes.Rem2,
+		fontFamily: 'Inter-SemiBold',
+	},
+	// MainLogin Container, contain buttons and text input and title text
+	MainLogin: {
+		alignItems: 'flex-start',
+		alignContent: 'space-between',
+
+		paddingHorizontal: 70,
+	},
+		// "login, or sign up"
+	MainLoginTitle: {
+		fontSize: TextSizes.Med,
+		fontFamily: 'Inter-SemiBold',
+
+		marginBottom: 14,
+	},
+		// "email" or "password"
+	TextInputTitle: {
+		fontSize: TextSizes.Regular,
+		fontFamily: 'Inter-SemiBold',
+
+		marginRight: 8,
+	},
+		// "@ucsc.edu email required"
+	TextInputInfo: {
+		fontSize: TextSizes.Regular,
+		fontFamily: 'Inter-SemiBold',
+		color: Colors.Grey10,
+	},
+	
 });
 
 export default {StylesObj, Colors};
