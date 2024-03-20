@@ -430,6 +430,9 @@ const StylesObj = StyleSheet.create({
 	LoginHeader: {
 		justifyContent: 'center',
 		alignItems: 'center',
+
+		height: 80,
+		width: '100%',
 	},
 		// Header text (slugbro)
 	LoginHeaderText: {
@@ -442,6 +445,7 @@ const StylesObj = StyleSheet.create({
 		alignContent: 'space-between',
 
 		paddingHorizontal: 70,
+		marginTop: 90,
 	},
 		// "login, or sign up"
 	MainLoginTitle: {
@@ -450,14 +454,18 @@ const StylesObj = StyleSheet.create({
 
 		marginBottom: 14,
 	},
-		// "email" or "password"
+		// Hold "email" and "@ucsc.edu email required"
+	TextInputTitleRow: {
+		flexDirection: 'row',
+	},
+			// "email" or "password"
 	TextInputTitle: {
 		fontSize: TextSizes.Regular,
 		fontFamily: 'Inter-SemiBold',
 
 		marginRight: 8,
 	},
-		// "@ucsc.edu email required"
+			// "@ucsc.edu email required"
 	TextInputInfo: {
 		fontSize: TextSizes.Regular,
 		fontFamily: 'Inter-SemiBold',
@@ -499,7 +507,7 @@ const StylesObj = StyleSheet.create({
 	LoginActionButtonText: {
 		fontSize: TextSizes.Regular,
 		fontFamily: 'Inter-SemiBold',
-		
+
 		color: Colors.MainPrimary,
 	}
 });
