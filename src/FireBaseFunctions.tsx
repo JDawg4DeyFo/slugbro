@@ -8,7 +8,7 @@ type SignUpProps = {
     Email: string,
     Password: string,
 };
-export const SignUp = async ({Email, Password}: SignUpProps) => {
+export const UserSignUp = async ({Email, Password}: SignUpProps) => {
     try {
         const response = await createUserWithEmailAndPassword(Auth, Email, Password);
         console.log(response);

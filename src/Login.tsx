@@ -4,6 +4,8 @@ import {Text, View, TouchableOpacity} from 'react-native'
 import StylesObj from './Styles';
 import { TextInput } from 'react-native-gesture-handler';
 const Styles = StylesObj.StylesObj;
+// Firebase
+import { UserSignUp, UserSignIn } from './FireBaseFunctions';
 
 
 const Login = () => {
@@ -36,12 +38,12 @@ const Login = () => {
                     secureTextEntry={true}
                 />
                 <View style={Styles.LoginActionRow}>
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={() => UserSignIn({Email, Password})}>
                         <View style={Styles.LoginActionButton}>
                             <Text style={Styles.LoginActionButtonText}>Login</Text>
                         </View>
                     </TouchableOpacity>
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={() => UserSignUp({Email, Password})}>
                         <View style={Styles.LoginActionButton}>
                             <Text style={Styles.LoginActionButtonText}>Sign Up</Text>
                         </View>
