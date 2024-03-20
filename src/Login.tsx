@@ -28,15 +28,25 @@ const Login = () => {
                     value={Email}
                     placeholder='SammySlug@ucsc.edu'
                 />
-                <View style={Styles.TextInputTitleRow}>
-                    <Text style={Styles.TextInputTitle}>Password</Text>
-                </View>
+                <Text style={Styles.TextInputTitle}>Password</Text>
                 <TextInput
                     style={Styles.LoginTextInput}
                     onChangeText={ChangePassword}
                     value={Password}
                     secureTextEntry={true}
                 />
+                <View style={Styles.LoginActionRow}>
+                    <TouchableOpacity>
+                        <View style={Styles.LoginActionButton}>
+                            <Text style={Styles.LoginActionButtonText}>Login</Text>
+                        </View>
+                    </TouchableOpacity>
+                    <TouchableOpacity>
+                        <View style={Styles.LoginActionButton}>
+                            <Text style={Styles.LoginActionButtonText}>Sign Up</Text>
+                        </View>
+                    </TouchableOpacity>
+                </View>
             </View>
         </View>
     );
