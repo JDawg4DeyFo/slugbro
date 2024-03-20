@@ -463,7 +463,45 @@ const StylesObj = StyleSheet.create({
 		fontFamily: 'Inter-SemiBold',
 		color: Colors.Grey10,
 	},
-	
+		// Actuall text input box
+	LoginTextInput: {
+		height: 40,
+		width: '100%',
+		
+		borderColor: Colors.Grey4,
+		borderWidth: 1,
+		borderRadius: 10,
+
+		backgroundColor: Colors.White,
+
+		padding: 10,
+		marginBottom: 8,
+	},
+		// container for login/sign up buttons
+	LoginActionRow: {
+		flexDirection: 'row',
+		justifyContent: 'space-between',
+
+		marginTop: 12,
+	},
+			// container for login/signup
+	LoginActionButton: {
+		width: 95,
+		height: 40,
+
+		backgroundColor: Colors.White,
+		
+		borderColor: Colors.MainPrimary,
+		borderRadius: 7,
+		borderWidth: 1,
+	},
+				// text of button
+	LoginActionButtonText: {
+		fontSize: TextSizes.Regular,
+		fontFamily: 'Inter-SemiBold',
+		
+		color: Colors.MainPrimary,
+	}
 });
 
 export default {StylesObj, Colors};
