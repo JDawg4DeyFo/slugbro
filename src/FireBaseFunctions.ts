@@ -3,7 +3,7 @@ import { FIREBASE_APP, FIREBASE_AUTH, FIREBASE_DB } from "./FireBaseConfig";
 import { Toast } from "react-native-toast-notifications";
 import { uniqueNamesGenerator, Config, adjectives, colors, animals } from 'unique-names-generator';
 import { sentence } from "txtgen";
-import { doc, setDoc } from "firebase/firestore";
+import { doc, setDoc, getDoc } from "firebase/firestore";
 const Auth = FIREBASE_AUTH;
 const db = FIREBASE_DB;
 
@@ -20,7 +20,7 @@ export type UserProfileType = {
     Nickname: string | null,
     Major: string | null,
     College: string | null,
-    Instagram: string | null,
+    IG: string | null,
     Bio: string | null,
     NumFriends: number,
     NumBros: number
@@ -51,7 +51,7 @@ export const UserSignUp = async ({Email, Password}: SignUpProps) => {
             Nickname,
             Major: null,
             College: null,
-            Instagram: null,
+            IG: null,
             Bio: sentence(),
             NumFriends: 0,
             NumBros: 0
@@ -96,5 +96,21 @@ export const UserSignOut = async () => {
     } catch (error: any) {
         console.error(error);
         Toast.update(toastMe, 'Sign out failed: ' + error.message, {type: 'danger'});
+    }
+}
+
+export const UserGetProfile = async (Email: string) => {
+    try {
+        Email = Email.toLowerCase();
+        const userRef = doc(db, 'users', Email);
+        const userDoc = await getDoc(userRef);
+        if (!userDoc.exists()) {
+            throw Error('Profile with email ' + {Email} + ' not found');
+        }
+        return userDoc.data() as UserProfileType;
+    } catch (error: any) {
+        console.error(error);
+        Toast.show('No profile found: ' + error.message, {type: 'danger'});
+        return null;
     }
 }

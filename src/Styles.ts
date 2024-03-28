@@ -330,7 +330,7 @@ const StylesObj = StyleSheet.create({
 	PH_NamePFPAction: {
 		flexDirection: 'row',
 		justifyContent: 'space-between',
-		alignItems: 'flex-end',
+		alignItems: 'center',
 
 		paddingVertical: 8,
 	},
@@ -397,12 +397,18 @@ const StylesObj = StyleSheet.create({
 	PH_InfotainerRow: {
 		flexDirection: 'row',
 		justifyContent: 'space-between',
-
+		alignItems: 'center',
+		marginTop: 6,
 		marginBottom: 6,
 	},
 				// style for the actual text
 	PH_InfotainerText: {
 		fontFamily: 'Inter-SemiBold',
+		fontSize: TextSizes.Regular,
+	},
+	// style for paragraphs
+	PH_InfotainerParagraph: {
+		fontFamily: 'Inter-Regular',
 		fontSize: TextSizes.Regular,
 	},
 			// Row for IG
@@ -489,6 +495,7 @@ const StylesObj = StyleSheet.create({
 	LoginActionRow: {
 		flexDirection: 'row',
 		justifyContent: 'space-between',
+		width: '100%',
 
 		marginTop: 12,
 	},
@@ -502,6 +509,8 @@ const StylesObj = StyleSheet.create({
 		borderColor: Colors.MainPrimary,
 		borderRadius: 7,
 		borderWidth: 1,
+		justifyContent: 'center',
+		alignItems: 'center'
 	},
 				// text of button
 	LoginActionButtonText: {

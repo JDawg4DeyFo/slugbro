@@ -64,7 +64,10 @@ export default function App() {
   // Meat of the app
   return (
     <>
-      <ToastProvider>
+      <ToastProvider
+        duration={3333}
+        offsetBottom={69}
+      >
         <NavigationContainer>
           <StackNavigator/>
         </NavigationContainer>

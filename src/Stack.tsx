@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, createContext } from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 
 import Settings from './Settings'
@@ -10,6 +10,7 @@ import Login from './Login';
 import { FIREBASE_AUTH } from './FireBaseConfig';
 import { onAuthStateChanged } from 'firebase/auth';
 import { User } from 'firebase/auth';
+import { UserProfileType, UserGetProfile } from './FireBaseFunctions';
 
 const Auth = FIREBASE_AUTH;
 
@@ -30,34 +31,52 @@ export type RootStackParamList = {
     Brofile: { UserID: number };
 };
 
+export const BroContext = createContext<{
+    user: User | null,
+    profile: UserProfileType | null
+}>({
+    user: null,
+    profile: null
+});
+
 const StackNavigator = () => {
     // Firebase user state setup
-    const [user, Setuser] = useState<User | null>(null);
+    const [user, setUser] = useState<User | null>(null);
+    const [profile, setProfile] = useState<UserProfileType | null>(null);
 
     useEffect(() => {
         onAuthStateChanged(Auth, (user) => {
             // console.log('user', user);
-            Setuser(user);
+            setUser(user);
+            if (user?.email) {
+                const getProfile = async (email: string) => {
+                    const profile: UserProfileType | null = await UserGetProfile(email);
+                    setProfile(profile);
+                };
+                getProfile(user.email);
+            }
         });
     }, []);
 
     return (
-        <Stack.Navigator>
-            {user ? (
-                <>
-                <Stack.Screen
-                name="BigHome"
-                component={Tabs}
-                options={{ headerShown: false }}
-                />
-                <Stack.Screen name="Settings" component={Settings} options={PeripheralScreenOptions} />
-                <Stack.Screen name="Profile" component={Profile} options={PeripheralScreenOptions} />
-                <Stack.Screen name="Brofile" component={PublicProfile} options={PeripheralScreenOptions} />
-                </>
-            ) : (
-                <Stack.Screen name="login" component={Login}/>
-            )}
-        </Stack.Navigator>
+        <BroContext.Provider value={{user, profile}}>
+            <Stack.Navigator>
+                {user ? (
+                    <>
+                    <Stack.Screen
+                    name="BigHome"
+                    component={Tabs}
+                    options={{ headerShown: false }}
+                    />
+                    <Stack.Screen name="Settings" component={Settings} options={PeripheralScreenOptions} />
+                    <Stack.Screen name="Profile" component={Profile} options={PeripheralScreenOptions} />
+                    <Stack.Screen name="Brofile" component={PublicProfile} options={PeripheralScreenOptions} />
+                    </>
+                ) : (
+                    <Stack.Screen name="login" component={Login}/>
+                )}
+            </Stack.Navigator>
+        </BroContext.Provider>
     );
 };
 
