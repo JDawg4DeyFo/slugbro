@@ -1,5 +1,6 @@
 import React from 'react';
 import { Text, View, Image, TouchableOpacity } from 'react-native'
+import { UserSignOut } from './FireBaseFunctions';
 
 import StylesObj from './Styles';
 const Styles = StylesObj.StylesObj;
@@ -54,6 +55,11 @@ const Profile = () => {
                 <Image style={Styles.PH_IGLogo} source={require('../assets/IGLogo.png')} />
                 <Text style={Styles.PH_IGText}>{USER_PROFILE_DATA.IG}</Text>
             </View>
+            <TouchableOpacity onPress={UserSignOut}>
+                <View style={Styles.PH_Action}>
+                    <Text style={Styles.PH_ActionText}>Sign out</Text>
+                </View>
+            </TouchableOpacity>
         </View>
     );
 };

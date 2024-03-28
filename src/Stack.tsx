@@ -36,7 +36,7 @@ const StackNavigator = () => {
 
     useEffect(() => {
         onAuthStateChanged(Auth, (user) => {
-            console.log('user', user);
+            // console.log('user', user);
             Setuser(user);
         });
     }, []);

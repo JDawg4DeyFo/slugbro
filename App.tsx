@@ -6,6 +6,7 @@ import * as NavigationBar from "expo-navigation-bar";
 import * as Font from 'expo-font';
 // Slugbro component imports
 import StackNavigator from './src/Stack';
+import { ToastProvider } from 'react-native-toast-notifications';
 
 
 
@@ -62,8 +63,12 @@ export default function App() {
 
   // Meat of the app
   return (
-    <NavigationContainer>
-      <StackNavigator/>
-    </NavigationContainer>
+    <>
+      <ToastProvider>
+        <NavigationContainer>
+          <StackNavigator/>
+        </NavigationContainer>
+      </ToastProvider>
+    </>
   );
 }
