@@ -7,12 +7,14 @@ import Profile from './Profile';
 import PublicProfile from './PublicProfile';
 import Login from './Login';
 
-import { FIREBASE_AUTH } from './FireBaseConfig';
+import { FIREBASE_AUTH, FIREBASE_DB } from './FireBaseConfig';
 import { onAuthStateChanged } from 'firebase/auth';
 import { User } from 'firebase/auth';
 import { UserProfileType, UserGetProfile } from './FireBaseFunctions';
+import { doc, onSnapshot } from 'firebase/firestore';
 
 const Auth = FIREBASE_AUTH;
+const db = FIREBASE_DB;
 
 const Stack = createStackNavigator();
 
@@ -54,8 +56,12 @@ const StackNavigator = () => {
                     setProfile(profile);
                 };
                 getProfile(user.email);
+                onSnapshot(doc(db, 'users', user.email), (doc) => {
+                    setProfile(doc.data() as UserProfileType);
+                });
             }
         });
+
     }, []);
 
     return (

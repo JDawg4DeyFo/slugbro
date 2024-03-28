@@ -28,7 +28,8 @@
     "react-native-toast-notifications": "^3.4.0",
     "react-navigation": "^5.0.0",
     "txtgen": "^3.0.7",
-    "unique-names-generator": "^4.7.1"
+    "unique-names-generator": "^4.7.1",
+    "use-count-up": "^3.0.1"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",

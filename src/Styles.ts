@@ -414,7 +414,7 @@ const StylesObj = StyleSheet.create({
 			// Row for IG
 	PH_IGRow: {
 		flexDirection: 'row',
-		justifyContent: 'flex-start',
+		justifyContent: 'flex-start'
 	},
 				// Style for logo
 	PH_IGLogo: {
@@ -427,6 +427,7 @@ const StylesObj = StyleSheet.create({
 	PH_IGText: {
 		fontFamily: 'Inter-SemiBold',
 		fontSize: TextSizes.Regular,
+		marginTop: -2
 	},
 
 

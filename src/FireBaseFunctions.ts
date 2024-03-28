@@ -17,7 +17,7 @@ export type UserProfileType = {
     Email: string,
     Pfp: string | null,
     Name: string | null,
-    Nickname: string | null,
+    Slogan: string | null,
     Major: string | null,
     College: string | null,
     IG: string | null,
@@ -43,12 +43,12 @@ export const UserSignUp = async ({Email, Password}: SignUpProps) => {
             dictionaries: [adjectives, animals],
             separator: ' '
         };
-        const Nickname = uniqueNamesGenerator(customConfig);
+        const Slogan = uniqueNamesGenerator(customConfig);
         const userProfile: UserProfileType = {
             Email,
             Pfp: null,
             Name: Email.replace('@ucsc.edu', ''),
-            Nickname,
+            Slogan,
             Major: null,
             College: null,
             IG: null,
@@ -113,4 +113,8 @@ export const UserGetProfile = async (Email: string) => {
         Toast.show('No profile found: ' + error.message, {type: 'danger'});
         return null;
     }
+}
+
+export const UserUpdateProfile = async () => {
+    
 }

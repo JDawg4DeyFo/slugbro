@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import { Text, View, Image, TouchableOpacity } from 'react-native'
 import { UserSignOut } from './FireBaseFunctions';
 import { BroContext } from './Stack';
+import { CountUp } from 'use-count-up';
 
 import StylesObj from './Styles';
 const Styles = StylesObj.StylesObj;
@@ -65,11 +66,11 @@ const Profile = () => {
             </View>
             <View style={Styles.PH_InfotainerRow}>
                 <Text style={Styles.PH_InfotainerText}>Number of bros added (friends)</Text>
-                <Text style={Styles.PH_InfotainerText}>{profile?.NumFriends ?? '-'}</Text>
+                <Text style={Styles.PH_InfotainerText}><CountUp isCounting end={profile?.NumFriends || 0} /></Text>
             </View>
             <View style={Styles.PH_InfotainerRow}>
                 <Text style={Styles.PH_InfotainerText}>Total number of bros sent</Text>
-                <Text style={Styles.PH_InfotainerText}>{profile?.NumBros ?? '-'}</Text>
+                <Text style={Styles.PH_InfotainerText}><CountUp isCounting end={profile?.NumBros || 0} /></Text>
             </View>
         </View>
 
