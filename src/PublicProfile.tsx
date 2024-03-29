@@ -95,15 +95,15 @@ const PublicProfile: React.FC<{ route: PublicProfileScreenRouteProp }> = ({ rout
                 <Text style={Styles.PH_Name}>Stats</Text>
             </View>
             <View style={Styles.PH_InfotainerRow}>
-                <Text style={Styles.PH_InfotainerText}>Total number of bros sent</Text>
+                <Text style={Styles.PH_InfotainerText}>Bros Sent</Text>
                 <Text style={Styles.PH_InfotainerText}><CountUp isCounting end={profile.NumBros} /></Text>
             </View>
             <View style={Styles.PH_InfotainerRow}>
-                <Text style={Styles.PH_InfotainerText}>Number of bros following you</Text>
+                <Text style={Styles.PH_InfotainerText}>Bro Followers</Text>
                 <Text style={Styles.PH_InfotainerText}><CountUp isCounting end={profile.NumFollowers} /></Text>
             </View>
             <View style={Styles.PH_InfotainerRow}>
-                <Text style={Styles.PH_InfotainerText}>Number of bros you follow</Text>
+                <Text style={Styles.PH_InfotainerText}>Bros Following</Text>
                 <Text style={Styles.PH_InfotainerText}><CountUp isCounting end={profile.NumFollowing} /></Text>
             </View>
         </View>

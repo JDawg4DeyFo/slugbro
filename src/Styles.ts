@@ -440,7 +440,7 @@ const StylesObj = StyleSheet.create({
 		marginTop: -4,
 		marginBottom: -4,
 		backgroundColor: Colors.White,
-		minWidth: 50,
+		minWidth: 100,
 		paddingLeft: 4,
 		paddingRight: 4
 	},
