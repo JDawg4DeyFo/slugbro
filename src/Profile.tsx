@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { Text, TextInput, View, Image, TouchableOpacity } from 'react-native'
-import { UserSignOut } from './FireBaseFunctions';
+import { UserSignOut, UserUpdateProfile, UserUpdateBio } from './FireBaseFunctions';
 import { BroContext } from './Stack';
 import { CountUp } from 'use-count-up';
 
@@ -21,6 +21,8 @@ const Profile = () => {
         College: '',
         IG: ''
     });
+    const [loading, setLoading] = useState(true);
+
     const [localBio, setLocalBio] = useState('');
     useEffect(() => {
         setLocalProfile({
@@ -31,7 +33,31 @@ const Profile = () => {
             IG: profile?.IG || ''
         });
         setLocalBio(profile?.Bio || '');
+        setLoading(false);
     }, [profile]);
+
+    useEffect(() => {
+        if (loading) return;
+        if (isEditingProfile) return;
+        if (!profile?.Email) return;
+        const remoteProfile = {
+            Name: profile.Name,
+            Slogan: profile.Slogan,
+            Major: profile.Major,
+            College: profile.College,
+            IG: profile.IG
+        }
+        if (JSON.stringify(localProfile) === JSON.stringify(remoteProfile)) return;
+        UserUpdateProfile(profile.Email, localProfile);
+    }, [isEditingProfile, profile, loading]);
+
+    useEffect(() => {
+        if (loading) return;
+        if (isEditingBio) return;
+        if (!profile?.Email) return;
+        if (JSON.stringify(localBio) === JSON.stringify(profile.Bio)) return;
+        UserUpdateBio(profile.Email, localBio);
+    }, [isEditingBio, profile, loading]);
 
     return (
         <>

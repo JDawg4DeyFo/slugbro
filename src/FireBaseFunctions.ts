@@ -3,7 +3,7 @@ import { FIREBASE_APP, FIREBASE_AUTH, FIREBASE_DB } from "./FireBaseConfig";
 import { Toast } from "react-native-toast-notifications";
 import { uniqueNamesGenerator, Config, adjectives, colors, animals } from 'unique-names-generator';
 import { sentence } from "txtgen";
-import { doc, setDoc, getDoc } from "firebase/firestore";
+import { doc, setDoc, getDoc, updateDoc } from "firebase/firestore";
 const Auth = FIREBASE_AUTH;
 const db = FIREBASE_DB;
 
@@ -61,7 +61,7 @@ export const UserSignUp = async ({Email, Password}: SignUpProps) => {
         const userRef = doc(db, 'users', Email);
         await setDoc(userRef, userProfile);
 
-        Toast.update(toastMe, 'Profile created', {type: 'success'});
+        Toast.update(toastMe, 'Profile created!', {type: 'success'});
 
     } catch (error: any) {
         console.error(error);
@@ -77,11 +77,11 @@ type SignInProps = {
 };
 export const UserSignIn = async ({Email, Password}: SignInProps) => {
     Toast.hideAll();
-    const toastMe = Toast.show('Logging in...');
+    const toastMe = Toast.show('Signing in...');
     await new Promise(r => setTimeout(r, 100));
     try {
         await signInWithEmailAndPassword(Auth, Email, Password);
-        Toast.update(toastMe, 'Signed in', {type: 'success'});
+        Toast.update(toastMe, 'Signed in!', {type: 'success'});
     } catch (error: any) {
         console.error(error);
         Toast.update(toastMe, 'Sign in failed: ' + error.message, {type: 'danger'});
@@ -94,7 +94,7 @@ export const UserSignOut = async () => {
     await new Promise(r => setTimeout(r, 100));
     try {
         await Auth.signOut();
-        Toast.update(toastMe, 'Signed out', {type: 'success'});
+        Toast.update(toastMe, 'Signed out!', {type: 'success'});
     } catch (error: any) {
         console.error(error);
         Toast.update(toastMe, 'Sign out failed: ' + error.message, {type: 'danger'});
@@ -117,6 +117,36 @@ export const UserGetProfile = async (Email: string) => {
     }
 }
 
-export const UserUpdateProfile = async () => {
-    
-}
+type ProfileHeaderType = {
+    Name: string,
+    Slogan: string,
+    Major: string,
+    College: string,
+    IG: string
+};
+export const UserUpdateProfile = async (Email: string, Profile: ProfileHeaderType) => {
+    Toast.hideAll();
+    const toastMe = Toast.show('Saving profile...');
+    await new Promise(r => setTimeout(r, 100));
+    try {
+        const userRef = doc(db, 'users', Email);
+        await updateDoc(userRef, Profile);
+        Toast.update(toastMe, 'Saved!', {type: 'success'});
+    } catch (error: any) {
+        console.error(error);
+        Toast.update(toastMe, 'Saving failed: ' + error.message, {type: 'danger'});
+    }
+};
+export const UserUpdateBio = async (Email: string, Bio: string) => {
+    Toast.hideAll();
+    const toastMe = Toast.show('Saving bio...');
+    await new Promise(r => setTimeout(r, 100));
+    try {
+        const userRef = doc(db, 'users', Email);
+        await updateDoc(userRef, {Bio});
+        Toast.update(toastMe, 'Saved!', {type: 'success'});
+    } catch (error: any) {
+        console.error(error);
+        Toast.update(toastMe, 'Saving failed: ' + error.message, {type: 'danger'});
+    }
+};
