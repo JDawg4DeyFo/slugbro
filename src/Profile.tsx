@@ -3,6 +3,7 @@ import { Text, TextInput, View, Image, TouchableOpacity } from 'react-native'
 import { UserSignOut, UserUpdateProfile, UserUpdateBio } from './FireBaseFunctions';
 import { BroContext } from './Stack';
 import { CountUp } from 'use-count-up';
+import { ScrollView } from 'react-native';
 
 import StylesObj, { Colors } from './Styles';
 const Styles = StylesObj.StylesObj;
@@ -11,7 +12,7 @@ const Styles = StylesObj.StylesObj;
 // For now, this works.
 const Profile = () => {
 
-    const { user, profile } = useContext(BroContext);
+    const { profile } = useContext(BroContext);
     const [isEditingProfile, setIsEditingProfile] = useState(false);
     const [isEditingBio, setIsEditingBio] = useState(false);
     const [localProfile, setLocalProfile] = useState({
@@ -60,7 +61,7 @@ const Profile = () => {
     }, [isEditingBio, profile, loading]);
 
     return (
-        <>
+        <ScrollView>
         <View style={Styles.ProfileHeader}>
             <View style={Styles.PH_NamePFPAction}>
                 <View style={Styles.PH_PFPName}>
@@ -182,14 +183,14 @@ const Profile = () => {
             </View>
         </View>
 
-        <View style={{flexDirection: 'row', justifyContent: 'space-around', marginTop: 6}}>
+        <View style={{flexDirection: 'row', justifyContent: 'space-around', marginTop: 6, marginBottom: 6}}>
             <TouchableOpacity style={{justifyContent: 'center'}} onPress={UserSignOut}>
                 <View style={Styles.PH_Action}>
                     <Text style={Styles.PH_ActionText}>Sign out</Text>
                 </View>
             </TouchableOpacity>
         </View>
-        </>
+        </ScrollView>
     );
 };
 

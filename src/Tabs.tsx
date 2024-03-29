@@ -1,6 +1,7 @@
 import React from 'react';
 import {Image} from 'react-native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import { FontAwesome5, Entypo, MaterialIcons } from '@expo/vector-icons';
 
 import Feed from './Feed';
 import Leaderboard from './Leaderboard';
@@ -33,11 +34,8 @@ const Tabs = () => {
                 options={{
                     title: "Leaderboard",
 
-                    tabBarIcon: () => (
-                        <Image 
-                            source = {require('../assets/leaderboard.png')}
-                            style = {{width:30, height:30}}
-                        />
+                    tabBarIcon: ({ focused }) => (
+                        <MaterialIcons name="leaderboard" size={24} color={focused ? 'black' : 'gray'} />
                     )
                 }}
             />
@@ -47,11 +45,8 @@ const Tabs = () => {
                 options={{
                     title: "Home",
 
-                    tabBarIcon: () => (
-                        <Image
-                            source = {require('../assets/home.png')}
-                            style = {{width:30, height:30}}
-                        />
+                    tabBarIcon: ({ focused }) => (
+                        <Entypo name="home" size={24} color={focused ? 'black' : 'gray'} />
                     )
                 }}
             />
@@ -61,11 +56,8 @@ const Tabs = () => {
                 options={{
                     title: "Bros",
 
-                    tabBarIcon: () => (
-                        <Image 
-                            source = {require('../assets/bros.png')}
-                            style = {{width:30, height:30}}
-                        />
+                    tabBarIcon: ({ focused }) => (
+                        <FontAwesome5 name="user-friends" size={24} color={focused ? 'black' : 'gray'} />
                     )
                 }}
             />
