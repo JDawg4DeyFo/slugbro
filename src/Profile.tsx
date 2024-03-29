@@ -1,10 +1,10 @@
-import React, { useContext } from 'react';
-import { Text, View, Image, TouchableOpacity } from 'react-native'
+import React, { useState, useEffect, useContext } from 'react';
+import { Text, TextInput, View, Image, TouchableOpacity } from 'react-native'
 import { UserSignOut } from './FireBaseFunctions';
 import { BroContext } from './Stack';
 import { CountUp } from 'use-count-up';
 
-import StylesObj from './Styles';
+import StylesObj, { Colors } from './Styles';
 const Styles = StylesObj.StylesObj;
 
 // Eventually, I would like to pass a user ID to this component and lookup user data using firebase API or soemthing
@@ -12,6 +12,26 @@ const Styles = StylesObj.StylesObj;
 const Profile = () => {
 
     const { user, profile } = useContext(BroContext);
+    const [isEditingProfile, setIsEditingProfile] = useState(false);
+    const [isEditingBio, setIsEditingBio] = useState(false);
+    const [localProfile, setLocalProfile] = useState({
+        Name: '',
+        Slogan: '',
+        Major: '',
+        College: '',
+        IG: ''
+    });
+    const [localBio, setLocalBio] = useState('');
+    useEffect(() => {
+        setLocalProfile({
+            Name: profile?.Name || '',
+            Slogan: profile?.Slogan || '',
+            Major: profile?.Major || '',
+            College: profile?.College || '',
+            IG: profile?.IG || ''
+        });
+        setLocalBio(profile?.Bio || '');
+    }, [profile]);
 
     return (
         <>
@@ -28,38 +48,75 @@ const Profile = () => {
                     </View>
                 </View>
 
-                <TouchableOpacity>
-                    <View style={Styles.PH_Action}>
-                        <Text style={Styles.PH_ActionText}>Edit</Text>
+                <TouchableOpacity onPress={() => setIsEditingProfile(!isEditingProfile)}>
+                    <View style={[Styles.PH_Action, {borderColor: isEditingProfile ? Colors.MainGreen : Colors.MainPrimary}]}>
+                        <Text style={[Styles.PH_ActionText, {color: isEditingProfile ? Colors.MainGreen : Colors.MainPrimary}]}>{isEditingProfile ? 'Save' : 'Edit'}</Text>
                     </View>
                 </TouchableOpacity>
             </View>
 
             <View style={Styles.PH_InfotainerRow}>
                 <Text style={Styles.PH_InfotainerText}>Major:</Text>
-                <Text style={Styles.PH_InfotainerText}>{profile?.Major ?? 'none'}</Text>
+                {
+                    isEditingProfile ?
+                    <TextInput
+                        style={[Styles.PH_EditText, Styles.PH_InfotainerText]}
+                        value={localProfile.Major}
+                        onChangeText={(a) => setLocalProfile({...localProfile, Major: a})}
+                    />
+                    :
+                    <Text style={Styles.PH_InfotainerText}>{profile?.Major ?? 'none'}</Text>
+                }
             </View>
             <View style={Styles.PH_InfotainerRow}>
                 <Text style={Styles.PH_InfotainerText}>College:</Text>
-                <Text style={Styles.PH_InfotainerText}>{profile?.College ?? 'none'}</Text>
+                {
+                    isEditingProfile ?
+                    <TextInput
+                        style={[Styles.PH_EditText, Styles.PH_InfotainerText]}
+                        value={localProfile.College}
+                        onChangeText={(a) => setLocalProfile({...localProfile, College: a})}
+                    />
+                    :
+                    <Text style={Styles.PH_InfotainerText}>{profile?.College ?? 'none'}</Text>
+                }
             </View>
             <View style={Styles.PH_IGRow}>
                 <Image style={Styles.PH_IGLogo} source={require('../assets/IGLogo.png')} />
-                <Text style={Styles.PH_IGText}>{profile?.IG ?? 'none'}</Text>
+                {
+                    isEditingProfile ?
+                    <TextInput
+                        style={[Styles.PH_EditText, Styles.PH_IGText]}
+                        value={localProfile.IG}
+                        onChangeText={(a) => setLocalProfile({...localProfile, IG: a})}
+                    />
+                    :
+                    <Text style={Styles.PH_IGText}>{profile?.IG ?? 'none'}</Text>
+                }
             </View>
         </View>
 
         <View style={Styles.ProfileHeader}>
             <View style={Styles.PH_InfotainerRow}>
                 <Text style={Styles.PH_Name}>Bio</Text>
-                <TouchableOpacity>
-                    <View style={Styles.PH_Action}>
-                        <Text style={Styles.PH_ActionText}>Edit</Text>
+                <TouchableOpacity onPress={() => setIsEditingBio(!isEditingBio)}>
+                    <View style={[Styles.PH_Action, {borderColor: isEditingBio ? Colors.MainGreen : Colors.MainPrimary}]}>
+                        <Text style={[Styles.PH_ActionText, {color: isEditingBio ? Colors.MainGreen : Colors.MainPrimary}]}>{isEditingBio ? 'Save' : 'Edit'}</Text>
                     </View>
                 </TouchableOpacity>
             </View>
             <View style={Styles.PH_InfotainerRow}>
-            <Text style={Styles.PH_InfotainerParagraph}>{profile?.Bio}</Text>
+            {
+                isEditingBio ?
+                <TextInput
+                    style={[Styles.PH_EditText, Styles.PH_InfotainerParagraph, {marginBottom: 2}]}
+                    value={localBio}
+                    onChangeText={(a) => setLocalBio(a)}
+                    multiline
+                />
+                :
+                <Text style={Styles.PH_InfotainerParagraph}>{profile?.Bio}</Text>
+            }
             </View>
         </View>
 

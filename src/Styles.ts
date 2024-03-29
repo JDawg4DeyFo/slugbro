@@ -398,8 +398,8 @@ const StylesObj = StyleSheet.create({
 		flexDirection: 'row',
 		justifyContent: 'space-between',
 		alignItems: 'center',
-		marginTop: 6,
-		marginBottom: 6,
+		marginTop: 5,
+		marginBottom: 5,
 	},
 				// style for the actual text
 	PH_InfotainerText: {
@@ -414,7 +414,9 @@ const StylesObj = StyleSheet.create({
 			// Row for IG
 	PH_IGRow: {
 		flexDirection: 'row',
-		justifyContent: 'flex-start'
+		justifyContent: 'flex-start',
+		marginTop: 4,
+		marginBottom: 8
 	},
 				// Style for logo
 	PH_IGLogo: {
@@ -427,7 +429,19 @@ const StylesObj = StyleSheet.create({
 	PH_IGText: {
 		fontFamily: 'Inter-SemiBold',
 		fontSize: TextSizes.Regular,
-		marginTop: -2
+		marginTop: -2,
+		marginBottom: 2
+	},
+	PH_EditText: {
+		borderColor: Colors.Grey4,
+		borderWidth: 1,
+		borderRadius: 4,
+		marginTop: -4,
+		marginBottom: -4,
+		backgroundColor: Colors.White,
+		minWidth: 50,
+		paddingLeft: 4,
+		paddingRight: 4
 	},
 
 
