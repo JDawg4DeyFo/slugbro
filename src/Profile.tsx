@@ -22,7 +22,10 @@ const Profile = () => {
                         style={Styles.PH_PFP}
                         source={require('../assets/SamplePFP.jpg')}
                     />
-                    <Text style={Styles.PH_Name}>{profile?.Name}</Text>
+                    <View style={Styles.ProfileNameSloganContainer}>
+                        <Text style={Styles.PH_Name}>{profile?.Name}</Text>
+                        <Text style={[Styles.ProfileSlogan, {marginTop: -4, marginBottom: -8}]}>{profile?.Slogan ? `"${profile.Slogan}"` : ''}</Text>
+                    </View>
                 </View>
 
                 <TouchableOpacity>
@@ -65,12 +68,16 @@ const Profile = () => {
                 <Text style={Styles.PH_Name}>Stats</Text>
             </View>
             <View style={Styles.PH_InfotainerRow}>
-                <Text style={Styles.PH_InfotainerText}>Number of bros added (friends)</Text>
-                <Text style={Styles.PH_InfotainerText}><CountUp isCounting end={profile?.NumFriends || 0} /></Text>
-            </View>
-            <View style={Styles.PH_InfotainerRow}>
                 <Text style={Styles.PH_InfotainerText}>Total number of bros sent</Text>
                 <Text style={Styles.PH_InfotainerText}><CountUp isCounting end={profile?.NumBros || 0} /></Text>
+            </View>
+            <View style={Styles.PH_InfotainerRow}>
+                <Text style={Styles.PH_InfotainerText}>Number of bros following you</Text>
+                <Text style={Styles.PH_InfotainerText}><CountUp isCounting end={profile?.NumFollowers || 0} /></Text>
+            </View>
+            <View style={Styles.PH_InfotainerRow}>
+                <Text style={Styles.PH_InfotainerText}>Number of bros you follow</Text>
+                <Text style={Styles.PH_InfotainerText}><CountUp isCounting end={profile?.NumFollowing || 0} /></Text>
             </View>
         </View>
 

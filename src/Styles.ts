@@ -117,7 +117,7 @@ const StylesObj = StyleSheet.create({
 			// Container of Name and slogan
 			// Needs to be reworked. Looks like expletive.
 	ProfileNameSloganContainer: {
-		flex:1,
+		// flex:1,
 		flexDirection: 'column',
 
 		padding:0,

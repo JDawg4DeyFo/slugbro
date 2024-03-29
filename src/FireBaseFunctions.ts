@@ -22,8 +22,9 @@ export type UserProfileType = {
     College: string | null,
     IG: string | null,
     Bio: string | null,
-    NumFriends: number,
-    NumBros: number
+    NumBros: number,
+    NumFollowing: number,
+    NumFollowers: number
 };
 export const UserSignUp = async ({Email, Password}: SignUpProps) => {
     Toast.hideAll();
@@ -53,8 +54,9 @@ export const UserSignUp = async ({Email, Password}: SignUpProps) => {
             College: null,
             IG: null,
             Bio: sentence(),
-            NumFriends: 0,
-            NumBros: 0
+            NumBros: 0,
+            NumFollowers: 0,
+            NumFollowing: 0
         };
         const userRef = doc(db, 'users', Email);
         await setDoc(userRef, userProfile);
