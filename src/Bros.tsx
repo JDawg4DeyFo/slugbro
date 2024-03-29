@@ -18,11 +18,11 @@ const Bros = ({navigation}: {navigation:StackNavigationProp<RootStackParamList>}
         <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
         <View style={Styles.ProfileContainer}>
           <Image 
-          source={profile?.PFP || require('../assets/SamplePFP.jpg')}
+          source={profile?.PFP ? {uri: profile.PFP} : require('../assets/SamplePFP.jpg')}
           style={Styles.ProfileIcon}
           />
           <View style={Styles.ProfileNameSloganContainer}>
-            <Text style={Styles.ProfileName}>{profile?.Name}</Text>
+            <Text style={Styles.ProfileName}>{profile?.Name || 'none'}</Text>
             <Text style={Styles.ProfileSlogan}>{profile?.Slogan ? `"${profile.Slogan}"` : ''}</Text>
           </View>
         </View>
