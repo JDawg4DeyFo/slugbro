@@ -3,7 +3,7 @@ import { FIREBASE_APP, FIREBASE_AUTH, FIREBASE_DB } from "./FireBaseConfig";
 import { Toast, ToastOptions } from "react-native-toast-notifications";
 import { uniqueNamesGenerator, Config, adjectives, colors, animals } from 'unique-names-generator';
 import { sentence } from "txtgen";
-import { doc, setDoc, getDoc, updateDoc, collection, query, orderBy, limit, getDocs } from "firebase/firestore";
+import { doc, setDoc, getDoc, updateDoc, collection, query, orderBy, limit, getDocs, QuerySnapshot, DocumentData } from "firebase/firestore";
 import { getDownloadURL, uploadBytes, ref } from "firebase/storage";
 import { FIREBASE_STORAGE } from './FireBaseConfig';
 import { ImagePickerAsset } from "expo-image-picker";
@@ -183,26 +183,29 @@ export const UserUpdatePFP = async (Email: string, Image: ImagePickerAsset) => {
     }
 };
 const LEADERBOARD_LIMIT = 100;
+export const LBQuery = query(collection(db, 'users'), orderBy('NumBros', 'desc'), limit(LEADERBOARD_LIMIT));
 export const getLBEntries = async () => {
     Toast.hideAll();
     const toastMe = Toast.show('Loading...', NormalToast);
     try {
-        const usersRef = collection(db, 'users');
-        const usersQuery = query(usersRef, orderBy('NumBros', 'desc'), limit(LEADERBOARD_LIMIT));
-        const usersSnapshot = await getDocs(usersQuery);
-        let LBEntries: UserProfileType[] = [];
-        usersSnapshot.forEach((doc) => {
-            try {
-                LBEntries.push(doc.data() as UserProfileType);
-            }
-            catch (error: any) {
-                console.error(error);
-            }
-        });
+        const usersSnapshot = await getDocs(LBQuery);
+        const LBEntries = fixLBEntries(usersSnapshot);
         Toast.hideAll();
         return LBEntries;
     } catch (error: any) {
         console.error(error);
         Toast.update(toastMe, 'Failed to load leaderboard: ' + error.message, ErrorToast);
     }
+};
+export const fixLBEntries = (snapshot: QuerySnapshot<DocumentData, DocumentData>) => {
+    let LBEntries: UserProfileType[] = [];
+    snapshot.forEach((doc) => {
+        try {
+            LBEntries.push(doc.data() as UserProfileType);
+        }
+        catch (error: any) {
+            console.error(error);
+        }
+    });
+    return LBEntries;
 };

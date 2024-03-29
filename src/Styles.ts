@@ -270,7 +270,7 @@ const StylesObj = StyleSheet.create({
 		height: 35,
 		width: 35,
 
-		marginRight: 17,
+		marginRight: 8,
 
 		borderRadius: 10,
 	},

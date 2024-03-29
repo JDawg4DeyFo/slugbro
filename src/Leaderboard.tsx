@@ -6,7 +6,7 @@ const Styles = StylesObj.StylesObj;
 
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from './Stack';
-import LBEntries from './LBEtnries';
+import LBEntries from './LBEntries';
 
 
 const Leaderboard = ({navigation}: {navigation: StackNavigationProp<RootStackParamList>}) => {
