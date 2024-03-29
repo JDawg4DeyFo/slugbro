@@ -43,8 +43,26 @@ const Profile = () => {
                         source={require('../assets/SamplePFP.jpg')}
                     />
                     <View style={Styles.ProfileNameSloganContainer}>
-                        <Text style={Styles.PH_Name}>{profile?.Name}</Text>
-                        <Text style={[Styles.ProfileSlogan, {marginTop: -4, marginBottom: -8}]}>{profile?.Slogan ? `"${profile.Slogan}"` : ''}</Text>
+                        {
+                            isEditingProfile ?
+                            <TextInput
+                                style={[Styles.PH_EditText, Styles.PH_Name]}
+                                value={localProfile.Name}
+                                onChangeText={(a) => setLocalProfile({...localProfile, Name: a})}
+                            />
+                            :
+                            <Text style={Styles.PH_Name}>{profile?.Name || 'none'}</Text>
+                        }
+                        {
+                            isEditingProfile ?
+                            <TextInput
+                                style={[Styles.PH_EditText, Styles.ProfileSlogan, {height: 20}]}
+                                value={localProfile.Slogan}
+                                onChangeText={(a) => setLocalProfile({...localProfile, Slogan: a})}
+                            />
+                            :
+                            <Text style={[Styles.ProfileSlogan, {marginTop: -4, marginBottom: -8}]}>{profile?.Slogan ? `"${profile.Slogan}"` : ''}</Text>
+                        }
                     </View>
                 </View>
 
@@ -65,7 +83,7 @@ const Profile = () => {
                         onChangeText={(a) => setLocalProfile({...localProfile, Major: a})}
                     />
                     :
-                    <Text style={Styles.PH_InfotainerText}>{profile?.Major ?? 'none'}</Text>
+                    <Text style={Styles.PH_InfotainerText}>{profile?.Major || 'none'}</Text>
                 }
             </View>
             <View style={Styles.PH_InfotainerRow}>
@@ -78,7 +96,7 @@ const Profile = () => {
                         onChangeText={(a) => setLocalProfile({...localProfile, College: a})}
                     />
                     :
-                    <Text style={Styles.PH_InfotainerText}>{profile?.College ?? 'none'}</Text>
+                    <Text style={Styles.PH_InfotainerText}>{profile?.College || 'none'}</Text>
                 }
             </View>
             <View style={Styles.PH_IGRow}>
@@ -91,7 +109,7 @@ const Profile = () => {
                         onChangeText={(a) => setLocalProfile({...localProfile, IG: a})}
                     />
                     :
-                    <Text style={Styles.PH_IGText}>{profile?.IG ?? 'none'}</Text>
+                    <Text style={Styles.PH_IGText}>{profile?.IG || 'none'}</Text>
                 }
             </View>
         </View>
