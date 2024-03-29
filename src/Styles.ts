@@ -411,6 +411,7 @@ const StylesObj = StyleSheet.create({
 	PH_InfotainerParagraph: {
 		fontFamily: 'Inter-Regular',
 		fontSize: TextSizes.Regular,
+		flex: 1,
 	},
 			// Row for IG
 	PH_IGRow: {
