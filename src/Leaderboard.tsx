@@ -40,7 +40,7 @@ const Leaderboard = ({navigation}: {navigation: StackNavigationProp<RootStackPar
                 <Text style={Styles.LBHeadText}>Name</Text>
                 <Text style={Styles.LBHeadText}>Bros Sent</Text>
             </View>
-            <LBEntries/>
+            <LBEntries navigation={navigation} />
         </View>
       
     </View>

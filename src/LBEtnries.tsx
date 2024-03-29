@@ -1,195 +1,70 @@
-import React from "react";
-import { FlatList, View, Text, Image, ImageSourcePropType } from 'react-native';
+import React, { useState, useEffect } from "react";
+import { FlatList, View, Text, Image } from 'react-native';
 
 import StylesObj from './Styles'
 import { TouchableOpacity } from "react-native-gesture-handler";
+import { UserProfileType, getLBEntries } from "./FireBaseFunctions";
+import { Skeleton } from '@rneui/themed';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { RootStackParamList } from './Stack';
 const Styles = StylesObj.StylesObj;
 
-// Data before server stuff is finished
-const PREDEBUG = [
-    {
-        id: 1,
-        Name: 'JDawg',
-        TotalBros: 38103,
-        Pfp: require('../assets/SamplePFP.jpg')
-    },
-    {
-        id: 1,
-        Name: 'LolFactor',
-        TotalBros: 1231,
-        Pfp: require('../assets/home.png')
-    },
-    {
-        id: 1,
-        Name: 'jaaaa',
-        TotalBros: 517,
-        Pfp: require('../assets/splash.png')
-    },
-    {
-        id: 1,
-        Name: 'Poopface',
-        TotalBros: 420,
-        Pfp: require('../assets/adaptive-icon.png')
-    },
-    {
-        id: 1,
-        Name: 'JDawg',
-        TotalBros: 38103,
-        Pfp: require('../assets/SamplePFP.jpg')
-    },
-    {
-        id: 1,
-        Name: 'LolFactor',
-        TotalBros: 1231,
-        Pfp: require('../assets/home.png')
-    },
-    {
-        id: 1,
-        Name: 'jaaaa',
-        TotalBros: 517,
-        Pfp: require('../assets/splash.png')
-    },
-    {
-        id: 1,
-        Name: 'Poopface',
-        TotalBros: 420,
-        Pfp: require('../assets/adaptive-icon.png')
-    },
-    {
-        id: 1,
-        Name: 'JDawg',
-        TotalBros: 38103,
-        Pfp: require('../assets/SamplePFP.jpg')
-    },
-    {
-        id: 1,
-        Name: 'LolFactor',
-        TotalBros: 1231,
-        Pfp: require('../assets/home.png')
-    },
-    {
-        id: 1,
-        Name: 'jaaaa',
-        TotalBros: 517,
-        Pfp: require('../assets/splash.png')
-    },
-    {
-        id: 1,
-        Name: 'Poopface',
-        TotalBros: 420,
-        Pfp: require('../assets/adaptive-icon.png')
-    },
-    {
-        id: 1,
-        Name: 'JDawg',
-        TotalBros: 38103,
-        Pfp: require('../assets/SamplePFP.jpg')
-    },
-    {
-        id: 1,
-        Name: 'LolFactor',
-        TotalBros: 1231,
-        Pfp: require('../assets/home.png')
-    },
-    {
-        id: 1,
-        Name: 'jaaaa',
-        TotalBros: 517,
-        Pfp: require('../assets/splash.png')
-    },
-    {
-        id: 1,
-        Name: 'Poopface',
-        TotalBros: 420,
-        Pfp: require('../assets/adaptive-icon.png')
-    },
-    {
-        id: 1,
-        Name: 'JDawg',
-        TotalBros: 38103,
-        Pfp: require('../assets/SamplePFP.jpg')
-    },
-    {
-        id: 1,
-        Name: 'LolFactor',
-        TotalBros: 1231,
-        Pfp: require('../assets/home.png')
-    },
-    {
-        id: 1,
-        Name: 'jaaaa',
-        TotalBros: 517,
-        Pfp: require('../assets/splash.png')
-    },
-    {
-        id: 1,
-        Name: 'Poopface',
-        TotalBros: 420,
-        Pfp: require('../assets/adaptive-icon.png')
-    },
-    {
-        id: 1,
-        Name: 'JDawg',
-        TotalBros: 38103,
-        Pfp: require('../assets/SamplePFP.jpg')
-    },
-    {
-        id: 1,
-        Name: 'LolFactor',
-        TotalBros: 1231,
-        Pfp: require('../assets/home.png')
-    },
-    {
-        id: 1,
-        Name: 'jaaaa',
-        TotalBros: 517,
-        Pfp: require('../assets/splash.png')
-    },
-    {
-        id: 1,
-        Name: 'Poopface',
-        TotalBros: 420,
-        Pfp: require('../assets/adaptive-icon.png')
-    },
-
-]
-const DEBUG_DATA = PREDEBUG.map((item, index) => ({
-    ...item,
-    id: index.toString(),
-}));
-const DATA = DEBUG_DATA;
-
-
-// Props of flatlist items
-type EntryItemProps = {
-    Name: string,
-    TotalBros: number,
-    Pfp: ImageSourcePropType,
-};
-
 // Object template to populate flatlist
-const EntryItem = ({ Name, TotalBros, Pfp }: EntryItemProps) => {
+const EntryItem = (props: {profile: UserProfileType, navigation: StackNavigationProp<RootStackParamList>}) => {
+    const { Name, Slogan, PFP, NumBros } = props.profile;
     return (
+        <TouchableOpacity onPress={() => props.navigation.navigate('Brofile', { Profile: props.profile })}>
         <View style={Styles.LBE_Container}>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={() => props.navigation.navigate('Brofile', { Profile: props.profile })}>
             <View style={Styles.LBE_NamePFP}>
-                <Image style={Styles.LBE_PFP} source={Pfp}/>
-                <Text style={Styles.LBE_Name}>{Name}</Text>
+                <Image style={Styles.LBE_PFP} source={PFP ? {uri: PFP} : require('../assets/SamplePFP.jpg')} />
+                {
+                    Slogan ?
+                    <View style={Styles.ProfileNameSloganContainer}>
+                        <Text style={Styles.LBE_Name}>{Name || 'none'}</Text>
+                        <Text style={Styles.ProfileSlogan}>"{Slogan}"</Text>
+                    </View>
+                    :
+                    <Text style={Styles.LBE_Name}>{Name}</Text>
+                }
             </View>
             </TouchableOpacity>
-            <Text style={Styles.LBE_BrosSent}>{TotalBros} Bros</Text>
+            <Text style={Styles.LBE_BrosSent}>{NumBros} Bros</Text>
         </View>
+        </TouchableOpacity>
     );
 };
 
-const LBEntries = () => {
+const LBEntries = (props: {navigation: StackNavigationProp<RootStackParamList>}) => {
+
+    const [data, setData] = useState<UserProfileType[] | null>(null);
+
+    useEffect(() => {
+        const loadLB = async () => {
+            const LB = await getLBEntries();
+            if (LB) setData(LB);
+        };
+        loadLB();
+    }, []);
+
     return (
-        <FlatList 
-            data={DATA}
-            renderItem={({item}) => <EntryItem Name={item.Name} TotalBros={item.TotalBros} Pfp={item.Pfp}/>}
-            keyExtractor={item => item.id}
-            showsVerticalScrollIndicator ={false}
-        />
+        <View>
+        {
+            data ?
+            <FlatList 
+                data={data}
+                renderItem={({item}) => <EntryItem profile={item} navigation={props.navigation} />}
+                keyExtractor={item => item.Email}
+                showsVerticalScrollIndicator={false}
+            />
+            :
+            <View style={{flexDirection: 'column', alignItems: 'center', justifyContent: 'space-around', height: 69, marginTop: 6}}>
+                <Skeleton width={82} height={12} />
+                <Skeleton width={69} height={12} />
+                <Skeleton width={82} height={12} />
+            </View>
+        }
+        </View>
     );
 };
 

@@ -18,7 +18,7 @@ const Bros = ({navigation}: {navigation:StackNavigationProp<RootStackParamList>}
         <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
         <View style={Styles.ProfileContainer}>
           <Image 
-          source={profile?.Pfp || require('../assets/SamplePFP.jpg')}
+          source={profile?.PFP || require('../assets/SamplePFP.jpg')}
           style={Styles.ProfileIcon}
           />
           <View style={Styles.ProfileNameSloganContainer}>

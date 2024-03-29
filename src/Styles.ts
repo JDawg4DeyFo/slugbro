@@ -262,7 +262,7 @@ const StylesObj = StyleSheet.create({
 	LBE_NamePFP: {
 		flexDirection: 'row',
 		justifyContent: 'flex-start',
-
+		maxWidth: '80%',
 		alignItems: 'center',	// idk why this isn't centering on y axis
 	},
 			// PFP
@@ -347,6 +347,7 @@ const StylesObj = StyleSheet.create({
 	PH_PFPName: {
 		flexDirection: 'row',
 		justifyContent: 'flex-start',
+		maxWidth: '80%'
 	},
 				// Name in profile header
 	PH_Name: {

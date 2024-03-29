@@ -60,8 +60,16 @@ const Profile = () => {
         }
 
         const updateProfile = async () => {
-            if (JSON.stringify(localProfile) !== JSON.stringify(remoteProfile)) {
-                await UserUpdateProfile(profile.Email, localProfile);
+            const MX = 30;
+            const maxLength30 = {
+                Name: localProfile.Name.substring(0, MX),
+                Slogan: localProfile.Slogan.substring(0, MX),
+                Major: localProfile.Major.substring(0, MX),
+                College: localProfile.College.substring(0, MX),
+                IG: localProfile.IG.substring(0, MX)
+            };
+            if (JSON.stringify(maxLength30) !== JSON.stringify(remoteProfile)) {
+                await UserUpdateProfile(profile.Email, maxLength30);
             }
             if (localPFP && typeof localPFP === 'object') {
                 await UserUpdatePFP(profile.Email, localPFP);

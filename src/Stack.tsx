@@ -30,7 +30,7 @@ export type RootStackParamList = {
     BigHome: undefined;
     Settings: undefined;
     Profile: undefined;
-    Brofile: { UserID: number };
+    Brofile: { Profile: UserProfileType };
 };
 
 export const BroContext = createContext<{
