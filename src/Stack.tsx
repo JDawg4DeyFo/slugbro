@@ -51,14 +51,19 @@ const StackNavigator = () => {
             // console.log('user', user);
             setUser(user);
             if (user?.email) {
-                const getProfile = async (email: string) => {
-                    const profile: UserProfileType | null = await UserGetProfile(email);
-                    setProfile(profile);
-                };
-                getProfile(user.email);
-                onSnapshot(doc(db, 'users', user.email), (doc) => {
-                    setProfile(doc.data() as UserProfileType);
-                });
+                try {
+                    const getProfile = async (email: string) => {
+                        const profile: UserProfileType | null = await UserGetProfile(email);
+                        setProfile(profile);
+                    };
+                    getProfile(user.email);
+                    onSnapshot(doc(db, 'users', user.email), (doc) => {
+                        setProfile(doc.data() as UserProfileType);
+                    });
+                }
+                catch (error: any) {
+                    console.error(error);
+                }
             }
         });
 

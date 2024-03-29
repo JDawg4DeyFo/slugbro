@@ -12,7 +12,7 @@ const Styles = StylesObj.StylesObj;
 
 // Object template to populate flatlist
 const EntryItem = (props: {profile: UserProfileType, navigation: StackNavigationProp<RootStackParamList>, isMyProfile: boolean, index: number}) => {
-    const { Name, Slogan, PFP, NumBros } = props.profile;
+    const { Name, Email, Slogan, PFP, NumBros } = props.profile;
     const navigate = () => {
         if (props.isMyProfile) {
             props.navigation.navigate('Profile');
@@ -30,7 +30,7 @@ const EntryItem = (props: {profile: UserProfileType, navigation: StackNavigation
                 {
                     Slogan ?
                     <View style={Styles.ProfileNameSloganContainer}>
-                        <Text style={Styles.LBE_Name}>{Name || 'none'}</Text>
+                        <Text style={Styles.LBE_Name}>{Name || Email}</Text>
                         <Text style={Styles.ProfileSlogan}>"{Slogan}"</Text>
                     </View>
                     :

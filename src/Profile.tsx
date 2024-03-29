@@ -1,9 +1,8 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { Text, TextInput, View, Image, TouchableOpacity } from 'react-native'
+import { Text, TextInput, View, ScrollView, Image, TouchableOpacity } from 'react-native'
 import { UserSignOut, UserUpdateProfile, UserUpdateBio, UserUpdatePFP } from './FireBaseFunctions';
 import { BroContext } from './Stack';
 import { CountUp } from 'use-count-up';
-import { ScrollView } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
 import { pickMedia } from './PickMediaFromLibrary';
 import { ImagePickerAsset } from 'expo-image-picker';
@@ -132,7 +131,7 @@ const Profile = () => {
                                 placeholder='name'
                             />
                             :
-                            <Text style={Styles.PH_Name}>{profile?.Name || 'none'}</Text>
+                            <Text style={Styles.PH_Name}>{profile?.Name || profile?.Email}</Text>
                         }
                         {
                             isEditingProfile ?
