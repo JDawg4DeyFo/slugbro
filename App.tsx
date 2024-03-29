@@ -65,7 +65,6 @@ export default function App() {
   return (
     <>
       <ToastProvider
-        duration={3333}
         offsetBottom={69}
       >
         <NavigationContainer>

@@ -1,9 +1,12 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { Text, TextInput, View, Image, TouchableOpacity } from 'react-native'
-import { UserSignOut, UserUpdateProfile, UserUpdateBio } from './FireBaseFunctions';
+import { UserSignOut, UserUpdateProfile, UserUpdateBio, UserUpdatePFP } from './FireBaseFunctions';
 import { BroContext } from './Stack';
 import { CountUp } from 'use-count-up';
 import { ScrollView } from 'react-native';
+import { FontAwesome } from '@expo/vector-icons';
+import { pickMedia } from './PickMediaFromLibrary';
+import { ImagePickerAsset } from 'expo-image-picker';
 
 import StylesObj, { Colors } from './Styles';
 const Styles = StylesObj.StylesObj;
@@ -22,9 +25,13 @@ const Profile = () => {
         College: '',
         IG: ''
     });
-    const [loading, setLoading] = useState(true);
-
+    const [localPFP, setLocalPFP] = useState<ImagePickerAsset | string | null>(null);
     const [localBio, setLocalBio] = useState('');
+    const [loading, setLoading] = useState(true);
+    const [flag, setFlag] = useState(true);
+
+    useEffect(() => setFlag(true), [isEditingBio, isEditingProfile]);
+
     useEffect(() => {
         setLocalProfile({
             Name: profile?.Name || '',
@@ -34,6 +41,7 @@ const Profile = () => {
             IG: profile?.IG || ''
         });
         setLocalBio(profile?.Bio || '');
+        setLocalPFP(profile?.PFP || null);
         setLoading(false);
     }, [profile]);
 
@@ -41,6 +49,8 @@ const Profile = () => {
         if (loading) return;
         if (isEditingProfile) return;
         if (!profile?.Email) return;
+        if (!flag) return;
+        setFlag(false);
         const remoteProfile = {
             Name: profile.Name,
             Slogan: profile.Slogan,
@@ -48,8 +58,18 @@ const Profile = () => {
             College: profile.College,
             IG: profile.IG
         }
-        if (JSON.stringify(localProfile) === JSON.stringify(remoteProfile)) return;
-        UserUpdateProfile(profile.Email, localProfile);
+
+        const updateProfile = async () => {
+            if (JSON.stringify(localProfile) !== JSON.stringify(remoteProfile)) {
+                await UserUpdateProfile(profile.Email, localProfile);
+            }
+            if (localPFP && typeof localPFP === 'object') {
+                await UserUpdatePFP(profile.Email, localPFP);
+            }
+        };
+
+        updateProfile();
+        
     }, [isEditingProfile, profile, loading]);
 
     useEffect(() => {
@@ -57,25 +77,51 @@ const Profile = () => {
         if (isEditingBio) return;
         if (!profile?.Email) return;
         if (JSON.stringify(localBio) === JSON.stringify(profile.Bio)) return;
+        if (!flag) return;
+        setFlag(false);
         UserUpdateBio(profile.Email, localBio);
     }, [isEditingBio, profile, loading]);
+
+    const handlePickPFP = async () => {
+        const imageURI = await pickMedia();
+        setLocalPFP(imageURI);
+        console.log('imageURI ' + JSON.stringify(imageURI));
+    };
 
     return (
         <ScrollView>
         <View style={Styles.ProfileHeader}>
             <View style={Styles.PH_NamePFPAction}>
                 <View style={Styles.PH_PFPName}>
-                    <Image
-                        style={Styles.PH_PFP}
-                        source={require('../assets/SamplePFP.jpg')}
-                    />
+                    {
+                        isEditingProfile ?
+                        <TouchableOpacity onPress={handlePickPFP}>
+                            {
+                                localPFP && typeof localPFP === 'object' ?
+                                <Image
+                                    style={Styles.PH_PFP}
+                                    source={localPFP}
+                                />
+                                :
+                                <View style={[Styles.PH_PFP, {borderColor: 'lightgray', borderWidth: 1, justifyContent: 'center', alignItems: 'center'}]}>
+                                    <FontAwesome name="camera" size={24} color="black" />
+                                </View>
+                            }
+                        </TouchableOpacity>
+                        :
+                        <Image
+                            style={Styles.PH_PFP}
+                            source={typeof localPFP === 'string' ? {uri: localPFP} : require('../assets/SamplePFP.jpg')}
+                        />
+                    }
                     <View style={Styles.ProfileNameSloganContainer}>
                         {
                             isEditingProfile ?
                             <TextInput
-                                style={[Styles.PH_EditText, Styles.PH_Name]}
+                                style={[Styles.PH_EditText, Styles.PH_Name, {marginBottom: 4}]}
                                 value={localProfile.Name}
                                 onChangeText={(a) => setLocalProfile({...localProfile, Name: a})}
+                                placeholder='name'
                             />
                             :
                             <Text style={Styles.PH_Name}>{profile?.Name || 'none'}</Text>
@@ -86,6 +132,7 @@ const Profile = () => {
                                 style={[Styles.PH_EditText, Styles.ProfileSlogan, {height: 20}]}
                                 value={localProfile.Slogan}
                                 onChangeText={(a) => setLocalProfile({...localProfile, Slogan: a})}
+                                placeholder='slogan'
                             />
                             :
                             <Text style={[Styles.ProfileSlogan, {marginTop: -4, marginBottom: -8}]}>{profile?.Slogan ? `"${profile.Slogan}"` : ''}</Text>
@@ -158,6 +205,7 @@ const Profile = () => {
                     value={localBio}
                     onChangeText={(a) => setLocalBio(a)}
                     multiline
+                    placeholder="Confess your sins"
                 />
                 :
                 <Text style={Styles.PH_InfotainerParagraph}>{profile?.Bio}</Text>
