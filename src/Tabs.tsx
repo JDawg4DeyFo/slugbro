@@ -1,5 +1,5 @@
 import React from 'react';
-import {Image} from 'react-native';
+import { Image, Text, View } from 'react-native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import { FontAwesome5, Entypo, MaterialIcons } from '@expo/vector-icons';
 
@@ -7,12 +7,16 @@ import Feed from './Feed';
 import Leaderboard from './Leaderboard';
 import Bros from './Bros';
 import Colors from './Styles'
+import { TouchableOpacity } from 'react-native-gesture-handler';
+import StylesObj from './Styles';
+const Styles = StylesObj.StylesObj;
 
 
 const Tab = createBottomTabNavigator();
 
 const Tabs = () => {
     return (
+        <>
         <Tab.Navigator
             initialRouteName="Home"
             screenOptions = {{
@@ -34,7 +38,7 @@ const Tabs = () => {
                 options={{
                     title: "Leaderboard",
 
-                    tabBarIcon: ({ focused }) => (
+                    tabBarIcon: ({ focused }: {focused: boolean}) => (
                         <MaterialIcons name="leaderboard" size={24} color={focused ? 'black' : 'gray'} />
                     )
                 }}
@@ -45,7 +49,7 @@ const Tabs = () => {
                 options={{
                     title: "Home",
 
-                    tabBarIcon: ({ focused }) => (
+                    tabBarIcon: ({ focused }: {focused: boolean}) => (
                         <Entypo name="home" size={24} color={focused ? 'black' : 'gray'} />
                     )
                 }}
@@ -56,12 +60,20 @@ const Tabs = () => {
                 options={{
                     title: "Bros",
 
-                    tabBarIcon: ({ focused }) => (
+                    tabBarIcon: ({ focused }: {focused: boolean}) => (
                         <FontAwesome5 name="user-friends" size={24} color={focused ? 'black' : 'gray'} />
                     )
                 }}
             />
         </Tab.Navigator>
+        <View style={{flexDirection: 'row', justifyContent: 'flex-end'}}>
+            <View style={Styles.BroButton}>
+                <TouchableOpacity style={{justifyContent: 'center', alignItems: 'center'}}>
+                    <Text style={Styles.BroText}>Bro</Text>
+                </TouchableOpacity>
+            </View>
+        </View>
+        </>
     );
 };
 

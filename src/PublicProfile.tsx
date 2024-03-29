@@ -30,13 +30,7 @@ const PublicProfile: React.FC<{ route: PublicProfileScreenRouteProp }> = ({ rout
             console.error('Unable to find profile: ' + error);
         }
     }, []);
-
     
-
-
-    const UnBro = () => {}
-    const AddBro = () => {}
-
     return (
         <ScrollView>
         <View style={Styles.ProfileHeader}>
@@ -53,17 +47,17 @@ const PublicProfile: React.FC<{ route: PublicProfileScreenRouteProp }> = ({ rout
                 </View>
 
 
-                {false ?
+                {/* {false ?
                     (<TouchableOpacity onPress={UnBro}>
                         <View style={Styles.PH_DestructiveAction}>
                             <Text style={Styles.PH_DestructiveActionText}>Unbro</Text>
                         </View>
                     </TouchableOpacity>) :
-                    (<TouchableOpacity onPress={AddBro}>
+                    (<TouchableOpacity onPress={Bro}>
                         <View style={Styles.PH_Action}>
                             <Text style={Styles.PH_ActionText}>Bro</Text>
                         </View>
-                    </TouchableOpacity>)}
+                    </TouchableOpacity>)} */}
 
             </View>
 
