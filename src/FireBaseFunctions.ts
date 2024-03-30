@@ -232,6 +232,10 @@ export const GetFeedEntries = async () => {
         Toast.hideAll();
         return FeedEntries;
     }
+    catch (error: any) {
+        console.error(error);
+        Toast.update(toastMe, 'Failed to load feed entries ' + error.message, ErrorToast);
+    }
 }
 export const FixFeedEntries = (snapshot: QuerySnapshot<DocumentData, DocumentData>) => {
     let FeedEntries: BroItemProps[] = [];
@@ -246,4 +250,8 @@ export const FixFeedEntries = (snapshot: QuerySnapshot<DocumentData, DocumentDat
     });
 
     return FeedEntries;
+}
+// lookup user data from email string
+export const GetUserData = (User: string) => {
+    
 }
