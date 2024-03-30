@@ -6,6 +6,9 @@ import { CountUp } from 'use-count-up';
 import { FontAwesome } from '@expo/vector-icons';
 import { pickMedia } from './PickMediaFromLibrary';
 import { ImagePickerAsset } from 'expo-image-picker';
+import { Toast } from "react-native-toast-notifications";
+import { NormalToast } from './FireBaseFunctions';
+import * as Clipboard from 'expo-clipboard'
 
 import StylesObj, { Colors } from './Styles';
 const Styles = StylesObj.StylesObj;
@@ -78,6 +81,17 @@ const Profile = () => {
         updateProfile();
         
     }, [isEditingProfile, profile, loading]);
+
+    const CopyIG = async () => {
+        Toast.hideAll();
+        if(profile?.IG != null) {
+            await Clipboard.setStringAsync(profile.IG);
+            Toast.show('Copied To Clipboard', NormalToast);
+        }
+        else {
+            Toast.show('No IG found');
+        }
+    }
 
     useEffect(() => {
         if (loading) return;
@@ -180,19 +194,24 @@ const Profile = () => {
                     <Text style={Styles.PH_InfotainerText}>{profile?.College || 'none'}</Text>
                 }
             </View>
+            
+            {isEditingProfile ? 
             <View style={Styles.PH_IGRow}>
                 <Image style={Styles.PH_IGLogo} source={require('../assets/IGLogo.png')} />
-                {
-                    isEditingProfile ?
-                    <TextInput
+                <TextInput
                         style={[Styles.PH_EditText, Styles.PH_IGText]}
                         value={localProfile.IG}
                         onChangeText={(a) => setLocalProfile({...localProfile, IG: a})}
-                    />
-                    :
-                    <Text style={Styles.PH_IGText}>{profile?.IG || 'none'}</Text>
-                }
+                />
             </View>
+            :
+            <TouchableOpacity onPress={CopyIG}>
+                <View style={Styles.PH_IGRow}>
+                    <Image style={Styles.PH_IGLogo} source={require('../assets/IGLogo.png')} />
+                    <Text style={Styles.PH_IGText}>{profile?.IG || 'none'}</Text>
+                </View>                
+            </TouchableOpacity>
+            }
         </View>
 
         <View style={Styles.ProfileHeader}>
