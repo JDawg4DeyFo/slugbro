@@ -33,7 +33,7 @@ const Feed = ({navigation}: {navigation: StackNavigationProp<RootStackParamList>
         </View>
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={() => navigation.navigate('Settings')}>
+        <TouchableOpacity onPress={() => navigation.navigate('Info')}>
           <Image
             source={require('../assets/settings.png')}
             style={Styles.SettingsIcon}

@@ -247,14 +247,14 @@ const Profile = () => {
                 <Text style={Styles.PH_InfotainerText}>Bros Sent</Text>
                 <Text style={Styles.PH_InfotainerText}><CountUp isCounting end={profile?.NumBros || 0} /></Text>
             </View>
-            <View style={Styles.PH_InfotainerRow}>
+            {/* <View style={Styles.PH_InfotainerRow}>
                 <Text style={Styles.PH_InfotainerText}>Bro Followers</Text>
                 <Text style={Styles.PH_InfotainerText}><CountUp isCounting end={profile?.NumFollowers || 0} /></Text>
             </View>
             <View style={Styles.PH_InfotainerRow}>
                 <Text style={Styles.PH_InfotainerText}>Bros Following</Text>
                 <Text style={Styles.PH_InfotainerText}><CountUp isCounting end={profile?.NumFollowing || 0} /></Text>
-            </View>
+            </View> */}
         </View>
 
         <View style={{flexDirection: 'row', justifyContent: 'space-around', marginTop: 6, marginBottom: 6}}>

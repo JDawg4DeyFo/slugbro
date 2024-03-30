@@ -1,4 +1,5 @@
 import {StyleSheet} from 'react-native';
+import { colors } from 'unique-names-generator';
 // NOTE: Rem units assume 16px root font size.
 
 // Color Variables
@@ -363,6 +364,8 @@ const StylesObj = StyleSheet.create({
 		width: 70,
 		height: 30,
 
+		backgroundColor: Colors.White,
+
 		borderColor: Colors.MainPrimary,
 		borderWidth: 1,
 		borderRadius: 7,
@@ -411,7 +414,8 @@ const StylesObj = StyleSheet.create({
 	PH_InfotainerParagraph: {
 		fontFamily: 'Inter-Regular',
 		fontSize: TextSizes.Regular,
-		flex: 1,
+		color: Colors.Black,
+		// flex: 1,
 	},
 			// Row for IG
 	PH_IGRow: {
@@ -550,6 +554,25 @@ const StylesObj = StyleSheet.create({
 		fontSize: TextSizes.Rem2,
 		fontFamily: 'Inter-Bold',
 		color: Colors.White,
+	},
+
+
+	InfoRootContainer: {
+		flex: 1,
+		flexDirection: 'column',
+
+		backgroundColor: Colors.Grey1,
+	},
+	InformationSection: {
+		backgroundColor: Colors.White,
+
+		paddingHorizontal: 16,
+		marginBottom: 8,
+	},
+		//
+	InformationHeader: {
+		fontSize: TextSizes.Rem2,
+		fontFamily: 'Inter-Bold',
 	}
 });
 

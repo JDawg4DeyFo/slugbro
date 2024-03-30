@@ -28,7 +28,7 @@ const Leaderboard = ({navigation}: {navigation: StackNavigationProp<RootStackPar
         </View>
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={() => navigation.navigate('Settings')}>
+        <TouchableOpacity onPress={() => navigation.navigate('Info')}>
           <Image
             source={require('../assets/settings.png')}
             style={Styles.SettingsIcon}

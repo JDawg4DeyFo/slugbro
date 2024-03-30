@@ -28,7 +28,7 @@ const PeripheralScreenOptions = {
 
 export type RootStackParamList = {
     BigHome: undefined;
-    Settings: undefined;
+    Info: undefined;
     Profile: undefined;
     Brofile: { Profile: UserProfileType };
 };
@@ -79,7 +79,7 @@ const StackNavigator = () => {
                     component={Tabs}
                     options={{ headerShown: false }}
                     />
-                    <Stack.Screen name="Settings" component={Settings} options={PeripheralScreenOptions} />
+                    <Stack.Screen name="Info" component={Settings} options={PeripheralScreenOptions} />
                     <Stack.Screen name="Profile" component={Profile} options={PeripheralScreenOptions} />
                     <Stack.Screen name="Brofile" component={PublicProfile} options={PeripheralScreenOptions} />
                     </>
