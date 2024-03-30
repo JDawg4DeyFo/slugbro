@@ -7,6 +7,9 @@ import { doc, setDoc, getDoc, updateDoc, collection, query, orderBy, limit, getD
 import { getDownloadURL, uploadBytes, ref } from "firebase/storage";
 import { FIREBASE_STORAGE } from './FireBaseConfig';
 import { ImagePickerAsset } from "expo-image-picker";
+import { StackNavigationProp } from "@react-navigation/stack";
+import { RootStackParamList } from "./Stack";
+
 const Auth = FIREBASE_AUTH;
 const db = FIREBASE_DB;
 const Storage = FIREBASE_STORAGE;
@@ -34,6 +37,14 @@ export type UserProfileType = {
     NumFollowing: number,
     NumFollowers: number
 };
+export type BroItemProps = {
+    User:    string,
+    BroType: string,
+    BroName: string,
+    BroDate: string,
+    navigation: StackNavigationProp<RootStackParamList>
+};
+
 export const UserSignUp = async ({Email, Password}: SignUpProps) => {
     Toast.hideAll();
     const toastMe = Toast.show('Signing up...', NormalToast);
@@ -209,3 +220,30 @@ export const fixLBEntries = (snapshot: QuerySnapshot<DocumentData, DocumentData>
     });
     return LBEntries;
 };
+const FEED_LIMIT = 100;
+export const FeedQuery = query(collection(db, 'posts'), orderBy('BroDate', 'desc'), limit(FEED_LIMIT));
+export const GetFeedEntries = async () => {
+    Toast.hideAll();
+    const toastMe = Toast.show('Loading...', NormalToast);
+
+    try {
+        const FeedSnapShot = await getDocs(FeedQuery);
+        const FeedEntries = FixFeedEntries(FeedSnapShot);
+        Toast.hideAll();
+        return FeedEntries;
+    }
+}
+export const FixFeedEntries = (snapshot: QuerySnapshot<DocumentData, DocumentData>) => {
+    let FeedEntries: BroItemProps[] = [];
+
+    snapshot.forEach((doc) => {
+        try {
+            FeedEntries.push(doc.data() as BroItemProps);
+        }
+        catch (error:any) {
+            console.error(error);
+        }
+    });
+
+    return FeedEntries;
+}

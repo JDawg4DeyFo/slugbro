@@ -1,62 +1,67 @@
 // this file will render the main flatlist component. I figured it was nontrivial enough to warrant its own file
-import React from 'react';
+import React, { useContext } from 'react';
 import {FlatList, View, Text} from 'react-native';
 
 import StylesObj from './Styles'
+import { TouchableOpacity } from 'react-native-gesture-handler';
 const Styles = StylesObj.StylesObj;
+
+import { RootStackParamList, BroContext } from './Stack';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { BroItemProps } from './FireBaseFunctions';
 
 // To get some stuff before firebase is setup
 const DEBUG_DATA = [
     {
-        id: '1',
+        user: 'jdennon@ucsc.edu',
         BroType: 'Bro',
         BroName: 'JDawg',
         BroDate: '4:20PM',   // should use some time format
     },
     {
-        id: '2',
+        user: 'jdennon@ucsc.edu',
         BroType: 'Bro',
         BroName: 'JDawg',
         BroDate: '4:20PM',   // should use some time format
     },
     {
-        id: '3',
+        user: 'jdennon@ucsc.edu',
         BroType: 'Bro',
         BroName: 'JDawg',
         BroDate: '4:20PM',   // should use some time format
     },
     {
-        id: '4',
+        user: 'jdennon@ucsc.edu',
         BroType: 'Bro',
         BroName: 'JDawg',
         BroDate: '4:20PM',   // should use some time format
     },
     {
-        id: '5',
+        user: 'jdennon@ucsc.edu',
         BroType: 'Bro',
         BroName: 'JDawg',
         BroDate: '4:20PM',   // should use some time format
     },
     {
-        id: '6',
+        user: 'jdennon@ucsc.edu',
         BroType: 'Bro',
         BroName: 'JDawg',
         BroDate: '4:20PM',   // should use some time format
     },
     {
-        id: '7',
+        user: 'jdennon@ucsc.edu',
         BroType: 'Bro',
         BroName: 'JDawg',
         BroDate: '4:20PM',   // should use some time format
     },
     {
-        id: '8',
+        user: 'jdennon@ucsc.edu',
         BroType: 'Bro',
         BroName: 'JDawg',
         BroDate: '4:20PM',   // should use some time format
     },
     {
-        id: '9',
+        user: 'jdennon@ucsc.edu',
         BroType: 'Bro',
         BroName: 'JDawg',
         BroDate: '4:20PM',   // should use some time format
@@ -68,14 +73,23 @@ const DEBUG_DATA = [
 const DATA = DEBUG_DATA;
 
 // Bro items
-type BroItemProps = {
-    BroType: string,
-    BroName: string,
-    BroDate: string,    // is this right?? lol
-};
 
-const BroItem = ({BroType, BroName, BroDate}: BroItemProps) => {
+
+const BroItem = ({User, BroType, BroName, BroDate, navigation}: BroItemProps) => {
+    const { profile } = useContext(BroContext);
+    const isMyProfile = profile?.Email == User;
+
+    const navigate = () => {
+
+        if (isMyProfile) {
+            navigation.navigate('Profile');
+        }
+        else {
+            navigation.navigate('Brofile', {Profile: {BroName, BroDate}})
+        }
+    };
     return (
+    <TouchableOpacity onPress={navigate}>
     <View style={Styles.BroContainer}>
         <View style={Styles.MainBro}>
             <Text style={Styles.MainBroText}>{BroType}</Text>
@@ -85,6 +99,7 @@ const BroItem = ({BroType, BroName, BroDate}: BroItemProps) => {
             <Text style={Styles.MBFooterTxt}>{BroDate}</Text>
         </View>
     </View>
+    </TouchableOpacity>
     );
 };
 
