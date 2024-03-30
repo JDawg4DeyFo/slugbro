@@ -60,6 +60,13 @@ export type BroItemProps = {
     id:      string,
     navigation: StackNavigationProp<RootStackParamList>
 };
+export type BroFeedData = {
+    User:    string,
+    BroType: string,
+    BroName: string,
+    BroDate: Timestamp,
+    id:      string,
+}
 
 export const UserSignUp = async ({Email, Password}: SignUpProps) => {
     Toast.hideAll();
@@ -282,7 +289,7 @@ export const FixFeedEntries = (snapshot: QuerySnapshot<DocumentData, DocumentDat
     return FeedEntries;
 }
 
-export const SendBro = async (Email: string, BroItem: BroItemProps) => {    
+export const SendBro = async (Email: string, BroItem: BroFeedData) => {    
     const ProfileData: UserProfileType | null = await UserGetProfile(Email);
 
     Toast.hideAll();
@@ -297,7 +304,11 @@ export const SendBro = async (Email: string, BroItem: BroItemProps) => {
     // Now create new post in DB
     const PostRef = collection(db, 'posts');
     try {
-        await addDoc(PostRef, BroItem);
+        // First add basic data
+        const DocRef = await addDoc(PostRef, BroItem);
+        // then get id.
+        BroItem.id = DocRef.id;
+        await updateDoc(DocRef, BroItem);
     }
     catch (error: any) {
         Toast.show("Failed to Bro: " + error.message, ErrorToast);

@@ -3,7 +3,7 @@ import { Image, Text, View } from 'react-native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import { FontAwesome5, Entypo, MaterialIcons } from '@expo/vector-icons';
 import { Toast, ToastOptions } from "react-native-toast-notifications";
-import { NormalToast, ErrorToast, SendBro } from './FireBaseFunctions';
+import { NormalToast, ErrorToast, SendBro, BroItemProps, BroFeedData } from './FireBaseFunctions';
 
 import Feed from './Feed';
 import Leaderboard from './Leaderboard';
@@ -13,6 +13,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import { BroContext } from './Stack';
 
 import StylesObj from './Styles';
+import { Timestamp } from 'firebase/firestore';
 const Styles = StylesObj.StylesObj;
 
 
@@ -29,7 +30,17 @@ const Tabs = () => {
             return;
         }
 
-        SendBro(profile.Email);
+        const CurrentTime = new Date();
+        const CurrentTimeStamp = Timestamp.fromDate(CurrentTime);
+        const BroItem: BroFeedData = {
+            User: profile?.Email,
+            BroName: profile?.Name || '',
+            BroType: 'Bro',
+            BroDate: CurrentTimeStamp,
+            id: 'debugdebug',
+        }
+
+        SendBro(profile.Email, BroItem);
     }
 
     return (
