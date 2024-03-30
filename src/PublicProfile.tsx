@@ -1,15 +1,19 @@
 // same idea as profile, but for public to view.
 import React, { useEffect, useState } from 'react';
-import { Text, View, Image, TouchableOpacity, ScrollView } from 'react-native'
+import { Text, View, Image, TouchableOpacity, ScrollView, Alert } from 'react-native'
 
 import { RouteProp } from '@react-navigation/native';
 import { RootStackParamList } from './Stack';
 import { CountUp } from 'use-count-up';
+import * as Clipboard from 'expo-clipboard'
+import { Toast } from "react-native-toast-notifications";
+import { NormalToast } from './FireBaseFunctions';
 
 import StylesObj from './Styles';
 import { FIREBASE_DB } from './FireBaseConfig';
 import { doc, onSnapshot } from 'firebase/firestore';
 import { UserProfileType } from './FireBaseFunctions';
+
 const Styles = StylesObj.StylesObj;
 
 // more type stuff
@@ -31,8 +35,16 @@ const PublicProfile: React.FC<{ route: PublicProfileScreenRouteProp }> = ({ rout
         }
     }, []);
 
-    
-
+    const CopyIG = async () => {
+        Toast.hideAll();
+        if(Profile.IG != null) {
+            await Clipboard.setStringAsync(Profile.IG);
+            Toast.show('Copied To Clipboard', NormalToast);
+        }
+        else {
+            Toast.show('No IG found');
+        }
+    }
 
     const UnBro = () => {}
     const AddBro = () => {}
