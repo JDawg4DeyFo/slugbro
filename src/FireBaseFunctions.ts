@@ -35,7 +35,8 @@ export type UserProfileType = {
     Bio: string | null,
     NumBros: number,
     NumFollowing: number,
-    NumFollowers: number
+    NumFollowers: number,
+    Following: string[]
 };
 // Not sure if it's needed
 // export interface UserProfileInterface {
@@ -90,7 +91,8 @@ export const UserSignUp = async ({Email, Password}: SignUpProps) => {
             Bio: sentence(),
             NumBros: 0,
             NumFollowers: 0,
-            NumFollowing: 0
+            NumFollowing: 0,
+            Following: []
         };
         const userRef = doc(db, 'users', Email);
         await setDoc(userRef, userProfile);

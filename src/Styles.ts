@@ -535,6 +535,21 @@ const StylesObj = StyleSheet.create({
 		fontFamily: 'Inter-SemiBold',
 
 		color: Colors.MainPrimary,
+	},
+
+	BroButton: {
+		backgroundColor: '#1295D8',
+		borderColor: '#E0E3E6',
+		borderWidth: 6,
+		borderRadius: 30,
+		width: '26%',
+		position: 'absolute',
+		transform: [{translateX: -8}, {translateY: -117}]
+	},
+	BroText: {
+		fontSize: TextSizes.Rem2,
+		fontFamily: 'Inter-Bold',
+		color: Colors.White,
 	}
 });
 
