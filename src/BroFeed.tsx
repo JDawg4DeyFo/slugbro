@@ -8,7 +8,7 @@ const Styles = StylesObj.StylesObj;
 
 import { RootStackParamList, BroContext } from './Stack';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { BroItemProps, FeedQuery, FixFeedEntries, GetFeedEntries, GetUserData, UserProfileType } from './FireBaseFunctions';
+import { BroItemProps, FeedQuery, FixFeedEntries, GetFeedEntries, GetUserData, UserGetProfile, UserProfileType } from './FireBaseFunctions';
 import { onSnapshot, Timestamp } from 'firebase/firestore';
 
 // To get some stuff before firebase is setup
@@ -93,7 +93,7 @@ const BroItem = ({User, BroType, BroName, BroDate, navigation}: BroItemProps) =>
             navigation.navigate('Profile');
         }
         else {
-            GetUserData(User).then((ProfileData) => {
+            UserGetProfile(User).then((ProfileData) => {
                 if(ProfileData != null) {
                     navigation.navigate('Brofile', {Profile: ProfileData})
                 }

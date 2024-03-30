@@ -3,7 +3,7 @@ import { FIREBASE_APP, FIREBASE_AUTH, FIREBASE_DB } from "./FireBaseConfig";
 import { Toast, ToastOptions } from "react-native-toast-notifications";
 import { uniqueNamesGenerator, Config, adjectives, colors, animals } from 'unique-names-generator';
 import { sentence } from "txtgen";
-import { doc, setDoc, getDoc, updateDoc, where, collection, query, orderBy, limit, getDocs, QuerySnapshot, DocumentData, Timestamp } from "firebase/firestore";
+import { doc, setDoc, getDoc, updateDoc, where, collection, query, orderBy, limit, getDocs, QuerySnapshot, DocumentData, Timestamp, addDoc } from "firebase/firestore";
 import { getDownloadURL, uploadBytes, ref } from "firebase/storage";
 import { FIREBASE_STORAGE } from './FireBaseConfig';
 import { ImagePickerAsset } from "expo-image-picker";
@@ -160,6 +160,19 @@ type ProfileHeaderType = {
     College: string,
     IG: string
 };
+
+export const UserUpdateData = async (Email: string, Profile: UserProfileType) => {
+    Toast.hideAll();
+    try{
+        const UserRef = doc(db, 'users', Email);
+        await updateDoc(UserRef, Profile);
+    }
+    catch (error: any) {
+        console.error(error);
+        Toast.show('Error updating data: ' + error.message, ErrorToast);
+    }
+}
+
 export const UserUpdateProfile = async (Email: string, Profile: ProfileHeaderType) => {
     Toast.hideAll();
     const toastMe = Toast.show('Saving profile...', NormalToast);
@@ -268,23 +281,26 @@ export const FixFeedEntries = (snapshot: QuerySnapshot<DocumentData, DocumentDat
 
     return FeedEntries;
 }
-// lookup user data from email string
-export const GetUserData = async (Email: string): Promise<UserProfileType | null> => {
-    let UserData: UserProfileType;
 
-    const UserQuery = query(collection(db, 'users'), where('Email', '==', Email));
-    
-    try{
-        const UserSnapShot = await getDocs(UserQuery);
-        // make sure thang is found
-        if(UserSnapShot.empty){
-            return null;
-        }
-        UserData = UserSnapShot.docs[0].data() as UserProfileType;
-        return UserData;
+export const SendBro = async (Email: string, BroItem: BroItemProps) => {    
+    const ProfileData: UserProfileType | null = await UserGetProfile(Email);
+
+    Toast.hideAll();
+
+    // Need to increment bros
+    if(ProfileData == null) {
+        return null;
+    } 
+    ProfileData.NumBros++;
+    UserUpdateData(Email, ProfileData);
+
+    // Now create new post in DB
+    const PostRef = collection(db, 'posts');
+    try {
+        await addDoc(PostRef, BroItem);
     }
     catch (error: any) {
+        Toast.show("Failed to Bro: " + error.message, ErrorToast);
         console.error(error);
-        return null;
     }
-}
+};

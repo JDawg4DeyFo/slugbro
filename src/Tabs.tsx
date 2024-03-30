@@ -1,13 +1,17 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Image, Text, View } from 'react-native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import { FontAwesome5, Entypo, MaterialIcons } from '@expo/vector-icons';
+import { Toast, ToastOptions } from "react-native-toast-notifications";
+import { NormalToast, ErrorToast, SendBro } from './FireBaseFunctions';
 
 import Feed from './Feed';
 import Leaderboard from './Leaderboard';
 import Bros from './Bros';
 import Colors from './Styles'
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import { BroContext } from './Stack';
+
 import StylesObj from './Styles';
 const Styles = StylesObj.StylesObj;
 
@@ -15,6 +19,19 @@ const Styles = StylesObj.StylesObj;
 const Tab = createBottomTabNavigator();
 
 const Tabs = () => {
+    const { profile } = useContext(BroContext);
+
+    const Bro = () => {
+        Toast.hideAll();
+
+        if (profile?.Email == null) {
+            Toast.show('Error Broing: null email', ErrorToast);
+            return;
+        }
+
+        SendBro(profile.Email);
+    }
+
     return (
         <>
         <Tab.Navigator
@@ -68,7 +85,7 @@ const Tabs = () => {
         </Tab.Navigator>
         <View style={{flexDirection: 'row', justifyContent: 'flex-end'}}>
             <View style={Styles.BroButton}>
-                <TouchableOpacity style={{justifyContent: 'center', alignItems: 'center'}}>
+                <TouchableOpacity onPress={Bro} style={{justifyContent: 'center', alignItems: 'center'}}>
                     <Text style={Styles.BroText}>Bro</Text>
                 </TouchableOpacity>
             </View>
