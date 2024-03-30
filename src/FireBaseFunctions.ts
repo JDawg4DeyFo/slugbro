@@ -1,9 +1,9 @@
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+import { User, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 import { FIREBASE_APP, FIREBASE_AUTH, FIREBASE_DB } from "./FireBaseConfig";
 import { Toast, ToastOptions } from "react-native-toast-notifications";
 import { uniqueNamesGenerator, Config, adjectives, colors, animals } from 'unique-names-generator';
 import { sentence } from "txtgen";
-import { doc, setDoc, getDoc, updateDoc, collection, query, orderBy, limit, getDocs, QuerySnapshot, DocumentData } from "firebase/firestore";
+import { doc, setDoc, getDoc, updateDoc, where, collection, query, orderBy, limit, getDocs, QuerySnapshot, DocumentData } from "firebase/firestore";
 import { getDownloadURL, uploadBytes, ref } from "firebase/storage";
 import { FIREBASE_STORAGE } from './FireBaseConfig';
 import { ImagePickerAsset } from "expo-image-picker";
@@ -37,6 +37,20 @@ export type UserProfileType = {
     NumFollowing: number,
     NumFollowers: number
 };
+// Not sure if it's needed
+// export interface UserProfileInterface {
+//     Email: string,
+//     PFP: string | null,
+//     Name: string | null,
+//     Slogan: string | null,
+//     Major: string | null,
+//     College: string | null,
+//     IG: string | null,
+//     Bio: string | null,
+//     NumBros: number,
+//     NumFollowing: number,
+//     NumFollowers: number
+// };
 export type BroItemProps = {
     User:    string,
     BroType: string,
@@ -252,6 +266,22 @@ export const FixFeedEntries = (snapshot: QuerySnapshot<DocumentData, DocumentDat
     return FeedEntries;
 }
 // lookup user data from email string
-export const GetUserData = (User: string) => {
+export const GetUserData = async (Email: string): Promise<UserProfileType | null> => {
+    let UserData: UserProfileType;
+
+    const UserQuery = query(collection(db, 'users'), where('Email', '==', Email));
     
+    try{
+        const UserSnapShot = await getDocs(UserQuery);
+        // make sure thang is found
+        if(UserSnapShot.empty){
+            return null;
+        }
+        UserData = UserSnapShot.docs[0].data() as UserProfileType;
+        return UserData;
+    }
+    catch (error: any) {
+        console.error(error);
+        return null;
+    }
 }
