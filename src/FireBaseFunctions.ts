@@ -55,7 +55,7 @@ export type BroItemProps = {
     User:    string,
     BroType: string,
     BroName: string,
-    BroDate: string,
+    BroDate: Date,
     id:      string,
     navigation: StackNavigationProp<RootStackParamList>
 };

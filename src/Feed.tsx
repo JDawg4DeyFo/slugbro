@@ -37,7 +37,6 @@ const Feed = ({navigation}: {navigation: StackNavigationProp<RootStackParamList>
         </TouchableOpacity>
       </View>
 
-
       <View style={Styles.FeedContent}>
         <BroFeed navigation={navigation}/>
       </View>

@@ -1,5 +1,5 @@
 // this file will render the main flatlist component. I figured it was nontrivial enough to warrant its own file
-import React, { useContext } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import {FlatList, View, Text} from 'react-native';
 
 import StylesObj from './Styles'
@@ -8,7 +8,8 @@ const Styles = StylesObj.StylesObj;
 
 import { RootStackParamList, BroContext } from './Stack';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { BroItemProps, GetUserData, UserProfileType } from './FireBaseFunctions';
+import { BroItemProps, FeedQuery, FixFeedEntries, GetFeedEntries, GetUserData, UserProfileType } from './FireBaseFunctions';
+import { onSnapshot } from 'firebase/firestore';
 
 // To get some stuff before firebase is setup
 const DEBUG_DATA = [
@@ -75,17 +76,14 @@ const DEBUG_DATA = [
         BroDate: '4:20PM',   // should use some time format
         id: '9',
     },
-]
+];
 
 
 // Delete this line once firebase is working
-const DATA = DEBUG_DATA;
+// const DATA = DEBUG_DATA;
 
 // Bro items
-
-
 const BroItem = ({User, BroType, BroName, BroDate, navigation}: BroItemProps) => {
-    let ProfileData: UserProfileType;
     const { profile } = useContext(BroContext);
     const isMyProfile = profile?.Email == User;
 
@@ -113,7 +111,7 @@ const BroItem = ({User, BroType, BroName, BroDate, navigation}: BroItemProps) =>
         </View>
         <View style={Styles.MainBroFooter}>
             <Text style={Styles.MBFooterTxt}>{BroName}</Text>
-            <Text style={Styles.MBFooterTxt}>{BroDate}</Text>
+            <Text style={Styles.MBFooterTxt}>{BroDate.toLocaleString()}</Text>
         </View>
     </View>
     </TouchableOpacity>
@@ -123,10 +121,31 @@ const BroItem = ({User, BroType, BroName, BroDate, navigation}: BroItemProps) =>
 
 // Feed of bros
 const BroFeed = ({navigation}: {navigation: StackNavigationProp<RootStackParamList>}) => {
+    const [DATA, SetData] = useState<BroItemProps[] | null>(null);
+    const [Listen, SetListen] = useState(false);
+
+    useEffect(() => {
+        const LoadData = async () => {
+            const FeedData = await GetFeedEntries();
+            if (!FeedData) return;
+            SetData(FeedData);
+        }
+        LoadData();
+    }, []);
+
+    useEffect(() => {
+        if(!DATA || Listen) return;
+        SetListen(true);
+        onSnapshot(FeedQuery, (snapshot) => {
+            console.log('Update Feed');
+            SetData(FixFeedEntries(snapshot));
+        });
+    }, [DATA,Listen]);
+
     return (
         <FlatList
             data={DATA}
-            renderItem={({item}) => <BroItem User={item.user}BroType={item.BroType} BroDate={item.BroDate} BroName={item.BroName} navigation={navigation} id={item.id}/>}
+            renderItem={({item}) => <BroItem User={item.User}BroType={item.BroType} BroDate={item.BroDate} BroName={item.BroName} navigation={navigation} id={item.id}/>}
             keyExtractor={item => item.id}  // no idea what this is for
             showsVerticalScrollIndicator={false}
         />
