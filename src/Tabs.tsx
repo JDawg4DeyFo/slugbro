@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { Image, Text, View } from 'react-native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import { FontAwesome5, Entypo, MaterialIcons } from '@expo/vector-icons';
@@ -22,8 +22,20 @@ const Tab = createBottomTabNavigator();
 const Tabs = () => {
     const { profile } = useContext(BroContext);
 
+    const [Disabled, SetDisabled] = useState(false);
+
     const Bro = () => {
         Toast.hideAll();
+
+        if (Disabled) {
+            Toast.show('Wait lol', ErrorToast);
+            return;
+        }
+
+        SetDisabled(true);
+        setTimeout(() => {
+            SetDisabled(false);
+        }, 1500);
 
         if (profile?.Email == null) {
             Toast.show('Error Broing: null email', ErrorToast);
@@ -37,7 +49,7 @@ const Tabs = () => {
             BroName: profile?.Name || '',
             BroType: 'Bro',
             BroDate: CurrentTimeStamp,
-            id: 'debugdebug',
+            id: 'debugdebug'+ CurrentTimeStamp,
         }
 
         SendBro(profile.Email, BroItem);
@@ -96,9 +108,15 @@ const Tabs = () => {
         </Tab.Navigator>
         <View style={{flexDirection: 'row', justifyContent: 'flex-end'}}>
             <View style={Styles.BroButton}>
+                {Disabled?
+                <TouchableOpacity>
+                    <Text style={Styles.BroText}>wait</Text>
+                </TouchableOpacity>
+                :
                 <TouchableOpacity onPress={Bro} style={{justifyContent: 'center', alignItems: 'center'}}>
                     <Text style={Styles.BroText}>Bro</Text>
                 </TouchableOpacity>
+                }
             </View>
         </View>
         </>
