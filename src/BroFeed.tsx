@@ -8,7 +8,7 @@ const Styles = StylesObj.StylesObj;
 
 import { RootStackParamList, BroContext } from './Stack';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { BroItemProps } from './FireBaseFunctions';
+import { BroItemProps, GetUserData, UserProfileType } from './FireBaseFunctions';
 
 // To get some stuff before firebase is setup
 const DEBUG_DATA = [
@@ -76,16 +76,24 @@ const DATA = DEBUG_DATA;
 
 
 const BroItem = ({User, BroType, BroName, BroDate, navigation}: BroItemProps) => {
+    let ProfileData: UserProfileType;
     const { profile } = useContext(BroContext);
     const isMyProfile = profile?.Email == User;
 
-    const navigate = () => {
+    const navigate = async (): Promise<void> => {
 
         if (isMyProfile) {
             navigation.navigate('Profile');
         }
         else {
-            navigation.navigate('Brofile', {Profile: {BroName, BroDate}})
+            GetUserData(User).then((ProfileData) => {
+                if(ProfileData != null) {
+                    navigation.navigate('Brofile', {Profile: ProfileData})
+                }
+                else {
+                    console.log("profile data doesn't exist");
+                }
+            });
         }
     };
     return (
