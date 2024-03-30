@@ -87,10 +87,12 @@ const PublicProfile: React.FC<{ route: PublicProfileScreenRouteProp }> = ({ rout
                 <Text style={Styles.PH_InfotainerText}>College:</Text>
                 <Text style={Styles.PH_InfotainerText}>{profile.College || 'none'}</Text>
             </View>
+            <TouchableOpacity onPress={CopyIG}>
             <View style={Styles.PH_IGRow}>
                 <Image style={Styles.PH_IGLogo} source={require('../assets/IGLogo.png')} />
                 <Text style={Styles.PH_IGText}>{profile.IG || 'none'}</Text>
             </View>
+            </TouchableOpacity>
         </View>
 
         <View style={Styles.ProfileHeader}>
