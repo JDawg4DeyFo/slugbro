@@ -17,54 +17,63 @@ const DEBUG_DATA = [
         BroType: 'Bro',
         BroName: 'JDawg',
         BroDate: '4:20PM',   // should use some time format
+        id: '1',
     },
     {
         user: 'jdennon@ucsc.edu',
         BroType: 'Bro',
         BroName: 'JDawg',
         BroDate: '4:20PM',   // should use some time format
+        id: '2',
     },
     {
         user: 'jdennon@ucsc.edu',
         BroType: 'Bro',
         BroName: 'JDawg',
         BroDate: '4:20PM',   // should use some time format
+        id: '3',
     },
     {
         user: 'jdennon@ucsc.edu',
         BroType: 'Bro',
         BroName: 'JDawg',
         BroDate: '4:20PM',   // should use some time format
+        id: '4',
     },
     {
         user: 'jdennon@ucsc.edu',
         BroType: 'Bro',
         BroName: 'JDawg',
         BroDate: '4:20PM',   // should use some time format
+        id: '5',
     },
     {
         user: 'jdennon@ucsc.edu',
         BroType: 'Bro',
         BroName: 'JDawg',
         BroDate: '4:20PM',   // should use some time format
+        id: '6',
     },
     {
         user: 'jdennon@ucsc.edu',
         BroType: 'Bro',
         BroName: 'JDawg',
         BroDate: '4:20PM',   // should use some time format
+        id: '7',
     },
     {
         user: 'jdennon@ucsc.edu',
         BroType: 'Bro',
         BroName: 'JDawg',
         BroDate: '4:20PM',   // should use some time format
+        id: '8',
     },
     {
         user: 'jdennon@ucsc.edu',
         BroType: 'Bro',
         BroName: 'JDawg',
         BroDate: '4:20PM',   // should use some time format
+        id: '9',
     },
 ]
 
@@ -113,11 +122,11 @@ const BroItem = ({User, BroType, BroName, BroDate, navigation}: BroItemProps) =>
 
 
 // Feed of bros
-const BroFeed = () => {
+const BroFeed = ({navigation}: {navigation: StackNavigationProp<RootStackParamList>}) => {
     return (
         <FlatList
             data={DATA}
-            renderItem={({item}) => <BroItem BroType={item.BroType} BroDate={item.BroDate} BroName={item.BroName}/>}
+            renderItem={({item}) => <BroItem User={item.user}BroType={item.BroType} BroDate={item.BroDate} BroName={item.BroName} navigation={navigation} id={item.id}/>}
             keyExtractor={item => item.id}  // no idea what this is for
             showsVerticalScrollIndicator={false}
         />

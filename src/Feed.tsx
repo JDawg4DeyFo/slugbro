@@ -39,7 +39,7 @@ const Feed = ({navigation}: {navigation: StackNavigationProp<RootStackParamList>
 
 
       <View style={Styles.FeedContent}>
-        <BroFeed/>
+        <BroFeed navigation={navigation}/>
       </View>
     </View>
   );
