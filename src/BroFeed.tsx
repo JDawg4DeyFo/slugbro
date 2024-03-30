@@ -9,7 +9,7 @@ const Styles = StylesObj.StylesObj;
 import { RootStackParamList, BroContext } from './Stack';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { BroItemProps, FeedQuery, FixFeedEntries, GetFeedEntries, GetUserData, UserProfileType } from './FireBaseFunctions';
-import { onSnapshot } from 'firebase/firestore';
+import { onSnapshot, Timestamp } from 'firebase/firestore';
 
 // To get some stuff before firebase is setup
 const DEBUG_DATA = [
@@ -111,7 +111,7 @@ const BroItem = ({User, BroType, BroName, BroDate, navigation}: BroItemProps) =>
         </View>
         <View style={Styles.MainBroFooter}>
             <Text style={Styles.MBFooterTxt}>{BroName}</Text>
-            <Text style={Styles.MBFooterTxt}>{BroDate.toLocaleString()}</Text>
+            <Text style={Styles.MBFooterTxt}>{BroDate.toDate().toLocaleString()}</Text>
         </View>
     </View>
     </TouchableOpacity>

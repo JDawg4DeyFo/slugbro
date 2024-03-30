@@ -3,7 +3,7 @@ import { FIREBASE_APP, FIREBASE_AUTH, FIREBASE_DB } from "./FireBaseConfig";
 import { Toast, ToastOptions } from "react-native-toast-notifications";
 import { uniqueNamesGenerator, Config, adjectives, colors, animals } from 'unique-names-generator';
 import { sentence } from "txtgen";
-import { doc, setDoc, getDoc, updateDoc, where, collection, query, orderBy, limit, getDocs, QuerySnapshot, DocumentData } from "firebase/firestore";
+import { doc, setDoc, getDoc, updateDoc, where, collection, query, orderBy, limit, getDocs, QuerySnapshot, DocumentData, Timestamp } from "firebase/firestore";
 import { getDownloadURL, uploadBytes, ref } from "firebase/storage";
 import { FIREBASE_STORAGE } from './FireBaseConfig';
 import { ImagePickerAsset } from "expo-image-picker";
@@ -55,7 +55,7 @@ export type BroItemProps = {
     User:    string,
     BroType: string,
     BroName: string,
-    BroDate: Date,
+    BroDate: Timestamp,
     id:      string,
     navigation: StackNavigationProp<RootStackParamList>
 };
