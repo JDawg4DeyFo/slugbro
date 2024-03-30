@@ -9,9 +9,13 @@ const Styles = StylesObj.StylesObj;
 // actual feed content
 import BroFeed from './BroFeed';
 import { StackNavigationProp } from '@react-navigation/stack';
+import { useContext } from 'react';
+import { BroContext } from './Stack';
 
 
 const Feed = ({navigation}: {navigation: StackNavigationProp<RootStackParamList>}) => {
+  const { profile } = useContext(BroContext);
+
   // Meat of the app
   return (
     <View style={Styles.RootContainer}>
@@ -19,12 +23,12 @@ const Feed = ({navigation}: {navigation: StackNavigationProp<RootStackParamList>
         <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
         <View style={Styles.ProfileContainer}>
           <Image 
-          source={require('../assets/SamplePFP.jpg')}
+          source={profile?.PFP ? {uri: profile.PFP} : require('../assets/SamplePFP.jpg')}
           style={Styles.ProfileIcon}
           />
           <View style={Styles.ProfileNameSloganContainer}>
-            <Text style={Styles.ProfileName}>JDawg</Text>
-            <Text style={Styles.ProfileSlogan}>"Born2Bro"</Text>
+            <Text style={Styles.ProfileName}>{profile?.Name || 'erm'}</Text>
+            <Text style={Styles.ProfileSlogan}>{profile?.Slogan ? `"${profile.Slogan}"` : ''}</Text>
           </View>
         </View>
         </TouchableOpacity>
