@@ -8,7 +8,7 @@ import { pickMedia } from './PickMediaFromLibrary';
 import { ImagePickerAsset } from 'expo-image-picker';
 import { Toast } from "react-native-toast-notifications";
 import { NormalToast } from './FireBaseFunctions';
-import * as Clipboard from 'expo-clipboard'
+// import * as Clipboard from 'expo-clipboard'
 
 import StylesObj, { Colors } from './Styles';
 const Styles = StylesObj.StylesObj;
@@ -83,14 +83,14 @@ const Profile = () => {
     }, [isEditingProfile, profile, loading]);
 
     const CopyIG = async () => {
-        Toast.hideAll();
-        if(profile?.IG != null) {
-            await Clipboard.setStringAsync(profile.IG);
-            Toast.show('Copied To Clipboard', NormalToast);
-        }
-        else {
-            Toast.show('No IG found');
-        }
+        // Toast.hideAll();
+        // if(profile?.IG != null) {
+        //     await Clipboard.setStringAsync(profile.IG);
+        //     Toast.show('Copied To Clipboard', NormalToast);
+        // }
+        // else {
+        //     Toast.show('No IG found');
+        // }
     }
 
     useEffect(() => {

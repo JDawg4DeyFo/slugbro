@@ -5,9 +5,6 @@ import { Text, View, Image, TouchableOpacity, ScrollView, Alert } from 'react-na
 import { RouteProp } from '@react-navigation/native';
 import { RootStackParamList } from './Stack';
 import { CountUp } from 'use-count-up';
-import * as Clipboard from 'expo-clipboard'
-import { Toast } from "react-native-toast-notifications";
-import { NormalToast } from './FireBaseFunctions';
 
 import StylesObj from './Styles';
 import { FIREBASE_DB } from './FireBaseConfig';
@@ -19,7 +16,7 @@ const Styles = StylesObj.StylesObj;
 // more type stuff
 type PublicProfileScreenRouteProp = RouteProp<RootStackParamList, "Brofile">;
 
-const PublicProfile: React.FC<{ route: PublicProfileScreenRouteProp }> = ({ route }) => {
+const PublicProfile: React.FC<{ route: PublicProfileScreenRouteProp }> = ({ route }: {route: PublicProfileScreenRouteProp}) => {
     // should read UserID from props of route
     const { Profile } = route.params;
     const [profile, setProfile] = useState(Profile);
@@ -36,14 +33,14 @@ const PublicProfile: React.FC<{ route: PublicProfileScreenRouteProp }> = ({ rout
     }, []);
 
     const CopyIG = async () => {
-        Toast.hideAll();
-        if(Profile.IG != null) {
-            await Clipboard.setStringAsync(Profile.IG);
-            Toast.show('Copied To Clipboard', NormalToast);
-        }
-        else {
-            Toast.show('No IG found');
-        }
+        // Toast.hideAll();
+        // if(Profile.IG != null) {
+        //     await Clipboard.setStringAsync(Profile.IG);
+        //     Toast.show('Copied To Clipboard', NormalToast);
+        // }
+        // else {
+        //     Toast.show('No IG found');
+        // }
     }
 
     return (

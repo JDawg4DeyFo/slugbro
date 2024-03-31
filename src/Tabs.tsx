@@ -2,8 +2,8 @@ import React, { useContext, useState } from 'react';
 import { Image, Text, View } from 'react-native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import { FontAwesome5, Entypo, MaterialIcons } from '@expo/vector-icons';
-import { Toast, ToastOptions } from "react-native-toast-notifications";
-import { NormalToast, ErrorToast, SendBro, BroItemProps, BroFeedData } from './FireBaseFunctions';
+import { Toast } from "react-native-toast-notifications";
+import { NormalToast, ErrorToast, SendBro, BroFeedType } from './FireBaseFunctions';
 
 import Feed from './Feed';
 import Leaderboard from './Leaderboard';
@@ -24,7 +24,7 @@ const Tabs = () => {
 
     const [Disabled, SetDisabled] = useState(false);
 
-    const Bro = () => {
+    const Bro = async () => {
         Toast.hideAll();
 
         if (Disabled) {
@@ -37,22 +37,19 @@ const Tabs = () => {
             SetDisabled(false);
         }, 1500);
 
-        if (profile?.Email == null) {
-            Toast.show('Error Broing: null email', ErrorToast);
+        if (!profile?.Email) {
+            Toast.show('Wait for your profile to load first', ErrorToast);
             return;
         }
 
-        const CurrentTime = new Date();
-        const CurrentTimeStamp = Timestamp.fromDate(CurrentTime);
-        const BroItem: BroFeedData = {
-            User: profile?.Email,
-            BroName: profile?.Name || '',
+        const BroItem: BroFeedType = {
+            Email: profile.Email,
+            BroName: profile?.Name || profile.Email,
             BroType: 'Bro',
-            BroDate: CurrentTimeStamp,
-            id: 'debugdebug'+ CurrentTimeStamp,
+            BroDate: Timestamp.now()
         }
 
-        SendBro(profile.Email, BroItem);
+        SendBro(profile, BroItem);
     }
 
     return (

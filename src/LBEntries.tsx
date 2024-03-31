@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import { FlatList, View, Text, Image } from 'react-native';
 
-import StylesObj, { Colors } from './Styles'
+import StylesObj from './Styles'
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { LBQuery, UserProfileType, fixLBEntries, getLBEntries } from "./FireBaseFunctions";
 import { Skeleton } from '@rneui/themed';
@@ -22,8 +22,8 @@ const EntryItem = (props: {profile: UserProfileType, navigation: StackNavigation
         }
     };
     return (
-        <TouchableOpacity onPress={navigate}>
         <View style={[Styles.LBE_Container, {backgroundColor: props.isMyProfile ? '#def' : undefined}]}>
+            <TouchableOpacity onPress={navigate}>
             <View style={Styles.LBE_NamePFP}>
                 <Text style={[Styles.LBE_Name, {marginLeft: -4, marginRight: 18}]}>{props.index}</Text>
                 <Image style={Styles.LBE_PFP} source={PFP ? {uri: PFP} : require('../assets/SamplePFP.jpg')} />
@@ -37,9 +37,9 @@ const EntryItem = (props: {profile: UserProfileType, navigation: StackNavigation
                     <Text style={Styles.LBE_Name}>{Name}</Text>
                 }
             </View>
+            </TouchableOpacity>
             <Text style={Styles.LBE_BrosSent}>{NumBros} Bros</Text>
         </View>
-        </TouchableOpacity>
     );
 };
 
@@ -79,7 +79,7 @@ const LBEntries = (props: {navigation: StackNavigationProp<RootStackParamList>})
                 showsVerticalScrollIndicator={false}
             />
             :
-            <View style={{flexDirection: 'column', alignItems: 'center', justifyContent: 'space-around', height: 69, marginTop: 6}}>
+            <View style={{flexDirection: 'column', alignItems: 'center', justifyContent: 'space-around', height: 69, marginTop: 12}}>
                 <Skeleton width={82} height={12} />
                 <Skeleton width={69} height={12} />
                 <Skeleton width={82} height={12} />

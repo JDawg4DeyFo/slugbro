@@ -3,12 +3,10 @@ import { FIREBASE_APP, FIREBASE_AUTH, FIREBASE_DB } from "./FireBaseConfig";
 import { Toast, ToastOptions } from "react-native-toast-notifications";
 import { uniqueNamesGenerator, Config, adjectives, colors, animals } from 'unique-names-generator';
 import { sentence } from "txtgen";
-import { doc, setDoc, getDoc, updateDoc, where, collection, query, orderBy, limit, getDocs, QuerySnapshot, DocumentData, Timestamp, addDoc } from "firebase/firestore";
+import { doc, setDoc, getDoc, updateDoc, where, collection, query, orderBy, limit, getDocs, QuerySnapshot, DocumentData, Timestamp, addDoc, GeoPoint, writeBatch } from "firebase/firestore";
 import { getDownloadURL, uploadBytes, ref } from "firebase/storage";
 import { FIREBASE_STORAGE } from './FireBaseConfig';
 import { ImagePickerAsset } from "expo-image-picker";
-import { StackNavigationProp } from "@react-navigation/stack";
-import { RootStackParamList } from "./Stack";
 
 const Auth = FIREBASE_AUTH;
 const db = FIREBASE_DB;
@@ -38,35 +36,13 @@ export type UserProfileType = {
     NumFollowers: number,
     Following: string[]
 };
-// Not sure if it's needed
-// export interface UserProfileInterface {
-//     Email: string,
-//     PFP: string | null,
-//     Name: string | null,
-//     Slogan: string | null,
-//     Major: string | null,
-//     College: string | null,
-//     IG: string | null,
-//     Bio: string | null,
-//     NumBros: number,
-//     NumFollowing: number,
-//     NumFollowers: number
-// };
-export type BroItemProps = {
-    User:    string,
+export type BroFeedType = {
+    Email:    string,
     BroType: string,
     BroName: string,
     BroDate: Timestamp,
-    id:      string,
-    navigation: StackNavigationProp<RootStackParamList>
+    BroLocation?: GeoPoint
 };
-export type BroFeedData = {
-    User:    string,
-    BroType: string,
-    BroName: string,
-    BroDate: Timestamp,
-    id:      string,
-}
 
 export const UserSignUp = async ({Email, Password}: SignUpProps) => {
     Toast.hideAll();
@@ -168,18 +144,6 @@ type ProfileHeaderType = {
     IG: string
 };
 
-export const UserUpdateData = async (Email: string, Profile: UserProfileType) => {
-    Toast.hideAll();
-    try{
-        const UserRef = doc(db, 'users', Email);
-        await updateDoc(UserRef, Profile);
-    }
-    catch (error: any) {
-        console.error(error);
-        Toast.show('Error updating data: ' + error.message, ErrorToast);
-    }
-}
-
 export const UserUpdateProfile = async (Email: string, Profile: ProfileHeaderType) => {
     Toast.hideAll();
     const toastMe = Toast.show('Saving profile...', NormalToast);
@@ -275,11 +239,11 @@ export const GetFeedEntries = async () => {
     }
 }
 export const FixFeedEntries = (snapshot: QuerySnapshot<DocumentData, DocumentData>) => {
-    let FeedEntries: BroItemProps[] = [];
+    let FeedEntries: BroFeedType[] = [];
 
     snapshot.forEach((doc) => {
         try {
-            FeedEntries.push(doc.data() as BroItemProps);
+            FeedEntries.push(doc.data() as BroFeedType);
         }
         catch (error:any) {
             console.error(error);
@@ -289,28 +253,22 @@ export const FixFeedEntries = (snapshot: QuerySnapshot<DocumentData, DocumentDat
     return FeedEntries;
 }
 
-export const SendBro = async (Email: string, BroItem: BroFeedData) => {    
-    const ProfileData: UserProfileType | null = await UserGetProfile(Email);
-
+export const SendBro = async (Profile: UserProfileType, BroItem: BroFeedType) => {
     Toast.hideAll();
+    const toastMe = Toast.show('Broing...', NormalToast);
 
-    // Need to increment bros
-    if(ProfileData == null) {
-        return null;
-    } 
-    ProfileData.NumBros++;
-    UserUpdateData(Email, ProfileData);
-
-    // Now create new post in DB
-    const PostRef = collection(db, 'posts');
     try {
-        // First add basic data
-        const DocRef = await addDoc(PostRef, BroItem);
-        // then get id.
-        BroItem.id = DocRef.id;
-        await updateDoc(DocRef, BroItem);
+        // 1. Update profile NumBros in 'users'
+        // 2. Create document in 'posts'
+        const num = Profile.NumBros + 1;
+        const batch = writeBatch(db);
+        batch.update(doc(db, 'users', Profile.Email), {NumBros: num});
+        batch.set(doc(db, 'posts', Profile.Email + '_' + num.toString()), BroItem);
+        await batch.commit();
+        Toast.update(toastMe, 'Broed', SuccessToast);
     }
     catch (error: any) {
+        Toast.hideAll();
         Toast.show("Failed to Bro: " + error.message, ErrorToast);
         console.error(error);
     }

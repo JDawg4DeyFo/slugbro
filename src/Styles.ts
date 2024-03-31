@@ -165,10 +165,7 @@ const StylesObj = StyleSheet.create({
 	},
 			// Main Bro
 	MainBro: {
-		flex: 1,
-
-		backgroundColor: Colors.White,
-		
+		flex: 1,		
 		borderTopLeftRadius: 10,
 		borderTopRightRadius: 10,
 	},

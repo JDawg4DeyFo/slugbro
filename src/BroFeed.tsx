@@ -2,126 +2,63 @@
 import React, { useContext, useState, useEffect } from 'react';
 import {FlatList, View, Text} from 'react-native';
 
-import StylesObj from './Styles'
+import StylesObj, { Colors } from './Styles'
 import { TouchableOpacity } from 'react-native-gesture-handler';
 const Styles = StylesObj.StylesObj;
 
 import { RootStackParamList, BroContext } from './Stack';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { BroItemProps, FeedQuery, FixFeedEntries, GetFeedEntries, GetUserData, UserGetProfile, UserProfileType } from './FireBaseFunctions';
-import { onSnapshot, Timestamp } from 'firebase/firestore';
-
-// To get some stuff before firebase is setup
-const DEBUG_DATA = [
-    {
-        user: 'jdennon@ucsc.edu',
-        BroType: 'Bro',
-        BroName: 'JDawg',
-        BroDate: '4:20PM',   // should use some time format
-        id: '1',
-    },
-    {
-        user: 'jdennon@ucsc.edu',
-        BroType: 'Bro',
-        BroName: 'JDawg',
-        BroDate: '4:20PM',   // should use some time format
-        id: '2',
-    },
-    {
-        user: 'jdennon@ucsc.edu',
-        BroType: 'Bro',
-        BroName: 'JDawg',
-        BroDate: '4:20PM',   // should use some time format
-        id: '3',
-    },
-    {
-        user: 'jdennon@ucsc.edu',
-        BroType: 'Bro',
-        BroName: 'JDawg',
-        BroDate: '4:20PM',   // should use some time format
-        id: '4',
-    },
-    {
-        user: 'jdennon@ucsc.edu',
-        BroType: 'Bro',
-        BroName: 'JDawg',
-        BroDate: '4:20PM',   // should use some time format
-        id: '5',
-    },
-    {
-        user: 'jdennon@ucsc.edu',
-        BroType: 'Bro',
-        BroName: 'JDawg',
-        BroDate: '4:20PM',   // should use some time format
-        id: '6',
-    },
-    {
-        user: 'jdennon@ucsc.edu',
-        BroType: 'Bro',
-        BroName: 'JDawg',
-        BroDate: '4:20PM',   // should use some time format
-        id: '7',
-    },
-    {
-        user: 'jdennon@ucsc.edu',
-        BroType: 'Bro',
-        BroName: 'JDawg',
-        BroDate: '4:20PM',   // should use some time format
-        id: '8',
-    },
-    {
-        user: 'jdennon@ucsc.edu',
-        BroType: 'Bro',
-        BroName: 'JDawg',
-        BroDate: '4:20PM',   // should use some time format
-        id: '9',
-    },
-];
-
-
-// Delete this line once firebase is working
-// const DATA = DEBUG_DATA;
+import { BroFeedType, FeedQuery, FixFeedEntries, GetFeedEntries, UserProfileType } from './FireBaseFunctions';
+import { onSnapshot } from 'firebase/firestore';
+import { Skeleton } from '@rneui/base';
 
 // Bro items
-const BroItem = ({User, BroType, BroName, BroDate, navigation}: BroItemProps) => {
-    const { profile } = useContext(BroContext);
-    const isMyProfile = profile?.Email == User;
-
-    const navigate = async (): Promise<void> => {
-
-        if (isMyProfile) {
-            navigation.navigate('Profile');
+const BroItem = (props: {bro: BroFeedType, navigation: StackNavigationProp<RootStackParamList>, isMyProfile: boolean}) => {
+    const { Email, BroName, BroType, BroDate, BroLocation } = props.bro;
+    const navigate = () => {
+        if (props.isMyProfile) {
+            props.navigation.navigate('Profile');
         }
         else {
-            UserGetProfile(User).then((ProfileData) => {
-                if(ProfileData != null) {
-                    navigation.navigate('Brofile', {Profile: ProfileData})
-                }
-                else {
-                    console.log("profile data doesn't exist");
-                }
-            });
+            const DummyProfile: UserProfileType = {
+                Email,
+                PFP: null,
+                Name: BroName,
+                Slogan: null,
+                Major: null,
+                College: null,
+                IG: null,
+                Bio: null,
+                NumBros: 0,
+                NumFollowing: 0,
+                NumFollowers: 0,
+                Following: []
+            };
+            props.navigation.navigate('Brofile', { Profile: DummyProfile });
         }
     };
     return (
-    <TouchableOpacity onPress={navigate}>
     <View style={Styles.BroContainer}>
-        <View style={Styles.MainBro}>
+        <View style={[Styles.MainBro, {backgroundColor: props.isMyProfile ? '#def' : Colors.White}]}>
             <Text style={Styles.MainBroText}>{BroType}</Text>
         </View>
+        <TouchableOpacity onPress={navigate}>
         <View style={Styles.MainBroFooter}>
             <Text style={Styles.MBFooterTxt}>{BroName}</Text>
             <Text style={Styles.MBFooterTxt}>{BroDate.toDate().toLocaleString()}</Text>
         </View>
+        </TouchableOpacity>
     </View>
-    </TouchableOpacity>
     );
 };
 
 
 // Feed of bros
 const BroFeed = ({navigation}: {navigation: StackNavigationProp<RootStackParamList>}) => {
-    const [DATA, SetData] = useState<BroItemProps[] | null>(null);
+
+    const { profile } = useContext(BroContext);
+
+    const [DATA, SetData] = useState<BroFeedType[] | null>(null);
     const [Listen, SetListen] = useState(false);
 
     useEffect(() => {
@@ -143,12 +80,23 @@ const BroFeed = ({navigation}: {navigation: StackNavigationProp<RootStackParamLi
     }, [DATA,Listen]);
 
     return (
-        <FlatList
-            data={DATA}
-            renderItem={({item}) => <BroItem User={item.User}BroType={item.BroType} BroDate={item.BroDate} BroName={item.BroName} navigation={navigation} id={item.id}/>}
-            keyExtractor={item => item.id}  // no idea what this is for
-            showsVerticalScrollIndicator={false}
-        />
+        <View>
+        {
+            DATA ?
+            <FlatList
+                data={DATA}
+                renderItem={({item}) => <BroItem bro={item} navigation={navigation} isMyProfile={!!profile && item.Email === profile.Email} />}
+                keyExtractor={(_, index) => index.toString()}
+                showsVerticalScrollIndicator={false}
+            />
+            :
+            <View style={{flexDirection: 'column', alignItems: 'center', justifyContent: 'space-around', height: 69, marginTop: 12}}>
+                <Skeleton width={82} height={12} />
+                <Skeleton width={69} height={12} />
+                <Skeleton width={82} height={12} />
+            </View>
+        }
+        </View>
     );
 };
 
