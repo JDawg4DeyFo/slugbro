@@ -44,7 +44,7 @@ const BroItem = (props: {bro: BroFeedType, navigation: StackNavigationProp<RootS
         </View>
         <TouchableOpacity onPress={navigate}>
         <View style={Styles.MainBroFooter}>
-            <Text style={Styles.MBFooterTxt}>{BroName}</Text>
+            <Text style={[Styles.MBFooterTxt, {maxWidth: '50%'}]}>{BroName}</Text>
             <Text style={Styles.MBFooterTxt}>{BroDate.toDate().toLocaleString()}</Text>
         </View>
         </TouchableOpacity>

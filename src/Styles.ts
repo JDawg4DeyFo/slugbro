@@ -1,5 +1,4 @@
 import {StyleSheet} from 'react-native';
-import { colors } from 'unique-names-generator';
 // NOTE: Rem units assume 16px root font size.
 
 // Color Variables
@@ -540,6 +539,15 @@ const StylesObj = StyleSheet.create({
 
 	BroButton: {
 		backgroundColor: '#1295D8',
+		borderColor: '#E0E3E6',
+		borderWidth: 6,
+		borderRadius: 30,
+		width: '26%',
+		position: 'absolute',
+		transform: [{translateX: -8}, {translateY: -117}]
+	},
+	DisabledBroButton: {
+		backgroundColor: '#def',
 		borderColor: '#E0E3E6',
 		borderWidth: 6,
 		borderRadius: 30,

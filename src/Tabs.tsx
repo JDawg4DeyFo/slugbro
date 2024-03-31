@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { Image, Text, View } from 'react-native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import { FontAwesome5, Entypo, MaterialIcons } from '@expo/vector-icons';
@@ -22,20 +22,14 @@ const Tab = createBottomTabNavigator();
 const Tabs = () => {
     const { profile } = useContext(BroContext);
 
-    const [Disabled, SetDisabled] = useState(false);
+    const [isBroing, setIsBroing] = useState(false);
+    const [cooldown, setCooldown] = useState(0);
 
     const Bro = async () => {
+        if (isBroing || cooldown > 0) return;
+        setCooldown(3);
+        setIsBroing(true);
         Toast.hideAll();
-
-        if (Disabled) {
-            Toast.show('Wait lol', ErrorToast);
-            return;
-        }
-
-        SetDisabled(true);
-        setTimeout(() => {
-            SetDisabled(false);
-        }, 1500);
 
         if (!profile?.Email) {
             Toast.show('Wait for your profile to load first', ErrorToast);
@@ -49,8 +43,19 @@ const Tabs = () => {
             BroDate: Timestamp.now()
         }
 
-        SendBro(profile, BroItem);
+        await SendBro(profile, BroItem);
+        setIsBroing(false);
     }
+
+    useEffect(() => {
+        if (cooldown <= 0) return;
+        const countdown = setInterval(() => {
+            if (cooldown > 0) setCooldown(cooldown - 1);
+            if (cooldown <= 0) clearInterval(countdown);
+        }, 1000);
+        return () => clearInterval(countdown);
+    }, [cooldown]);
+
 
     return (
         <>
@@ -104,16 +109,10 @@ const Tabs = () => {
             />
         </Tab.Navigator>
         <View style={{flexDirection: 'row', justifyContent: 'flex-end'}}>
-            <View style={Styles.BroButton}>
-                {Disabled?
-                <TouchableOpacity>
-                    <Text style={Styles.BroText}>wait</Text>
+            <View style={isBroing || cooldown > 0 ? Styles.DisabledBroButton : Styles.BroButton}>
+                <TouchableOpacity disabled={isBroing || cooldown > 0} onPress={Bro} style={{justifyContent: 'center', alignItems: 'center'}}>
+                    <Text style={Styles.BroText}>{!isBroing && cooldown <= 0 ? 'Bro' : cooldown}</Text>
                 </TouchableOpacity>
-                :
-                <TouchableOpacity onPress={Bro} style={{justifyContent: 'center', alignItems: 'center'}}>
-                    <Text style={Styles.BroText}>Bro</Text>
-                </TouchableOpacity>
-                }
             </View>
         </View>
         </>
