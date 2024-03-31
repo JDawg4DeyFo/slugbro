@@ -578,7 +578,17 @@ const StylesObj = StyleSheet.create({
 	InformationHeader: {
 		fontSize: TextSizes.Rem2,
 		fontFamily: 'Inter-Bold',
-	}
+	},
+	MapMarker: {
+		flexDirection: 'row',
+		borderColor: Colors.Grey4,
+		borderWidth: 1,
+		borderRadius: 10,
+
+		backgroundColor: Colors.White,
+
+		padding: 7,
+	},
 });
 
 export default {StylesObj, Colors};

@@ -69,7 +69,10 @@ const Tabs = () => {
     }, [cooldown]);
 
     useEffect(() => {
-        if (!location) return;
+        if (!location) {
+            Toast.show('Location disabled', SuccessToast);
+            return;
+        }
         Location.requestForegroundPermissionsAsync()
         .then(({ status }) => {
             if (status !== 'granted') {
