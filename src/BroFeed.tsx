@@ -8,9 +8,9 @@ const Styles = StylesObj.StylesObj;
 
 import { RootStackParamList, BroContext } from './Stack';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { BroFeedType, FeedQuery, FixFeedEntries, GetFeedEntries, UserProfileType } from './FireBaseFunctions';
-import { onSnapshot } from 'firebase/firestore';
+import { BroFeedType, NormalToast, UserProfileType } from './FireBaseFunctions';
 import { Skeleton } from '@rneui/base';
+import { Toast } from 'react-native-toast-notifications';
 
 // Bro items
 const BroItem = (props: {bro: BroFeedType, navigation: StackNavigationProp<RootStackParamList>, isMyProfile: boolean}) => {
@@ -56,35 +56,28 @@ const BroItem = (props: {bro: BroFeedType, navigation: StackNavigationProp<RootS
 // Feed of bros
 const BroFeed = ({navigation}: {navigation: StackNavigationProp<RootStackParamList>}) => {
 
-    const { profile } = useContext(BroContext);
-
-    const [DATA, SetData] = useState<BroFeedType[] | null>(null);
-    const [Listen, SetListen] = useState(false);
+    const { profile, broList } = useContext(BroContext);
+    const [toastId, setToastId] = useState<string | null>(null);
+    const [loaded, setLoaded] = useState(false);
 
     useEffect(() => {
-        const LoadData = async () => {
-            const FeedData = await GetFeedEntries();
-            if (!FeedData) return;
-            SetData(FeedData);
+        if (!broList && !toastId) {
+            setToastId(Toast.show('Loading...', NormalToast));
         }
-        LoadData();
-    }, []);
-
+    }, [broList, toastId]);
     useEffect(() => {
-        if(!DATA || Listen) return;
-        SetListen(true);
-        onSnapshot(FeedQuery, (snapshot) => {
-            console.log('Update Feed');
-            SetData(FixFeedEntries(snapshot));
-        });
-    }, [DATA,Listen]);
+        if (toastId && !loaded) {
+            Toast.hide(toastId);
+            setLoaded(true);
+        }
+    }, [broList, loaded]);
 
     return (
         <View>
         {
-            DATA ?
+            broList ?
             <FlatList
-                data={DATA}
+                data={broList}
                 renderItem={({item}) => <BroItem bro={item} navigation={navigation} isMyProfile={!!profile && item.Email === profile.Email} />}
                 keyExtractor={(_, index) => index.toString()}
                 showsVerticalScrollIndicator={false}

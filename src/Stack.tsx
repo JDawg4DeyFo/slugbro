@@ -10,7 +10,7 @@ import Login from './Login';
 import { FIREBASE_AUTH, FIREBASE_DB } from './FireBaseConfig';
 import { onAuthStateChanged } from 'firebase/auth';
 import { User } from 'firebase/auth';
-import { UserProfileType, UserGetProfile } from './FireBaseFunctions';
+import { UserProfileType, UserGetProfile, BroFeedType, GetFeedEntries, FeedQuery, FixFeedEntries } from './FireBaseFunctions';
 import { doc, onSnapshot } from 'firebase/firestore';
 
 const Auth = FIREBASE_AUTH;
@@ -35,16 +35,20 @@ export type RootStackParamList = {
 
 export const BroContext = createContext<{
     user: User | null,
-    profile: UserProfileType | null
+    profile: UserProfileType | null,
+    broList: BroFeedType[] | null,
 }>({
     user: null,
-    profile: null
+    profile: null,
+    broList: null
 });
 
 const StackNavigator = () => {
     // Firebase user state setup
     const [user, setUser] = useState<User | null>(null);
     const [profile, setProfile] = useState<UserProfileType | null>(null);
+    const [broList, setBroList] = useState<BroFeedType[] | null>(null);
+    const [Listen, SetListen] = useState(false);
 
     useEffect(() => {
         onAuthStateChanged(Auth, (user) => {
@@ -66,11 +70,28 @@ const StackNavigator = () => {
                 }
             }
         });
-
     }, []);
 
+    useEffect(() => {
+        const LoadData = async () => {
+            const FeedData = await GetFeedEntries();
+            if (!FeedData) return;
+            setBroList(FeedData);
+        }
+        LoadData();
+    }, []);
+
+    useEffect(() => {
+        if(!broList || Listen) return;
+        SetListen(true);
+        onSnapshot(FeedQuery, (snapshot) => {
+            console.log('Update Feed');
+            setBroList(FixFeedEntries(snapshot));
+        });
+    }, [broList, Listen]);
+
     return (
-        <BroContext.Provider value={{user, profile}}>
+        <BroContext.Provider value={{user, profile, broList}}>
             <Stack.Navigator>
                 {user ? (
                     <>

@@ -224,18 +224,17 @@ export const fixLBEntries = (snapshot: QuerySnapshot<DocumentData, DocumentData>
 const FEED_LIMIT = 100;
 export const FeedQuery = query(collection(db, 'posts'), orderBy('BroDate', 'desc'), limit(FEED_LIMIT));
 export const GetFeedEntries = async () => {
-    Toast.hideAll();
-    const toastMe = Toast.show('Loading...', NormalToast);
+    // Toast.hideAll();
+    // const toastMe = Toast.show('Loading...', NormalToast);
 
     try {
         const FeedSnapShot = await getDocs(FeedQuery);
         const FeedEntries = FixFeedEntries(FeedSnapShot);
-        Toast.hideAll();
+        // Toast.hideAll();
         return FeedEntries;
     }
     catch (error: any) {
         console.error(error);
-        Toast.update(toastMe, 'Failed to load feed entries ' + error.message, ErrorToast);
     }
 }
 export const FixFeedEntries = (snapshot: QuerySnapshot<DocumentData, DocumentData>) => {
@@ -269,7 +268,7 @@ export const SendBro = async (Profile: UserProfileType, BroItem: BroFeedType) =>
     }
     catch (error: any) {
         Toast.hideAll();
-        Toast.show("Failed to Bro: " + error.message, ErrorToast);
+        Toast.show("No go bro: " + error.message, ErrorToast);
         console.error(error);
     }
 };
