@@ -589,6 +589,21 @@ const StylesObj = StyleSheet.create({
 
 		padding: 7,
 	},
+	MapMarkerTriangle: {
+		width: 0,
+		height: 0,
+		backgroundColor: 'transparent',
+		borderStyle: 'solid',
+		borderTopWidth: 0,
+		borderRightWidth: 16,
+		borderBottomWidth: 20,
+		borderLeftWidth: 16,
+		borderTopColor: 'transparent',
+		borderRightColor: 'transparent',
+		borderBottomColor: Colors.White,
+		borderLeftColor: 'transparent',
+		transform: 'rotate(180deg)'
+	}
 });
 
 export default {StylesObj, Colors};

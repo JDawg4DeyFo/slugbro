@@ -106,6 +106,7 @@ const BroMap = ({navigation, route}: {navigation:StackNavigationProp<RootStackPa
             longitude: selected.BroLocation.longitude || 0
           }}
           onPress={() => navigation.navigate('Profile')}
+          style={{alignItems: 'center'}}
         >
           <View style={Styles.MapMarker}>
             <Image 
@@ -117,6 +118,7 @@ const BroMap = ({navigation, route}: {navigation:StackNavigationProp<RootStackPa
               <Text style={Styles.ProfileSlogan}>{selectedTime + ' ago'}</Text>
             </View>
           </View>
+          <View style={Styles.MapMarkerTriangle} />
         </Marker>
       }
     </MapView>      
@@ -126,7 +128,6 @@ const BroMap = ({navigation, route}: {navigation:StackNavigationProp<RootStackPa
 export default BroMap;
 
 // https://snazzymaps.com/style/35/avocado-world
-// Daniel was here :^)
 const customMapStyle : MapStyleElement[] = [
   {
       "featureType": "water",
