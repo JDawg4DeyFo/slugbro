@@ -94,7 +94,8 @@ const StylesObj = StyleSheet.create({
 	ProfileContainer: {
 		flexDirection: 'row',
 
-		width: 140,
+		minWidth: 140,
+		maxWidth: 300,
 		height: 49,
 
 		borderColor: Colors.Grey4,

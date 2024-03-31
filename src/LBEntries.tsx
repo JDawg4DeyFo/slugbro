@@ -34,7 +34,7 @@ const EntryItem = (props: {profile: UserProfileType, navigation: StackNavigation
                         <Text style={Styles.ProfileSlogan}>"{Slogan}"</Text>
                     </View>
                     :
-                    <Text style={Styles.LBE_Name}>{Name}</Text>
+                    <Text style={Styles.LBE_Name}>{Name || Email}</Text>
                 }
             </View>
             </TouchableOpacity>

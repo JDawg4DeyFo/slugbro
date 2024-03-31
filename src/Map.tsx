@@ -9,6 +9,7 @@ import { RouteProp } from '@react-navigation/native';
 import moment from 'moment';
 import StylesObj, { Colors } from './Styles';
 import { Toast } from 'react-native-toast-notifications';
+import { Timestamp } from 'firebase/firestore';
 const Styles = StylesObj.StylesObj;
 
 type PublicProfileScreenRouteProp = RouteProp<RootStackParamList, 'Map'>;
@@ -76,7 +77,8 @@ const BroMap = ({navigation, route}: {navigation:StackNavigationProp<RootStackPa
         NumBros: 0,
         NumFollowing: 0,
         NumFollowers: 0,
-        Following: []
+        Following: [],
+        LastBro: Timestamp.now()
     };
       navigation.navigate('Brofile', { Profile: DummyProfile });
     }
@@ -131,7 +133,7 @@ const BroMap = ({navigation, route}: {navigation:StackNavigationProp<RootStackPa
               style={Styles.ProfileIcon}
             />
             <View style={[Styles.ProfileNameSloganContainer, {marginHorizontal: 2}]}>
-              <Text style={[Styles.ProfileName, {maxWidth: 120}]}>{selected.BroName}</Text>
+              <Text style={[Styles.ProfileName, {maxWidth: 200}]}>{selected.BroName}</Text>
               <Text style={Styles.ProfileSlogan}>{selectedTime + ' ago'}</Text>
             </View>
           </View>

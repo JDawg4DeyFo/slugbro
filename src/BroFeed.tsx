@@ -12,6 +12,8 @@ import { BroFeedType, NormalToast, UserProfileType } from './FireBaseFunctions';
 import { Skeleton } from '@rneui/base';
 import { Toast } from 'react-native-toast-notifications';
 import { FontAwesome } from '@expo/vector-icons';
+import moment from 'moment';
+import { Timestamp } from 'firebase/firestore';
 
 // Bro items
 const BroItem = (props: {bro: BroFeedType, navigation: StackNavigationProp<RootStackParamList>, isMyProfile: boolean}) => {
@@ -33,7 +35,8 @@ const BroItem = (props: {bro: BroFeedType, navigation: StackNavigationProp<RootS
                 NumBros: 0,
                 NumFollowing: 0,
                 NumFollowers: 0,
-                Following: []
+                Following: [],
+                LastBro: Timestamp.now()
             };
             props.navigation.navigate('Brofile', { Profile: DummyProfile });
         }
@@ -41,6 +44,7 @@ const BroItem = (props: {bro: BroFeedType, navigation: StackNavigationProp<RootS
     const goToMap = () => {
         props.navigation.push('BigHome', {screen: 'BroMap', params: {Bro: props.bro}});
     }
+    const timestamp = moment(BroDate.toDate()).local().startOf('seconds').fromNow(true);
     return (
     <View style={Styles.BroContainer}>
         <View style={[Styles.MainBro, {backgroundColor: props.isMyProfile ? '#def' : Colors.White}]}>
@@ -57,8 +61,8 @@ const BroItem = (props: {bro: BroFeedType, navigation: StackNavigationProp<RootS
         </View>
         <TouchableOpacity onPress={navigate}>
         <View style={Styles.MainBroFooter}>
-            <Text style={[Styles.MBFooterTxt, {maxWidth: '50%'}]}>{BroName}</Text>
-            <Text style={Styles.MBFooterTxt}>{BroDate.toDate().toLocaleString()}</Text>
+            <Text style={[Styles.MBFooterTxt, {maxWidth: '58%'}]}>{BroName}</Text>
+            <Text style={Styles.MBFooterTxt}>{timestamp + ' ago'}</Text>
         </View>
         </TouchableOpacity>
     </View>

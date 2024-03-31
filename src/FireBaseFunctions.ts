@@ -34,7 +34,8 @@ export type UserProfileType = {
     NumBros: number,
     NumFollowing: number,
     NumFollowers: number,
-    Following: string[]
+    Following: string[],
+    LastBro: Timestamp
 };
 export type BroFeedType = {
     Email:    string,
@@ -75,7 +76,8 @@ export const UserSignUp = async ({Email, Password}: SignUpProps) => {
             NumBros: 0,
             NumFollowers: 0,
             NumFollowing: 0,
-            Following: []
+            Following: [],
+            LastBro: Timestamp.now()
         };
         const userRef = doc(db, 'users', Email);
         await setDoc(userRef, userProfile);
@@ -261,7 +263,7 @@ export const SendBro = async (Profile: UserProfileType, BroItem: BroFeedType) =>
         // 2. Create document in 'posts'
         const num = Profile.NumBros + 1;
         const batch = writeBatch(db);
-        batch.update(doc(db, 'users', Profile.Email), {NumBros: num});
+        batch.update(doc(db, 'users', Profile.Email), {NumBros: num, LastBro: BroItem.BroDate});
         batch.set(doc(db, 'posts', Profile.Email + '_' + num.toString()), BroItem);
         await batch.commit();
         Toast.update(toastMe, 'Broed', SuccessToast);

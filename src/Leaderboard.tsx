@@ -22,7 +22,7 @@ const Leaderboard = ({navigation}: {navigation: StackNavigationProp<RootStackPar
           style={Styles.ProfileIcon}
           />
           <View style={Styles.ProfileNameSloganContainer}>
-            <Text style={Styles.ProfileName}>{profile?.Name || '"erm"'}</Text>
+            <Text style={Styles.ProfileName}>{profile?.Name || profile?.Email}</Text>
             <Text style={Styles.ProfileSlogan}>{profile?.Slogan ? `"${profile.Slogan}"` : ''}</Text>
           </View>
         </View>
