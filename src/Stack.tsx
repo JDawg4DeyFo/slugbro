@@ -12,6 +12,7 @@ import { onAuthStateChanged } from 'firebase/auth';
 import { User } from 'firebase/auth';
 import { UserProfileType, UserGetProfile, BroFeedType, GetFeedEntries, FeedQuery, FixFeedEntries } from './FireBaseFunctions';
 import { doc, onSnapshot } from 'firebase/firestore';
+import BroMap from './Map';
 
 const Auth = FIREBASE_AUTH;
 const db = FIREBASE_DB;
@@ -31,16 +32,21 @@ export type RootStackParamList = {
     Info: undefined;
     Profile: undefined;
     Brofile: { Profile: UserProfileType };
+    Map: { Bro?: BroFeedType };
 };
 
 export const BroContext = createContext<{
     user: User | null,
     profile: UserProfileType | null,
     broList: BroFeedType[] | null,
+    location: boolean,
+    setLocation: (location: boolean) => void
 }>({
     user: null,
     profile: null,
-    broList: null
+    broList: null,
+    location: true,
+    setLocation: (location: boolean) => {}
 });
 
 const StackNavigator = () => {
@@ -49,6 +55,7 @@ const StackNavigator = () => {
     const [profile, setProfile] = useState<UserProfileType | null>(null);
     const [broList, setBroList] = useState<BroFeedType[] | null>(null);
     const [Listen, SetListen] = useState(false);
+    const [location, setLocation] = useState(true);
 
     useEffect(() => {
         onAuthStateChanged(Auth, (user) => {
@@ -91,7 +98,7 @@ const StackNavigator = () => {
     }, [broList, Listen]);
 
     return (
-        <BroContext.Provider value={{user, profile, broList}}>
+        <BroContext.Provider value={{user, profile, broList, location, setLocation}}>
             <Stack.Navigator>
                 {user ? (
                     <>
@@ -103,6 +110,7 @@ const StackNavigator = () => {
                     <Stack.Screen name="Info" component={Settings} options={PeripheralScreenOptions} />
                     <Stack.Screen name="Profile" component={Profile} options={PeripheralScreenOptions} />
                     <Stack.Screen name="Brofile" component={PublicProfile} options={PeripheralScreenOptions} />
+                    <Stack.Screen name="Map" component={BroMap} options={PeripheralScreenOptions} />
                     </>
                 ) : (
                     <Stack.Screen name="login" component={Login}/>

@@ -6,18 +6,17 @@ import { CountUp } from 'use-count-up';
 import { FontAwesome } from '@expo/vector-icons';
 import { pickMedia } from './PickMediaFromLibrary';
 import { ImagePickerAsset } from 'expo-image-picker';
-import { Toast } from "react-native-toast-notifications";
-import { NormalToast } from './FireBaseFunctions';
 // import * as Clipboard from 'expo-clipboard'
 
 import StylesObj, { Colors } from './Styles';
+import { Switch } from 'react-native-gesture-handler';
 const Styles = StylesObj.StylesObj;
 
 // Eventually, I would like to pass a user ID to this component and lookup user data using firebase API or soemthing
 // For now, this works.
 const Profile = () => {
 
-    const { profile } = useContext(BroContext);
+    const { profile, location, setLocation } = useContext(BroContext);
     const [isEditingProfile, setIsEditingProfile] = useState(false);
     const [isEditingBio, setIsEditingBio] = useState(false);
     const [localProfile, setLocalProfile] = useState({
@@ -255,6 +254,18 @@ const Profile = () => {
                 <Text style={Styles.PH_InfotainerText}>Bros Following</Text>
                 <Text style={Styles.PH_InfotainerText}><CountUp isCounting end={profile?.NumFollowing || 0} /></Text>
             </View> */}
+        </View>
+
+        <View style={Styles.ProfileHeader}>
+            <View style={Styles.PH_InfotainerRow}>
+                <Text style={Styles.PH_InfotainerText}>Location enabled</Text>
+                <Switch
+                    value={location}
+                    onValueChange={setLocation}
+                    trackColor={{true: Colors.MainPrimary}}
+                    thumbColor={location ? Colors.MainPrimary : undefined}
+                />
+            </View>
         </View>
 
         <View style={{flexDirection: 'row', justifyContent: 'space-around', marginTop: 6, marginBottom: 6}}>

@@ -1,26 +1,27 @@
 import React, { useContext, useState, useEffect } from 'react';
-import { Image, Text, View } from 'react-native';
+import { Text, View } from 'react-native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import { FontAwesome5, Entypo, MaterialIcons } from '@expo/vector-icons';
+import { Entypo, MaterialIcons, FontAwesome } from '@expo/vector-icons';
 import { Toast } from "react-native-toast-notifications";
-import { NormalToast, ErrorToast, SendBro, BroFeedType } from './FireBaseFunctions';
+import { NormalToast, ErrorToast, SendBro, BroFeedType, SuccessToast } from './FireBaseFunctions';
 
 import Feed from './Feed';
 import Leaderboard from './Leaderboard';
-import Bros from './Bros';
+import BroMap from './Map';
 import Colors from './Styles'
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { BroContext } from './Stack';
 
 import StylesObj from './Styles';
-import { Timestamp } from 'firebase/firestore';
+import { GeoPoint, Timestamp } from 'firebase/firestore';
+import * as Location from 'expo-location';
 const Styles = StylesObj.StylesObj;
 
 
 const Tab = createBottomTabNavigator();
 
 const Tabs = () => {
-    const { profile } = useContext(BroContext);
+    const { profile, location, setLocation } = useContext(BroContext);
 
     const [isBroing, setIsBroing] = useState(false);
     const [cooldown, setCooldown] = useState(0);
@@ -36,11 +37,22 @@ const Tabs = () => {
             return;
         }
 
-        const BroItem: BroFeedType = {
+        let BroItem: BroFeedType = {
             Email: profile.Email,
             BroName: profile?.Name || profile.Email,
             BroType: 'Bro',
             BroDate: Timestamp.now()
+        }
+
+        if (location) {
+            await Location.getCurrentPositionAsync()
+                .then((location) => {
+                    const {latitude, longitude} = location.coords;
+                    BroItem.BroLocation = new GeoPoint(latitude, longitude);
+                })
+                .catch((error: any) => {
+                    Toast.show('Unable to access location: ' + error.message, ErrorToast);
+                });
         }
 
         await SendBro(profile, BroItem);
@@ -55,6 +67,22 @@ const Tabs = () => {
         }, 1000);
         return () => clearInterval(countdown);
     }, [cooldown]);
+
+    useEffect(() => {
+        if (!location) return;
+        Location.requestForegroundPermissionsAsync()
+        .then(({ status }) => {
+            if (status !== 'granted') {
+                throw Error('Permission to access location was denied');
+            }
+            setLocation(true);
+            Toast.show('Location enabled!', SuccessToast);
+        })
+        .catch(() => {
+            setLocation(false);
+            Toast.show('Location disabled', SuccessToast);
+        });
+    }, [location]);
 
 
     return (
@@ -97,13 +125,13 @@ const Tabs = () => {
                 }}
             />
             <Tab.Screen
-                name="Bros"
-                component={Bros}
+                name="BroMap"
+                component={BroMap}
                 options={{
-                    title: "Bros",
+                    title: "Map",
 
                     tabBarIcon: ({ focused }: {focused: boolean}) => (
-                        <FontAwesome5 name="user-friends" size={24} color={focused ? 'black' : 'gray'} />
+                        <FontAwesome name="map" size={24} color={focused ? 'black' : 'gray'} />
                     )
                 }}
             />
