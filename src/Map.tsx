@@ -3,18 +3,18 @@ import { StyleSheet, View, Image, Text } from 'react-native';
 
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList, BroContext } from './Stack';
-import MapView, { MapStyleElement, Marker, PROVIDER_GOOGLE, Region } from 'react-native-maps';
+import MapView, { MapStyleElement, Marker, PROVIDER_GOOGLE } from 'react-native-maps';
 import { BroFeedType, ErrorToast, UserGetProfile, UserProfileType } from './FireBaseFunctions';
 import { RouteProp } from '@react-navigation/native';
 import moment from 'moment';
-import StylesObj from './Styles';
+import StylesObj, { Colors } from './Styles';
 import { Toast } from 'react-native-toast-notifications';
 const Styles = StylesObj.StylesObj;
 
 type PublicProfileScreenRouteProp = RouteProp<RootStackParamList, 'Map'>;
 const BroMap = ({navigation, route}: {navigation:StackNavigationProp<RootStackParamList>, route: PublicProfileScreenRouteProp}) => {
 
-  const { profile, broList } = useContext(BroContext);
+  const { profile, broList, region, setRegion } = useContext(BroContext);
   const [loading, setLoading] = useState(true);
   const mapRef = useRef<MapView>(null);
 
@@ -23,35 +23,31 @@ const BroMap = ({navigation, route}: {navigation:StackNavigationProp<RootStackPa
   const [selectedTime, setSelectedTime] = useState('-');
   const [selectedProfile, setSelectedProfile] = useState<UserProfileType | null>(null);
 
-  // {"latitude": 36.99736908851504, "latitudeDelta": 0.03566624937246843, "longitude": -122.0600495673716, "longitudeDelta": 0.021237395703806783}
-  const UCSC: Region = {
-    latitude: 36.996,
-    longitude: -122.06,
-    latitudeDelta: 0.022,
-    longitudeDelta: 0.022
-  };
-
   useEffect(() => {
-    if (mapRef.current && loading && !selected) {
+    if (loading && !selected) {
       setLoading(false);
       (async() => {
+        await new Promise(r => setTimeout(r, 100));
         mapRef.current.setCamera({pitch: 90, zoom: 17.4});
         await new Promise(r => setTimeout(r, 100));
-        mapRef.current.animateCamera({pitch: 0, zoom: 14.6827}, {duration: 500});
+        mapRef.current.animateCamera({pitch: 0, zoom: 14.6827}, {duration: 2000});
       })();
     }
-  }, [mapRef, loading]);
+  }, [loading, selected]);
 
   useEffect(() => {
     if (selected?.BroLocation) {
+      setLoading(false);
       const { BroLocation } = selected;
       const { latitude, longitude } = BroLocation;
-      mapRef.current.animateCamera({
-        center: {latitude, longitude}
-      }, {duration: 300});
+      (async () => {
+        await new Promise(r => setTimeout(r, 100));
+        mapRef.current.animateCamera({
+          center: {latitude, longitude}
+        }, {duration: 1000});
+      })();
 
       setSelectedTime(moment(selected.BroDate.toDate()).local().startOf('seconds').fromNow(true));
-
       (async () => {
         try {
           setSelectedProfile(await UserGetProfile(selected.Email));
@@ -62,8 +58,29 @@ const BroMap = ({navigation, route}: {navigation:StackNavigationProp<RootStackPa
       })();
     }
   }, [selected]);
-  
-  const [region, setRegion] = useState(UCSC);
+
+  const navigate = (Bro: BroFeedType) => {
+    if (profile?.Email === Bro.Email) {
+      navigation.navigate('Profile');
+    }
+    else {
+      const DummyProfile: UserProfileType = selectedProfile || {
+        Email: Bro.Email,
+        PFP: null,
+        Name: Bro.BroName,
+        Slogan: null,
+        Major: null,
+        College: null,
+        IG: null,
+        Bio: null,
+        NumBros: 0,
+        NumFollowing: 0,
+        NumFollowers: 0,
+        Following: []
+    };
+      navigation.navigate('Brofile', { Profile: DummyProfile });
+    }
+};
 
   return(
     <MapView
@@ -105,10 +122,10 @@ const BroMap = ({navigation, route}: {navigation:StackNavigationProp<RootStackPa
             latitude: selected.BroLocation.latitude || 0,
             longitude: selected.BroLocation.longitude || 0
           }}
-          onPress={() => navigation.navigate('Profile')}
+          onPress={() => navigate(selected)}
           style={{alignItems: 'center'}}
         >
-          <View style={Styles.MapMarker}>
+          <View style={[Styles.MapMarker, {backgroundColor: selected.Email === profile?.Email ? '#def' : Colors.White}]}>
             <Image 
               source={selectedProfile ? {uri: selectedProfile.PFP} : require('../assets/SamplePFP.jpg')}
               style={Styles.ProfileIcon}
@@ -118,7 +135,7 @@ const BroMap = ({navigation, route}: {navigation:StackNavigationProp<RootStackPa
               <Text style={Styles.ProfileSlogan}>{selectedTime + ' ago'}</Text>
             </View>
           </View>
-          <View style={Styles.MapMarkerTriangle} />
+          <View style={[Styles.MapMarkerTriangle, {borderBottomColor: selected.Email === profile?.Email ? '#def' : Colors.White}]} />
         </Marker>
       }
     </MapView>      

@@ -164,7 +164,8 @@ const StylesObj = StyleSheet.create({
 	},
 			// Main Bro
 	MainBro: {
-		flex: 1,		
+		flexDirection: 'row',
+		justifyContent: 'space-between',
 		borderTopLeftRadius: 10,
 		borderTopRightRadius: 10,
 	},
@@ -595,15 +596,24 @@ const StylesObj = StyleSheet.create({
 		backgroundColor: 'transparent',
 		borderStyle: 'solid',
 		borderTopWidth: 0,
-		borderRightWidth: 16,
-		borderBottomWidth: 20,
-		borderLeftWidth: 16,
+		borderRightWidth: 20,
+		borderBottomWidth: 36,
+		borderLeftWidth: 20,
 		borderTopColor: 'transparent',
 		borderRightColor: 'transparent',
 		borderBottomColor: Colors.White,
 		borderLeftColor: 'transparent',
 		transform: 'rotate(180deg)'
-	}
+	},
+	GoToMapButton: {
+		flexDirection: 'row',
+		borderColor: Colors.Grey4,
+		borderWidth: 1,
+		borderRadius: 6,
+		backgroundColor: Colors.Grey1,
+		padding: 2,
+		transform: [{translateX: -7}, {translateY: 7}]
+	},
 });
 
 export default {StylesObj, Colors};

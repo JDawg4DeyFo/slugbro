@@ -13,6 +13,7 @@ import { User } from 'firebase/auth';
 import { UserProfileType, UserGetProfile, BroFeedType, GetFeedEntries, FeedQuery, FixFeedEntries } from './FireBaseFunctions';
 import { doc, onSnapshot } from 'firebase/firestore';
 import BroMap from './Map';
+import { Region } from 'react-native-maps';
 
 const Auth = FIREBASE_AUTH;
 const db = FIREBASE_DB;
@@ -35,18 +36,28 @@ export type RootStackParamList = {
     Map: { Bro?: BroFeedType };
 };
 
+const UCSC: Region = {
+    latitude: 36.996,
+    longitude: -122.06,
+    latitudeDelta: 0.022,
+    longitudeDelta: 0.022
+};
 export const BroContext = createContext<{
     user: User | null,
     profile: UserProfileType | null,
     broList: BroFeedType[] | null,
     location: boolean,
-    setLocation: (location: boolean) => void
+    setLocation: (location: boolean) => void,
+    region: Region,
+    setRegion: (region: Region) => void,
 }>({
     user: null,
     profile: null,
     broList: null,
     location: true,
-    setLocation: (location: boolean) => {}
+    setLocation: (location: boolean) => {},
+    region: UCSC,
+    setRegion: (region: Region) => {},
 });
 
 const StackNavigator = () => {
@@ -56,6 +67,7 @@ const StackNavigator = () => {
     const [broList, setBroList] = useState<BroFeedType[] | null>(null);
     const [Listen, SetListen] = useState(false);
     const [location, setLocation] = useState(true);
+    const [region, setRegion] = useState(UCSC);
 
     useEffect(() => {
         onAuthStateChanged(Auth, (user) => {
@@ -98,7 +110,7 @@ const StackNavigator = () => {
     }, [broList, Listen]);
 
     return (
-        <BroContext.Provider value={{user, profile, broList, location, setLocation}}>
+        <BroContext.Provider value={{user, profile, broList, location, setLocation, region, setRegion}}>
             <Stack.Navigator>
                 {user ? (
                     <>

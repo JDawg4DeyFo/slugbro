@@ -11,6 +11,7 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { BroFeedType, NormalToast, UserProfileType } from './FireBaseFunctions';
 import { Skeleton } from '@rneui/base';
 import { Toast } from 'react-native-toast-notifications';
+import { FontAwesome } from '@expo/vector-icons';
 
 // Bro items
 const BroItem = (props: {bro: BroFeedType, navigation: StackNavigationProp<RootStackParamList>, isMyProfile: boolean}) => {
@@ -37,10 +38,22 @@ const BroItem = (props: {bro: BroFeedType, navigation: StackNavigationProp<RootS
             props.navigation.navigate('Brofile', { Profile: DummyProfile });
         }
     };
+    const goToMap = () => {
+        props.navigation.push('BigHome', {screen: 'BroMap', params: {Bro: props.bro}});
+    }
     return (
     <View style={Styles.BroContainer}>
         <View style={[Styles.MainBro, {backgroundColor: props.isMyProfile ? '#def' : Colors.White}]}>
             <Text style={Styles.MainBroText}>{BroType}</Text>
+            {
+                BroLocation &&
+                <TouchableOpacity onPress={goToMap}>
+                    <View style={Styles.GoToMapButton}>
+                        <FontAwesome name="map-marker" size={16} color="black" />
+                        <Text style={[Styles.ProfileSlogan, {marginLeft: 2}]}>Map</Text>
+                    </View>
+                </TouchableOpacity>
+            }
         </View>
         <TouchableOpacity onPress={navigate}>
         <View style={Styles.MainBroFooter}>
