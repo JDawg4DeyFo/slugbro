@@ -6,6 +6,7 @@ import Tabs from './Tabs';
 import Profile from './Profile';
 import PublicProfile from './PublicProfile';
 import Login from './Login';
+import { Coords } from 'google-map-react';
 
 import { FIREBASE_AUTH, FIREBASE_DB } from './FireBaseConfig';
 import { onAuthStateChanged } from 'firebase/auth';
@@ -13,7 +14,7 @@ import { User } from 'firebase/auth';
 import { UserProfileType, UserGetProfile, BroFeedType, GetFeedEntries, FeedQuery, FixFeedEntries } from './FireBaseFunctions';
 import { doc, onSnapshot } from 'firebase/firestore';
 import BroMap from './Map';
-import { Region } from 'react-native-maps';
+// import { Region } from 'react-native-maps';
 
 const Auth = FIREBASE_AUTH;
 const db = FIREBASE_DB;
@@ -36,11 +37,9 @@ export type RootStackParamList = {
     Map: { Bro?: BroFeedType };
 };
 
-const UCSC: Region = {
-    latitude: 36.996,
-    longitude: -122.06,
-    latitudeDelta: 0.022,
-    longitudeDelta: 0.022
+const UCSC: Coords = {
+    lat: 36.996,
+    lng: -122.06
 };
 export const BroContext = createContext<{
     user: User | null,
@@ -48,8 +47,10 @@ export const BroContext = createContext<{
     broList: BroFeedType[] | null,
     location: boolean,
     setLocation: (location: boolean) => void,
-    region: Region,
-    setRegion: (region: Region) => void,
+    region: Coords,
+    setRegion: (region: Coords) => void,
+    zoom: number,
+    setZoom: (zoom: number) => void
 }>({
     user: null,
     profile: null,
@@ -57,7 +58,9 @@ export const BroContext = createContext<{
     location: true,
     setLocation: (location: boolean) => {},
     region: UCSC,
-    setRegion: (region: Region) => {},
+    setRegion: (region: Coords) => {},
+    zoom: 14.6827,
+    setZoom: (zoom: number) => {},
 });
 
 const StackNavigator = () => {
@@ -68,6 +71,7 @@ const StackNavigator = () => {
     const [Listen, SetListen] = useState(false);
     const [location, setLocation] = useState(true);
     const [region, setRegion] = useState(UCSC);
+    const [zoom, setZoom] = useState(14.6827);
 
     useEffect(() => {
         onAuthStateChanged(Auth, (user) => {
@@ -110,7 +114,7 @@ const StackNavigator = () => {
     }, [broList, Listen]);
 
     return (
-        <BroContext.Provider value={{user, profile, broList, location, setLocation, region, setRegion}}>
+        <BroContext.Provider value={{user, profile, broList, location, setLocation, region, setRegion, zoom, setZoom}}>
             <Stack.Navigator>
                 {user ? (
                     <>

@@ -3,7 +3,8 @@ import { StyleSheet, View, Image, Text } from 'react-native';
 
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList, BroContext } from './Stack';
-import MapView, { MapStyleElement, Marker, PROVIDER_GOOGLE } from 'react-native-maps';
+// import MapView, { MapStyleElement, Marker, PROVIDER_GOOGLE } from 'react-native-maps';
+import GoogleMapReact from 'google-map-react';
 import { BroFeedType, ErrorToast, UserGetProfile, UserProfileType } from './FireBaseFunctions';
 import { RouteProp } from '@react-navigation/native';
 import moment from 'moment';
@@ -85,6 +86,7 @@ const BroMap = ({navigation, route}: {navigation:StackNavigationProp<RootStackPa
 };
 
   return(
+    <>
     <MapView
       provider={PROVIDER_GOOGLE} // Specify Google Maps as the provider
       style={StyleSheet.absoluteFill} // Map takes up entire screen
@@ -140,7 +142,23 @@ const BroMap = ({navigation, route}: {navigation:StackNavigationProp<RootStackPa
           <View style={[Styles.MapMarkerTriangle, {borderBottomColor: selected.Email === profile?.Email ? '#def' : Colors.White}]} />
         </Marker>
       }
-    </MapView>      
+    </MapView>
+
+    <View style={{ height: '100%', width: '100%' }}>
+      <GoogleMapReact
+        bootstrapURLKeys={{ key: "AIzaSyA6DhwQ_kTDOVI0zdHHdxnsetM-w0aLF_Y" }}
+        defaultCenter={}
+        defaultZoom={defaultProps.zoom}
+      >
+        <AnyReactComponent
+          lat={59.955413}
+          lng={30.337844}
+          text="My Marker"
+        />
+      </GoogleMapReact>
+    </View>
+
+    </>
   )
 };
 
