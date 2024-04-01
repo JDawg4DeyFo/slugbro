@@ -113,7 +113,7 @@ const StylesObj = StyleSheet.create({
 		width: 35,
 		height: 35,
 
-		marginRight: 3,
+		marginRight: 6,
 	},
 			// Container of Name and slogan
 			// Needs to be reworked. Looks like expletive.
@@ -154,7 +154,7 @@ const StylesObj = StyleSheet.create({
 	},
 		// For all the bros in the feed
 	BroContainer: {
-		height: 105,
+		height: 83,
 		width: 353,
 
 		borderRadius: 10,
@@ -184,8 +184,9 @@ const StylesObj = StyleSheet.create({
 	MainBroFooter: {
 		flexDirection: 'row',
 		justifyContent: 'space-between',
+		alignItems: 'center',
 
-		height: 29,
+		height: 17,
 
 		borderBottomLeftRadius: 10,
 		borderBottomRightRadius: 10,
@@ -227,6 +228,7 @@ const StylesObj = StyleSheet.create({
 		justifyContent: 'space-between',
 		
 		alignContent: 'center',
+		alignItems: 'center',
 
 		height: 35,
 
@@ -485,6 +487,8 @@ const StylesObj = StyleSheet.create({
 		// Hold "email" and "@ucsc.edu email required"
 	TextInputTitleRow: {
 		flexDirection: 'row',
+		width: '100%',
+		justifyContent: 'space-between'
 	},
 			// "email" or "password"
 	TextInputTitle: {
@@ -512,6 +516,7 @@ const StylesObj = StyleSheet.create({
 
 		padding: 10,
 		marginBottom: 8,
+		marginTop: 1
 	},
 		// container for login/sign up buttons
 	LoginActionRow: {
@@ -589,7 +594,7 @@ const StylesObj = StyleSheet.create({
 		borderColor: Colors.Grey4,
 		borderWidth: 1,
 		borderRadius: 10,
-
+		minWidth: 120,
 		backgroundColor: Colors.White,
 
 		padding: 7,
@@ -600,9 +605,9 @@ const StylesObj = StyleSheet.create({
 		backgroundColor: 'transparent',
 		borderStyle: 'solid',
 		borderTopWidth: 0,
-		borderRightWidth: 20,
-		borderBottomWidth: 36,
-		borderLeftWidth: 20,
+		borderRightWidth: 10,
+		borderBottomWidth: 10,
+		borderLeftWidth: 10,
 		borderTopColor: 'transparent',
 		borderRightColor: 'transparent',
 		borderBottomColor: Colors.White,

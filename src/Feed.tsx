@@ -1,5 +1,5 @@
 // Main React imports
-import {View, Image, Text, TouchableOpacity } from 'react-native';
+import {View, Image, Text, TouchableOpacity, ScrollView } from 'react-native';
 // Navigation
 import { NavigationProp } from '@react-navigation/native'
 import { RootStackParamList } from './Stack';
@@ -18,7 +18,7 @@ const Feed = ({navigation}: {navigation: StackNavigationProp<RootStackParamList>
 
   // Meat of the app
   return (
-    <View style={Styles.RootContainer}>
+    <ScrollView style={Styles.RootContainer}>
       <View style={Styles.FeedHeader}>
         <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
         <View style={Styles.ProfileContainer}>
@@ -44,7 +44,7 @@ const Feed = ({navigation}: {navigation: StackNavigationProp<RootStackParamList>
       <View style={Styles.FeedContent}>
         <BroFeed navigation={navigation}/>
       </View>
-    </View>
+    </ScrollView>
   );
 }
 

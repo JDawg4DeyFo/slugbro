@@ -23,7 +23,7 @@ const EntryItem = (props: {profile: UserProfileType, navigation: StackNavigation
     };
     return (
         <View style={[Styles.LBE_Container, {backgroundColor: props.isMyProfile ? '#def' : undefined}]}>
-            <TouchableOpacity onPress={navigate}>
+            <TouchableOpacity style={{height: 54, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}} onPress={navigate}>
             <View style={Styles.LBE_NamePFP}>
                 <Text style={[Styles.LBE_Name, {marginLeft: -4, marginRight: 18}]}>{props.index}</Text>
                 <Image style={Styles.LBE_PFP} source={PFP ? {uri: PFP} : require('../assets/SamplePFP.jpg')} />

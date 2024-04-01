@@ -41,6 +41,7 @@ const UCSC: Coords = {
     lat: 36.996,
     lng: -122.06
 };
+const initialZoom = 14.4;
 export const BroContext = createContext<{
     user: User | null,
     profile: UserProfileType | null,
@@ -59,7 +60,7 @@ export const BroContext = createContext<{
     setLocation: (location: boolean) => {},
     region: UCSC,
     setRegion: (region: Coords) => {},
-    zoom: 14.6827,
+    zoom: initialZoom,
     setZoom: (zoom: number) => {},
 });
 
@@ -71,7 +72,7 @@ const StackNavigator = () => {
     const [Listen, SetListen] = useState(false);
     const [location, setLocation] = useState(true);
     const [region, setRegion] = useState(UCSC);
-    const [zoom, setZoom] = useState(14.6827);
+    const [zoom, setZoom] = useState(initialZoom);
 
     useEffect(() => {
         onAuthStateChanged(Auth, (user) => {

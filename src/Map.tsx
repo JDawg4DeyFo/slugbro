@@ -168,27 +168,27 @@ const BroMap = ({navigation, route}: {navigation:StackNavigationProp<RootStackPa
           const longitude = bro.BroLocation?.longitude || 0;
           return (
             <View lat={latitude} lng={longitude} key={index}>
-              <TouchableOpacity onPress={() => {
+              <TouchableOpacity style={{alignItems: 'center', justifyContent: 'flex-end'}} onPress={() => {
                 setSelectedProfile(null);
                 setSelectedTime('-');
                 setSelected(bro);
               }}>
-                  <FontAwesome name="map-marker" size={24} color="black" />
+                  <Image source={require('../assets/map_marker.png')} style={{width: 19, height: 30, transform: [{translateY: -30}]}} />
               </TouchableOpacity>
             </View>
           );
         })}
       {
         selected?.BroLocation &&
-        <View lat={selected.BroLocation.latitude || 0} lng={selected.BroLocation.longitude || 0} style={{alignItems: 'center', justifyContent: 'flex-start'}}>
-          <TouchableOpacity onPress={() => navigate(selected)}>
-            <View style={[Styles.MapMarker, {backgroundColor: selected.Email === profile?.Email ? '#def' : Colors.White}]}>
+        <View lat={selected.BroLocation.latitude || 0} lng={selected.BroLocation.longitude || 0} style={{transform: [{translateY: -60}]}}>
+          <TouchableOpacity onPress={() => navigate(selected)} style={{alignItems: 'center', justifyContent: 'flex-end'}}>
+            <View style={[Styles.MapMarker, {backgroundColor: selected.Email === profile?.Email ? '#def' : Colors.White, maxHeight: 200}]}>
               <Image 
                 source={selectedProfile ? {uri: selectedProfile.PFP} : require('../assets/SamplePFP.jpg')}
                 style={Styles.ProfileIcon}
               />
               <View style={[Styles.ProfileNameSloganContainer, {marginHorizontal: 2}]}>
-                <Text style={[Styles.ProfileName, {maxWidth: 200}]}>{selected.BroName}</Text>
+                <Text style={[Styles.ProfileName, {maxWidth: 250, height: 20}]}>{selected.BroName}</Text>
                 <Text style={Styles.ProfileSlogan}>{selectedTime + ' ago'}</Text>
               </View>
             </View>

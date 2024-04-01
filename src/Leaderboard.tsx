@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { TouchableOpacity, View, Text, Image } from 'react-native';
+import { TouchableOpacity, View, Text, Image, ScrollView } from 'react-native';
 
 import StylesObj from './Styles';
 const Styles = StylesObj.StylesObj;
@@ -13,7 +13,7 @@ const Leaderboard = ({navigation}: {navigation: StackNavigationProp<RootStackPar
   const { profile } = useContext(BroContext);  
   
   return (
-    <View style={Styles.RootContainer}>
+    <ScrollView style={Styles.RootContainer}>
       <View style={Styles.FeedHeader}>
         <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
         <View style={Styles.ProfileContainer}>
@@ -45,7 +45,7 @@ const Leaderboard = ({navigation}: {navigation: StackNavigationProp<RootStackPar
             <LBEntries navigation={navigation} />
         </View>
       
-    </View>
+    </ScrollView>
     )
 };
 

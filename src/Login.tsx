@@ -11,6 +11,8 @@ import { UserSignUp, UserSignIn } from './FireBaseFunctions';
 const Login = () => {
     const [Email, ChangeEmail] = React.useState('');
     const [Password, ChangePassword] = React.useState('');
+    const [loginDisabled, setLoginDisabled] = useState(false);
+    const [signupDisabled, setSignupDisabled] = useState(false);
 
     return(
         <View style={Styles.RootContainer}>
@@ -28,7 +30,7 @@ const Login = () => {
                     style={Styles.LoginTextInput}
                     onChangeText={ChangeEmail}
                     value={Email}
-                    placeholder='SammySlug@ucsc.edu'
+                    // placeholder='SammySlug@ucsc.edu'
                 />
                 <Text style={Styles.TextInputTitle}>Password</Text>
                 <TextInput
@@ -38,12 +40,20 @@ const Login = () => {
                     secureTextEntry={true}
                 />
                 <View style={Styles.LoginActionRow}>
-                    <TouchableOpacity onPress={() => UserSignIn({Email, Password})}>
+                    <TouchableOpacity disabled={loginDisabled || signupDisabled} onPress={async () => {
+                        setLoginDisabled(true);
+                        await UserSignIn({Email, Password});
+                        setLoginDisabled(false);
+                    }}>
                         <View style={Styles.LoginActionButton}>
                             <Text style={Styles.LoginActionButtonText}>Login</Text>
                         </View>
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={() => UserSignUp({Email, Password})}>
+                    <TouchableOpacity disabled={loginDisabled || signupDisabled} onPress={async () => {
+                        setSignupDisabled(true);
+                        await UserSignUp({Email, Password});
+                        setSignupDisabled(false);
+                    }}>
                         <View style={Styles.LoginActionButton}>
                             <Text style={Styles.LoginActionButtonText}>Sign Up</Text>
                         </View>

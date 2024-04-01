@@ -177,12 +177,18 @@ export const UserUpdatePFP = async (Email: string, Image: ImagePickerAsset) => {
     Toast.hideAll();
     const toastMe = Toast.show('Uploading image...', NormalToast);
     try {
-        const blob = await fetch(Image.uri).then(res => res._bodyBlob);
+        const blob = await fetch(Image.uri).then(res => {
+            if (res._bodyBlob) return res._bodyBlob;
+            return res.blob();
+        });
 
         Toast.update(toastMe, 'Uploading to Firebase...', NormalToast);
         const storageRef = ref(Storage, `images/image-${Date.now()}`);
         await uploadBytes(storageRef, blob);
-        blob.close();
+        try {
+            blob.close();
+        }
+        catch {}
 
         Toast.update(toastMe, 'Getting image URL...', NormalToast);
         const PFP = await getDownloadURL(storageRef);

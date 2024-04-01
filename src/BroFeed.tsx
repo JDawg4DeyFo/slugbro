@@ -61,8 +61,8 @@ const BroItem = (props: {bro: BroFeedType, navigation: StackNavigationProp<RootS
         </View>
         <TouchableOpacity onPress={navigate}>
         <View style={Styles.MainBroFooter}>
-            <Text style={[Styles.MBFooterTxt, {maxWidth: '58%'}]}>{BroName}</Text>
-            <Text style={Styles.MBFooterTxt}>{timestamp + ' ago'}</Text>
+            <Text style={[Styles.MBFooterTxt, {maxWidth: '58%', transform: [{translateY: 2}]}]}>{BroName}</Text>
+            <Text style={[Styles.MBFooterTxt, {transform: [{translateY: 2}]}]}>{timestamp + ' ago'}</Text>
         </View>
         </TouchableOpacity>
     </View>

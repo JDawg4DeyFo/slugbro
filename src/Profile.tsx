@@ -97,10 +97,11 @@ const Profile = () => {
         if (loading) return;
         if (isEditingBio) return;
         if (!profile?.Email) return;
-        if (JSON.stringify(localBio) === JSON.stringify(profile.Bio)) return;
+        const maxLength500 = localBio.substring(0, 500);
+        if (JSON.stringify(maxLength500) === JSON.stringify(profile.Bio)) return;
         if (!flag) return;
         setFlag(false);
-        UserUpdateBio(profile.Email, localBio);
+        UserUpdateBio(profile.Email, maxLength500);
     }, [isEditingBio, profile, loading]);
 
     const handlePickPFP = async () => {

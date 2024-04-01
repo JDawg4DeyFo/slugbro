@@ -79,7 +79,7 @@ const Tabs = () => {
                 throw Error('Permission to access location was denied');
             }
             setLocation(true);
-            Toast.show('Location enabled!', SuccessToast);
+            // Toast.show('Location enabled!', SuccessToast);
         })
         .catch(() => {
             setLocation(false);
@@ -140,8 +140,8 @@ const Tabs = () => {
             />
         </Tab.Navigator>
         <View style={{flexDirection: 'row', justifyContent: 'flex-end'}}>
-            <View style={isBroing || cooldown > 0 ? Styles.DisabledBroButton : Styles.BroButton}>
-                <TouchableOpacity disabled={isBroing || cooldown > 0} onPress={Bro} style={{justifyContent: 'center', alignItems: 'center'}}>
+            <View style={[isBroing || cooldown > 0 ? Styles.DisabledBroButton : Styles.BroButton, {justifyContent: 'center', alignItems: 'center'}]}>
+                <TouchableOpacity disabled={isBroing || cooldown > 0} onPress={Bro} style={{width: '100%', height: '100%'}}>
                     <Text style={Styles.BroText}>{!isBroing && cooldown <= 0 ? 'Bro' : cooldown}</Text>
                 </TouchableOpacity>
             </View>
