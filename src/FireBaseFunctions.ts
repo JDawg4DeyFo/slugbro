@@ -264,6 +264,19 @@ export const FixFeedEntries = (snapshot: QuerySnapshot<DocumentData, DocumentDat
     return FeedEntries;
 }
 
+const bro = [
+    'bro', 'bro', 'bro', 'bro', 'bro', 'bro', 'bro', 'bro', 'bro', 'bro', 'bro', 'bro', 'bro',
+    'Bro', 'Bro', 'Bro', 'Bro', 'Bro', 'Bro', 'Bro', 'Bro', 'Bro', 'Bro', 'Bro', 'Bro', 'Bro',
+    'Bro...',
+    'Bro!',
+    'bro?',
+    'Bruh', 'Bruh', 'Bruh',
+    'bruh', 'bruh', 'bruh',
+    'brooo',
+    'bro!?',
+    'BRO',
+    'bbbro',
+]
 export const SendBro = async (Profile: UserProfileType, BroItem: BroFeedType) => {
     Toast.hideAll();
     const toastMe = Toast.show('Broing...', NormalToast);
@@ -272,6 +285,9 @@ export const SendBro = async (Profile: UserProfileType, BroItem: BroFeedType) =>
         // 1. Update profile NumBros in 'users'
         // 2. Create document in 'posts'
         const num = Profile.NumBros + 1;
+        BroItem.BroType = bro[Math.floor(Math.random()*bro.length)];
+        if (num === 1) BroItem.BroType = '1st Bro';
+        if (num % 100 == 0 || num == 12 || num == 37 || num == 125) BroItem.BroType = `${num}th Bro`;
         const batch = writeBatch(db);
         batch.update(doc(db, 'users', Profile.Email), {NumBros: num, LastBro: BroItem.BroDate});
         batch.set(doc(db, 'posts', Profile.Email + '_' + num.toString()), BroItem);
