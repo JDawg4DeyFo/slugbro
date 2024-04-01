@@ -65,7 +65,7 @@ export default function App() {
   return (
     <>
       <ToastProvider
-        offsetBottom={69}
+        offsetBottom={120}
       >
         <NavigationContainer>
           <StackNavigator/>
