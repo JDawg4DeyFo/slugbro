@@ -7,6 +7,7 @@ import { doc, setDoc, getDoc, updateDoc, where, collection, query, orderBy, limi
 import { getDownloadURL, uploadBytes, ref } from "firebase/storage";
 import { FIREBASE_STORAGE } from './FireBaseConfig';
 import { ImagePickerAsset } from "expo-image-picker";
+import { Linking } from "react-native";
 
 const Auth = FIREBASE_AUTH;
 const db = FIREBASE_DB;
@@ -287,6 +288,18 @@ export const getBroRank = async (NumBros: number) => {
     }
     catch (error: any) {
         Toast.update(toastMe, 'Failed to load bro rank: ' + error.message, ErrorToast);
+        console.error(error);
+    }
+};
+export const openIG = async (handle: string) => {
+    try {
+        Linking.openURL(`instagram://user?username=${handle}`)
+        .catch(() => {
+            Linking.openURL(`https://www.instagram.com/${handle}`);
+        })
+    }
+    catch (error: any) {
+        Toast.show('Failed to open Instagram: ' + error.message, ErrorToast);
         console.error(error);
     }
 };

@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { Text, TextInput, View, ScrollView, Image, TouchableOpacity } from 'react-native'
-import { UserSignOut, UserUpdateProfile, UserUpdateBio, UserUpdatePFP, getBroRank } from './FireBaseFunctions';
+import { UserSignOut, UserUpdateProfile, UserUpdateBio, UserUpdatePFP, getBroRank, openIG } from './FireBaseFunctions';
 import { BroContext } from './Stack';
 import { CountUp } from 'use-count-up';
 import { FontAwesome } from '@expo/vector-icons';
@@ -92,17 +92,6 @@ const Profile = () => {
         updateProfile();
         
     }, [isEditingProfile, profile, loading]);
-
-    const CopyIG = async () => {
-        // Toast.hideAll();
-        // if(profile?.IG != null) {
-        //     await Clipboard.setStringAsync(profile.IG);
-        //     Toast.show('Copied To Clipboard', NormalToast);
-        // }
-        // else {
-        //     Toast.show('No IG found');
-        // }
-    }
 
     useEffect(() => {
         if (loading) return;
@@ -218,7 +207,7 @@ const Profile = () => {
                 />
             </View>
             :
-            <TouchableOpacity onPress={CopyIG}>
+            <TouchableOpacity onPress={() => { if (profile?.IG) openIG(profile.IG); }}>
                 <View style={Styles.PH_IGRow}>
                     <Image style={Styles.PH_IGLogo} source={require('../assets/IGLogo.png')} />
                     <Text style={Styles.PH_IGText}>{profile?.IG || 'none'}</Text>

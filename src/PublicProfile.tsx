@@ -9,7 +9,7 @@ import { CountUp } from 'use-count-up';
 import StylesObj from './Styles';
 import { FIREBASE_DB } from './FireBaseConfig';
 import { doc, onSnapshot } from 'firebase/firestore';
-import { UserProfileType, getBroRank } from './FireBaseFunctions';
+import { UserProfileType, getBroRank, openIG } from './FireBaseFunctions';
 import moment from 'moment';
 
 const Styles = StylesObj.StylesObj;
@@ -96,7 +96,7 @@ const PublicProfile: React.FC<{ route: PublicProfileScreenRouteProp }> = ({ rout
                 <Text style={Styles.PH_InfotainerText}>College:</Text>
                 <Text style={Styles.PH_InfotainerText}>{profile.College || 'none'}</Text>
             </View>
-            <TouchableOpacity onPress={CopyIG}>
+            <TouchableOpacity onPress={() => { if (profile?.IG) openIG(profile.IG); }}>
             <View style={Styles.PH_IGRow}>
                 <Image style={Styles.PH_IGLogo} source={require('../assets/IGLogo.png')} />
                 <Text style={Styles.PH_IGText}>{profile.IG || 'none'}</Text>
