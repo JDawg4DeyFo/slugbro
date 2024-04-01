@@ -167,6 +167,7 @@ const BroMap = ({navigation, route}: {navigation:StackNavigationProp<RootStackPa
           const latitude = bro.BroLocation?.latitude || 0;
           const longitude = bro.BroLocation?.longitude || 0;
           return (
+            // @ts-ignore
             <View lat={latitude} lng={longitude} key={index}>
               <TouchableOpacity style={{alignItems: 'center', justifyContent: 'flex-end'}} onPress={() => {
                 setSelectedProfile(null);
@@ -180,6 +181,7 @@ const BroMap = ({navigation, route}: {navigation:StackNavigationProp<RootStackPa
         })}
       {
         selected?.BroLocation &&
+        // @ts-ignore
         <View lat={selected.BroLocation.latitude || 0} lng={selected.BroLocation.longitude || 0} style={{transform: [{translateY: -60}]}}>
           <TouchableOpacity onPress={() => navigate(selected)} style={{alignItems: 'center', justifyContent: 'flex-end'}}>
             <View style={[Styles.MapMarker, {backgroundColor: selected.Email === profile?.Email ? '#def' : Colors.White, maxHeight: 200}]}>

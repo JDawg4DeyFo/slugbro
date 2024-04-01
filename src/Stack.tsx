@@ -126,8 +126,12 @@ const StackNavigator = () => {
                     />
                     <Stack.Screen name="Info" component={Settings} options={PeripheralScreenOptions} />
                     <Stack.Screen name="Profile" component={Profile} options={PeripheralScreenOptions} />
-                    <Stack.Screen name="Brofile" component={PublicProfile} options={PeripheralScreenOptions} />
-                    <Stack.Screen name="Map" component={BroMap} options={PeripheralScreenOptions} />
+                    <Stack.Screen name="Brofile"
+                    // @ts-ignore
+                    component={PublicProfile} options={PeripheralScreenOptions} />
+                    <Stack.Screen name="Map"
+                    // @ts-ignore
+                    component={BroMap} options={PeripheralScreenOptions} />
                     </>
                 ) : (
                     <Stack.Screen name="login" component={Login}/>

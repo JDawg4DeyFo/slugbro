@@ -178,6 +178,7 @@ export const UserUpdatePFP = async (Email: string, Image: ImagePickerAsset) => {
     const toastMe = Toast.show('Uploading image...', NormalToast);
     try {
         const blob = await fetch(Image.uri).then(res => {
+            //@ts-ignore
             if (res._bodyBlob) return res._bodyBlob;
             return res.blob();
         });

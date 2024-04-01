@@ -42,6 +42,7 @@ const BroItem = (props: {bro: BroFeedType, navigation: StackNavigationProp<RootS
         }
     };
     const goToMap = () => {
+        // @ts-ignore
         props.navigation.push('BigHome', {screen: 'BroMap', params: {Bro: props.bro}});
     }
     const timestamp = moment(BroDate.toDate()).local().startOf('seconds').fromNow(true);
