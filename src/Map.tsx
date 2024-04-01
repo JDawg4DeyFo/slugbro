@@ -1,41 +1,46 @@
 import React, { useState, useEffect, useContext, useRef } from 'react';
-import { StyleSheet, View, Image, Text } from 'react-native';
+import { StyleSheet, View, Image, Text, TouchableOpacity } from 'react-native';
 
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList, BroContext } from './Stack';
 // import MapView, { MapStyleElement, Marker, PROVIDER_GOOGLE } from 'react-native-maps';
+
+
 import GoogleMapReact from 'google-map-react';
+
+
 import { BroFeedType, ErrorToast, UserGetProfile, UserProfileType } from './FireBaseFunctions';
 import { RouteProp } from '@react-navigation/native';
 import moment from 'moment';
 import StylesObj, { Colors } from './Styles';
 import { Toast } from 'react-native-toast-notifications';
 import { Timestamp } from 'firebase/firestore';
+import { FontAwesome } from '@expo/vector-icons';
 const Styles = StylesObj.StylesObj;
 
 type PublicProfileScreenRouteProp = RouteProp<RootStackParamList, 'Map'>;
 const BroMap = ({navigation, route}: {navigation:StackNavigationProp<RootStackParamList>, route: PublicProfileScreenRouteProp}) => {
 
-  const { profile, broList, region, setRegion } = useContext(BroContext);
+  const { profile, broList, region, setRegion, zoom, setZoom } = useContext(BroContext);
   const [loading, setLoading] = useState(true);
-  const mapRef = useRef<MapView>(null);
+  // const mapRef = useRef<MapView>(null);
 
   const Params = route.params;
   const [selected, setSelected] = useState<BroFeedType | undefined>(Params?.Bro);
   const [selectedTime, setSelectedTime] = useState('-');
   const [selectedProfile, setSelectedProfile] = useState<UserProfileType | null>(null);
 
-  useEffect(() => {
-    if (loading && !selected) {
-      setLoading(false);
-      (async() => {
-        await new Promise(r => setTimeout(r, 100));
-        mapRef.current.setCamera({pitch: 90, zoom: 17.4});
-        await new Promise(r => setTimeout(r, 100));
-        mapRef.current.animateCamera({pitch: 0, zoom: 14.6827}, {duration: 2000});
-      })();
-    }
-  }, [loading, selected]);
+  // useEffect(() => {
+  //   if (loading && !selected) {
+  //     setLoading(false);
+  //     (async() => {
+  //       await new Promise(r => setTimeout(r, 100));
+  //       mapRef.current.setCamera({pitch: 90, zoom: 17.4});
+  //       await new Promise(r => setTimeout(r, 100));
+  //       mapRef.current.animateCamera({pitch: 0, zoom: 14.6827}, {duration: 2000});
+  //     })();
+  //   }
+  // }, [loading, selected]);
 
   useEffect(() => {
     if (selected?.BroLocation) {
@@ -43,10 +48,11 @@ const BroMap = ({navigation, route}: {navigation:StackNavigationProp<RootStackPa
       const { BroLocation } = selected;
       const { latitude, longitude } = BroLocation;
       (async () => {
-        await new Promise(r => setTimeout(r, 100));
-        mapRef.current.animateCamera({
-          center: {latitude, longitude}
-        }, {duration: 1000});
+        // await new Promise(r => setTimeout(r, 100));
+        // mapRef.current.animateCamera({
+        //   center: {latitude, longitude}
+        // }, {duration: 1000});
+        setRegion({lat: latitude, lng: longitude});
       })();
 
       setSelectedTime(moment(selected.BroDate.toDate()).local().startOf('seconds').fromNow(true));
@@ -83,11 +89,11 @@ const BroMap = ({navigation, route}: {navigation:StackNavigationProp<RootStackPa
     };
       navigation.navigate('Brofile', { Profile: DummyProfile });
     }
-};
+  };
 
   return(
     <>
-    <MapView
+    {/* <MapView
       provider={PROVIDER_GOOGLE} // Specify Google Maps as the provider
       style={StyleSheet.absoluteFill} // Map takes up entire screen
       ref={mapRef} // allows us to animate the map
@@ -142,19 +148,54 @@ const BroMap = ({navigation, route}: {navigation:StackNavigationProp<RootStackPa
           <View style={[Styles.MapMarkerTriangle, {borderBottomColor: selected.Email === profile?.Email ? '#def' : Colors.White}]} />
         </Marker>
       }
-    </MapView>
+    </MapView> */}
 
-    <View style={{ height: '100%', width: '100%' }}>
+    <View style={StyleSheet.absoluteFill}>
       <GoogleMapReact
         bootstrapURLKeys={{ key: "AIzaSyA6DhwQ_kTDOVI0zdHHdxnsetM-w0aLF_Y" }}
-        defaultCenter={}
-        defaultZoom={defaultProps.zoom}
+        center={region}
+        zoom={zoom}
+        onChange={({center, zoom}) => {
+          setRegion(center);
+          setZoom(zoom);
+        }}
+        options={{styles: customMapStyle, scaleControl: false, zoomControl: false, fullscreenControl: false}}
       >
-        <AnyReactComponent
-          lat={59.955413}
-          lng={30.337844}
-          text="My Marker"
-        />
+        {(broList || []).map((bro: BroFeedType, index) => {
+          if (!bro.BroLocation) return <View key={index} />;
+          if (bro.BroDate === selected?.BroDate && bro.BroName === selected?.BroName) return <View key={index} />;
+          const latitude = bro.BroLocation?.latitude || 0;
+          const longitude = bro.BroLocation?.longitude || 0;
+          return (
+            <View lat={latitude} lng={longitude} key={index}>
+              <TouchableOpacity onPress={() => {
+                setSelectedProfile(null);
+                setSelectedTime('-');
+                setSelected(bro);
+              }}>
+                  <FontAwesome name="map-marker" size={24} color="black" />
+              </TouchableOpacity>
+            </View>
+          );
+        })}
+      {
+        selected?.BroLocation &&
+        <View lat={selected.BroLocation.latitude || 0} lng={selected.BroLocation.longitude || 0} style={{alignItems: 'center', justifyContent: 'flex-start'}}>
+          <TouchableOpacity onPress={() => navigate(selected)}>
+            <View style={[Styles.MapMarker, {backgroundColor: selected.Email === profile?.Email ? '#def' : Colors.White}]}>
+              <Image 
+                source={selectedProfile ? {uri: selectedProfile.PFP} : require('../assets/SamplePFP.jpg')}
+                style={Styles.ProfileIcon}
+              />
+              <View style={[Styles.ProfileNameSloganContainer, {marginHorizontal: 2}]}>
+                <Text style={[Styles.ProfileName, {maxWidth: 200}]}>{selected.BroName}</Text>
+                <Text style={Styles.ProfileSlogan}>{selectedTime + ' ago'}</Text>
+              </View>
+            </View>
+            <View style={[Styles.MapMarkerTriangle, {borderBottomColor: selected.Email === profile?.Email ? '#def' : Colors.White}]} />
+          </TouchableOpacity>
+        </View>
+      }
       </GoogleMapReact>
     </View>
 
@@ -165,7 +206,7 @@ const BroMap = ({navigation, route}: {navigation:StackNavigationProp<RootStackPa
 export default BroMap;
 
 // https://snazzymaps.com/style/35/avocado-world
-const customMapStyle : MapStyleElement[] = [
+const customMapStyle = [
   {
       "featureType": "water",
       "elementType": "geometry",

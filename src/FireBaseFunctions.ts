@@ -98,7 +98,7 @@ type SignInProps = {
     Password: string,
 };
 export const UserSignIn = async ({Email, Password}: SignInProps) => {
-    Toast.hideAll();
+    // Toast.hideAll();
     const toastMe = Toast.show('Signing in...', NormalToast);
     await new Promise(r => setTimeout(r, 100));
     try {
@@ -111,7 +111,7 @@ export const UserSignIn = async ({Email, Password}: SignInProps) => {
 }
 
 export const UserSignOut = async () => {
-    Toast.hideAll();
+    // Toast.hideAll();
     const toastMe = Toast.show('Signing out...', NormalToast);
     await new Promise(r => setTimeout(r, 100));
     try {
@@ -228,15 +228,17 @@ const FEED_LIMIT = 100;
 export const FeedQuery = query(collection(db, 'posts'), orderBy('BroDate', 'desc'), limit(FEED_LIMIT));
 export const GetFeedEntries = async () => {
     // Toast.hideAll();
-    // const toastMe = Toast.show('Loading...', NormalToast);
+    await new Promise(r => setTimeout(r, 100));
+    const toastMe = Toast.show('Loading...', NormalToast);
 
     try {
         const FeedSnapShot = await getDocs(FeedQuery);
         const FeedEntries = FixFeedEntries(FeedSnapShot);
-        // Toast.hideAll();
+        Toast.hideAll();
         return FeedEntries;
     }
     catch (error: any) {
+        Toast.update(toastMe, 'Failed to get feed: ' + error.message, ErrorToast);
         console.error(error);
     }
 }
@@ -293,10 +295,19 @@ export const getBroRank = async (NumBros: number) => {
 };
 export const openIG = async (handle: string) => {
     try {
-        Linking.openURL(`instagram://user?username=${handle}`)
-        .catch(() => {
-            Linking.openURL(`https://www.instagram.com/${handle}`);
-        })
+        try {
+            const destination = `instagram://user?username=${handle}`; 
+            if(navigator.userAgent.match(/Android/i)) {
+                // use Android's redirect
+                document.location = destination;   
+            }   
+            else {
+                // use iOS redirect
+                window.location.replace( destination );
+            }
+        } catch (error: any) {
+            window.location.href = `https://www.instagram.com/${handle}`;
+        }
     }
     catch (error: any) {
         Toast.show('Failed to open Instagram: ' + error.message, ErrorToast);

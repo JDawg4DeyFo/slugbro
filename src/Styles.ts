@@ -120,7 +120,7 @@ const StylesObj = StyleSheet.create({
 	ProfileNameSloganContainer: {
 		// flex:1,
 		flexDirection: 'column',
-
+		maxWidth: '100%',
 		padding:0,
 	},
 				// Profile Name
@@ -128,12 +128,14 @@ const StylesObj = StyleSheet.create({
 		fontSize: TextSizes.Regular,
 		color: Colors.DarkestGrey,
 		fontFamily: 'Inter-SemiBold',
+		maxWidth: '100%'
 	},
 				// Profile Slogan
 	ProfileSlogan: {
 		fontSize: TextSizes.Small,
 		fontFamily: 'Inter-SemiBold',
 		color: Colors.Grey12,
+		maxWidth: '100%'
 	},
 		// Setting icon
 	SettingsIcon: {
@@ -279,6 +281,7 @@ const StylesObj = StyleSheet.create({
 
 		fontSize: TextSizes.Regular,
 		fontFamily: 'Inter-SemiBold',
+		maxWidth: '100%'
 	},
 		// Bros sent
 	LBE_BrosSent: {
@@ -443,7 +446,7 @@ const StylesObj = StyleSheet.create({
 		marginTop: -4,
 		marginBottom: -4,
 		backgroundColor: Colors.White,
-		minWidth: 100,
+		width: '100%',
 		paddingLeft: 4,
 		paddingRight: 4
 	},
