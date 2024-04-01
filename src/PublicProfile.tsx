@@ -9,7 +9,8 @@ import { CountUp } from 'use-count-up';
 import StylesObj from './Styles';
 import { FIREBASE_DB } from './FireBaseConfig';
 import { doc, onSnapshot } from 'firebase/firestore';
-import { UserProfileType } from './FireBaseFunctions';
+import { UserProfileType, getBroRank } from './FireBaseFunctions';
+import moment from 'moment';
 
 const Styles = StylesObj.StylesObj;
 
@@ -32,6 +33,18 @@ const PublicProfile: React.FC<{ route: PublicProfileScreenRouteProp }> = ({ rout
         }
     }, []);
 
+    const [BroRank, setBroRank] = useState(0);
+    const [TotalUsers, setTotalUsers] = useState(0);
+    useEffect(() => {
+        (async () => {
+            const rank = await getBroRank(profile.NumBros);
+            if (rank) {
+                setBroRank(rank.BroRank);
+                setTotalUsers(rank.TotalUsers);
+            }
+        })();
+    }, []);
+
     const CopyIG = async () => {
         // Toast.hideAll();
         // if(Profile.IG != null) {
@@ -42,6 +55,8 @@ const PublicProfile: React.FC<{ route: PublicProfileScreenRouteProp }> = ({ rout
         //     Toast.show('No IG found');
         // }
     }
+
+    const timestamp = moment(profile.LastBro.toDate()).local().startOf('seconds').fromNow(true);
 
     return (
         <ScrollView>
@@ -107,12 +122,12 @@ const PublicProfile: React.FC<{ route: PublicProfileScreenRouteProp }> = ({ rout
                 <Text style={Styles.PH_InfotainerText}><CountUp isCounting end={profile.NumBros} /></Text>
             </View>
             <View style={Styles.PH_InfotainerRow}>
-                <Text style={Styles.PH_InfotainerText}>Bro Followers</Text>
-                <Text style={Styles.PH_InfotainerText}><CountUp isCounting end={profile.NumFollowers} /></Text>
+                <Text style={Styles.PH_InfotainerText}>Last Bro</Text>
+                <Text style={Styles.PH_InfotainerText}>{profile?.NumBros ? timestamp + ' ago' : '-'}</Text>
             </View>
             <View style={Styles.PH_InfotainerRow}>
-                <Text style={Styles.PH_InfotainerText}>Bros Following</Text>
-                <Text style={Styles.PH_InfotainerText}><CountUp isCounting end={profile.NumFollowing} /></Text>
+                <Text style={Styles.PH_InfotainerText}>Bro Rank</Text>
+                <Text style={Styles.PH_InfotainerText}>#{BroRank} out of {TotalUsers}</Text>
             </View>
         </View>
 

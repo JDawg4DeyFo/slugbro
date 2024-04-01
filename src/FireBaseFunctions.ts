@@ -3,7 +3,7 @@ import { FIREBASE_APP, FIREBASE_AUTH, FIREBASE_DB } from "./FireBaseConfig";
 import { Toast, ToastOptions } from "react-native-toast-notifications";
 import { uniqueNamesGenerator, Config, adjectives, colors, animals } from 'unique-names-generator';
 import { sentence } from "txtgen";
-import { doc, setDoc, getDoc, updateDoc, where, collection, query, orderBy, limit, getDocs, QuerySnapshot, DocumentData, Timestamp, addDoc, GeoPoint, writeBatch } from "firebase/firestore";
+import { doc, setDoc, getDoc, updateDoc, where, collection, query, orderBy, limit, getDocs, QuerySnapshot, DocumentData, Timestamp, GeoPoint, writeBatch, getCountFromServer } from "firebase/firestore";
 import { getDownloadURL, uploadBytes, ref } from "firebase/storage";
 import { FIREBASE_STORAGE } from './FireBaseConfig';
 import { ImagePickerAsset } from "expo-image-picker";
@@ -271,6 +271,22 @@ export const SendBro = async (Profile: UserProfileType, BroItem: BroFeedType) =>
     catch (error: any) {
         Toast.hideAll();
         Toast.show("No go bro: " + error.message, ErrorToast);
+        console.error(error);
+    }
+};
+export const getBroRank = async (NumBros: number) => {
+    Toast.hideAll();
+    const toastMe = Toast.show('Calculating Bro Rank...', NormalToast);
+    try {
+        const usersRef = collection(db, 'users');
+        const TotalUsers = (await getCountFromServer(usersRef)).data().count;
+        const broRankRef = query(usersRef, where('NumBros', '>', NumBros));
+        const BroRank = (await getCountFromServer(broRankRef)).data().count + 1;
+        Toast.hideAll();
+        return { BroRank, TotalUsers };
+    }
+    catch (error: any) {
+        Toast.update(toastMe, 'Failed to load bro rank: ' + error.message, ErrorToast);
         console.error(error);
     }
 };

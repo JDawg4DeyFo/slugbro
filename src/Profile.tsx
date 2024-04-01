@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { Text, TextInput, View, ScrollView, Image, TouchableOpacity } from 'react-native'
-import { UserSignOut, UserUpdateProfile, UserUpdateBio, UserUpdatePFP } from './FireBaseFunctions';
+import { UserSignOut, UserUpdateProfile, UserUpdateBio, UserUpdatePFP, getBroRank } from './FireBaseFunctions';
 import { BroContext } from './Stack';
 import { CountUp } from 'use-count-up';
 import { FontAwesome } from '@expo/vector-icons';
@@ -10,6 +10,7 @@ import { ImagePickerAsset } from 'expo-image-picker';
 
 import StylesObj, { Colors } from './Styles';
 import { Switch } from 'react-native-gesture-handler';
+import moment from 'moment';
 const Styles = StylesObj.StylesObj;
 
 // Eventually, I would like to pass a user ID to this component and lookup user data using firebase API or soemthing
@@ -30,6 +31,8 @@ const Profile = () => {
     const [localBio, setLocalBio] = useState('');
     const [loading, setLoading] = useState(true);
     const [flag, setFlag] = useState(true);
+    const [BroRank, setBroRank] = useState(0);
+    const [TotalUsers, setTotalUsers] = useState(0);
 
     useEffect(() => setFlag(true), [isEditingBio, isEditingProfile]);
 
@@ -44,6 +47,15 @@ const Profile = () => {
         setLocalBio(profile?.Bio || '');
         setLocalPFP(profile?.PFP || null);
         setLoading(false);
+
+        (async () => {
+            const rank = await getBroRank(profile?.NumBros || 0);
+            if (rank) {
+                setBroRank(rank.BroRank);
+                setTotalUsers(rank.TotalUsers);
+            }
+        })();
+
     }, [profile]);
 
     useEffect(() => {
@@ -107,6 +119,8 @@ const Profile = () => {
         setLocalPFP(imageURI);
         console.log('imageURI ' + JSON.stringify(imageURI));
     };
+
+    const timestamp = profile ? moment(profile.LastBro.toDate()).local().startOf('seconds').fromNow(true) : '-';
 
     return (
         <ScrollView>
@@ -246,14 +260,14 @@ const Profile = () => {
                 <Text style={Styles.PH_InfotainerText}>Bros Sent</Text>
                 <Text style={Styles.PH_InfotainerText}><CountUp isCounting end={profile?.NumBros || 0} /></Text>
             </View>
-            {/* <View style={Styles.PH_InfotainerRow}>
-                <Text style={Styles.PH_InfotainerText}>Bro Followers</Text>
-                <Text style={Styles.PH_InfotainerText}><CountUp isCounting end={profile?.NumFollowers || 0} /></Text>
+            <View style={Styles.PH_InfotainerRow}>
+                <Text style={Styles.PH_InfotainerText}>Last Bro</Text>
+                <Text style={Styles.PH_InfotainerText}>{profile?.NumBros ? timestamp + ' ago' : '-'}</Text>
             </View>
             <View style={Styles.PH_InfotainerRow}>
-                <Text style={Styles.PH_InfotainerText}>Bros Following</Text>
-                <Text style={Styles.PH_InfotainerText}><CountUp isCounting end={profile?.NumFollowing || 0} /></Text>
-            </View> */}
+                <Text style={Styles.PH_InfotainerText}>Bro Rank</Text>
+                <Text style={Styles.PH_InfotainerText}>#{BroRank} out of {TotalUsers}</Text>
+            </View>
         </View>
 
         <View style={Styles.ProfileHeader}>
