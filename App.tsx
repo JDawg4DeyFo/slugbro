@@ -41,20 +41,20 @@ export default function App() {
 
   // Hide navigation bar
   // I don't really know what this code does
-  const [barVisibility, setBarVisibility] = useState<string>();
-  NavigationBar.addVisibilityListener(({ visibility }) => {
-    if (visibility == 'visible') {
-      setBarVisibility(visibility);
-    }
-  });
+  // const [barVisibility, setBarVisibility] = useState<string>();
+  // NavigationBar.addVisibilityListener(({ visibility }) => {
+  //   if (visibility == 'visible') {
+  //     setBarVisibility(visibility);
+  //   }
+  // });
 
-  useEffect(() => {
-    navigationConfig();
-  }, [barVisibility]);
+  // useEffect(() => {
+  //   navigationConfig();
+  // }, [barVisibility]);
 
-  const navigationConfig = async() => {
-    NavigationBar.setVisibilityAsync("hidden");
-  }
+  // const navigationConfig = async() => {
+  //   NavigationBar.setVisibilityAsync("hidden");
+  // }
 
   // Make sure fonts are loaded
   if (!fontsLoaded) {
