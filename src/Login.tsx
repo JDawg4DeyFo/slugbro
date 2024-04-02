@@ -1,17 +1,14 @@
 import React, { useState } from 'react';
-import { Text, View, TouchableOpacity, Image } from 'react-native'
+import { Text, View, TouchableOpacity } from 'react-native'
 // Style
 import StylesObj from './Styles';
 import { TextInput } from 'react-native-gesture-handler';
 const Styles = StylesObj.StylesObj;
 // Firebase
 import { UserSignUp, UserSignIn } from './FireBaseFunctions';
-// Stack
-import { RootStackParamList } from './Stack';
-import { StackNavigationProp } from '@react-navigation/stack';
 
 
-const Login = ({navigation}: {navigation: StackNavigationProp<RootStackParamList>}) => {
+const Login = () => {
     const [Email, ChangeEmail] = React.useState('');
     const [Password, ChangePassword] = React.useState('');
     const [loginDisabled, setLoginDisabled] = useState(false);
