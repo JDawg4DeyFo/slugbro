@@ -231,7 +231,7 @@ export const fixLBEntries = (snapshot: QuerySnapshot<DocumentData, DocumentData>
     });
     return LBEntries;
 };
-const FEED_LIMIT = 100;
+const FEED_LIMIT = 30;
 export const FeedQuery = query(collection(db, 'posts'), orderBy('BroDate', 'desc'), limit(FEED_LIMIT));
 export const GetFeedEntries = async () => {
     // Toast.hideAll();
